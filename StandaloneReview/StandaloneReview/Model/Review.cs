@@ -1,7 +1,6 @@
-using System;
-
 namespace StandaloneReview.Model
 {
+    using System;
     using System.Collections.Generic;
 
     public class Review

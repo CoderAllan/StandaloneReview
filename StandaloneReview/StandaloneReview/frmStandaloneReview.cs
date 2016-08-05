@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor.Document;
-using @STextEditor = ICSharpCode.TextEditor;
+using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Src.Document.FoldingStrategy;
 
 namespace StandaloneReview
@@ -24,8 +24,8 @@ namespace StandaloneReview
 
         }
 
-        private delegate void SetTextEditorControlTextCallback(@STextEditor.TextEditorControlEx control, string text);
-        public void SetTextEditorControlText(@STextEditor.TextEditorControlEx editControl, string text)
+        private delegate void SetTextEditorControlTextCallback(TextEditorControlEx control, string text);
+        public void SetTextEditorControlText(TextEditorControlEx editControl, string text)
         {
             if (editControl.InvokeRequired)
             {
@@ -51,7 +51,7 @@ namespace StandaloneReview
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void BtnSaveReview_Click(object sender, EventArgs e)
         {
             //LineSegment lineSegment = textEditorControlEx1.Document.GetLineSegmentForOffset(textEditorControlEx1.ActiveTextAreaControl.Caret.Offset);
             //string line = textEditorControlEx1.Document.GetText(lineSegment);
@@ -94,7 +94,7 @@ namespace StandaloneReview
         {
             SetStatusText(textEditorControlEx1);
         }
-        private void SetStatusText(@STextEditor.TextEditorControlEx editor)
+        private void SetStatusText(TextEditorControlEx editor)
         {
             SetLabelStatusText(statusStrip1, toolStripStatusLblLine, string.Format("Ln: {0}", editor.ActiveTextAreaControl.Caret.Position.Line + 1));
             SetLabelStatusText(statusStrip1, toolStripStatusLblColumn, string.Format("Col: {0}", editor.ActiveTextAreaControl.Caret.Position.Column));

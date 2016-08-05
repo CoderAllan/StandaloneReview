@@ -30,42 +30,42 @@ namespace StandaloneReview
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.btnLoad = new System.Windows.Forms.Button();
+            this.BtnSaveReview = new System.Windows.Forms.Button();
+            this.BtnLoad = new System.Windows.Forms.Button();
             this.textEditorControlEx1 = new ICSharpCode.TextEditor.TextEditorControlEx();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLblLine = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLblColumn = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLblSelectionLength = new System.Windows.Forms.ToolStripStatusLabel();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.toolStripStatusLblSelectionStart = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLblSelectionEnd = new System.Windows.Forms.ToolStripStatusLabel();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // BtnSaveReview
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(1192, 801);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(153, 29);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "DoStuff";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.BtnSaveReview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnSaveReview.Location = new System.Drawing.Point(1192, 801);
+            this.BtnSaveReview.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.BtnSaveReview.Name = "BtnSaveReview";
+            this.BtnSaveReview.Size = new System.Drawing.Size(153, 29);
+            this.BtnSaveReview.TabIndex = 1;
+            this.BtnSaveReview.Text = "Save review";
+            this.BtnSaveReview.UseVisualStyleBackColor = true;
+            this.BtnSaveReview.Click += new System.EventHandler(this.BtnSaveReview_Click);
             // 
-            // btnLoad
+            // BtnLoad
             // 
-            this.btnLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnLoad.Location = new System.Drawing.Point(14, 801);
-            this.btnLoad.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(153, 29);
-            this.btnLoad.TabIndex = 2;
-            this.btnLoad.Text = "Load";
-            this.btnLoad.UseVisualStyleBackColor = true;
-            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            this.BtnLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.BtnLoad.Location = new System.Drawing.Point(14, 801);
+            this.BtnLoad.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.BtnLoad.Name = "BtnLoad";
+            this.BtnLoad.Size = new System.Drawing.Size(153, 29);
+            this.BtnLoad.TabIndex = 2;
+            this.BtnLoad.Text = "Load";
+            this.BtnLoad.UseVisualStyleBackColor = true;
+            this.BtnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // textEditorControlEx1
             // 
@@ -115,10 +115,6 @@ namespace StandaloneReview
             this.toolStripStatusLblSelectionLength.Name = "toolStripStatusLblSelectionLength";
             this.toolStripStatusLblSelectionLength.Size = new System.Drawing.Size(0, 25);
             // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
             // toolStripStatusLblSelectionStart
             // 
             this.toolStripStatusLblSelectionStart.Name = "toolStripStatusLblSelectionStart";
@@ -129,14 +125,18 @@ namespace StandaloneReview
             this.toolStripStatusLblSelectionEnd.Name = "toolStripStatusLblSelectionEnd";
             this.toolStripStatusLblSelectionEnd.Size = new System.Drawing.Size(0, 25);
             // 
-            // frmStandaloneReview
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // FrmStandaloneReview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1359, 878);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.btnLoad);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BtnLoad);
+            this.Controls.Add(this.BtnSaveReview);
             this.Controls.Add(this.textEditorControlEx1);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FrmStandaloneReview";
@@ -151,8 +151,8 @@ namespace StandaloneReview
         #endregion
 
         private ICSharpCode.TextEditor.TextEditorControlEx textEditorControlEx1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.Button BtnSaveReview;
+        private System.Windows.Forms.Button BtnLoad;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLblLine;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLblColumn;
