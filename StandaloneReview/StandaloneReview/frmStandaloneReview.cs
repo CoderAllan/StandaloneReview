@@ -105,6 +105,8 @@ namespace StandaloneReview
                 if (selection != null && selection.Length > 0)
                 {
                     SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionLength, string.Format("Selection length: {0}", selection.Length));
+                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionStart, string.Format("Selection start: (Ln: {0}, Col: {1})", selection.StartPosition.Line + 1, selection.StartPosition.Column));
+                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionEnd, string.Format("Selection end: (Ln: {0}, Col: {1})", selection.EndPosition.Line + 1, selection.EndPosition.Column));
                 }
             }
             else

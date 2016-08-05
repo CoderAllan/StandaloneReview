@@ -38,6 +38,8 @@ namespace StandaloneReview
             this.toolStripStatusLblColumn = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLblSelectionLength = new System.Windows.Forms.ToolStripStatusLabel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripStatusLblSelectionStart = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLblSelectionEnd = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,12 +55,12 @@ namespace StandaloneReview
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // btnLoad
             // 
             this.btnLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnLoad.Location = new System.Drawing.Point(14, 801);
             this.btnLoad.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnLoad.Name = "button2";
+            this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(153, 29);
             this.btnLoad.TabIndex = 2;
             this.btnLoad.Text = "Load";
@@ -86,7 +88,9 @@ namespace StandaloneReview
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLblLine,
             this.toolStripStatusLblColumn,
-            this.toolStripStatusLblSelectionLength});
+            this.toolStripStatusLblSelectionLength,
+            this.toolStripStatusLblSelectionStart,
+            this.toolStripStatusLblSelectionEnd});
             this.statusStrip1.Location = new System.Drawing.Point(0, 848);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
@@ -114,6 +118,16 @@ namespace StandaloneReview
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // toolStripStatusLblSelectionStart
+            // 
+            this.toolStripStatusLblSelectionStart.Name = "toolStripStatusLblSelectionStart";
+            this.toolStripStatusLblSelectionStart.Size = new System.Drawing.Size(0, 25);
+            // 
+            // toolStripStatusLblSelectionEnd
+            // 
+            this.toolStripStatusLblSelectionEnd.Name = "toolStripStatusLblSelectionEnd";
+            this.toolStripStatusLblSelectionEnd.Size = new System.Drawing.Size(0, 25);
             // 
             // frmStandaloneReview
             // 
@@ -144,6 +158,8 @@ namespace StandaloneReview
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLblColumn;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLblSelectionLength;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLblSelectionStart;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLblSelectionEnd;
     }
 }
 
