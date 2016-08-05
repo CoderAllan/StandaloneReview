@@ -50,18 +50,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmStandaloneReview.cs">
+    <Compile Include="FrmStandaloneReview.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmStandaloneReview.Designer.cs">
-      <DependentUpon>frmStandaloneReview.cs</DependentUpon>
+    <Compile Include="FrmStandaloneReview.Designer.cs">
+      <DependentUpon>FrmStandaloneReview.cs</DependentUpon>
     </Compile>
     <Compile Include="ISystemIO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemIO.cs" />
-    <EmbeddedResource Include="frmStandaloneReview.resx">
-      <DependentUpon>frmStandaloneReview.cs</DependentUpon>
+    <EmbeddedResource Include="FrmStandaloneReview.resx">
+      <DependentUpon>FrmStandaloneReview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

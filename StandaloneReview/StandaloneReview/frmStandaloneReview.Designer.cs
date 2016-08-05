@@ -2,7 +2,7 @@
 
 namespace StandaloneReview
 {
-    partial class frmStandaloneReview
+    partial class FrmStandaloneReview
     {
         /// <summary>
         /// Required designer variable.
@@ -139,7 +139,7 @@ namespace StandaloneReview
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textEditorControlEx1);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "frmStandaloneReview";
+            this.Name = "FrmStandaloneReview";
             this.Text = "Standalone Review";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

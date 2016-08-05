@@ -16,7 +16,7 @@ namespace StandaloneReview
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmStandaloneReview());
+            Application.Run(new FrmStandaloneReview());
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor.Document;
 using @STextEditor = ICSharpCode.TextEditor;
@@ -7,11 +6,11 @@ using ICSharpCode.TextEditor.Src.Document.FoldingStrategy;
 
 namespace StandaloneReview
 {
-    public partial class frmStandaloneReview : Form
+    public partial class FrmStandaloneReview : Form
     {
-        private ISystemIO _systemIO;
+        private readonly ISystemIO _systemIO;
 
-        public frmStandaloneReview()
+        public FrmStandaloneReview()
         {
             _systemIO = new SystemIO();
 
@@ -68,19 +67,19 @@ namespace StandaloneReview
                 case ".csproj":
                 case ".sln":
                 case ".config":
-                    textEditorControlEx1.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("XML"); ;
+                    textEditorControlEx1.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("XML");
                     break;
                 case ".html":
-                    textEditorControlEx1.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("HTML"); ;
+                    textEditorControlEx1.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("HTML");
                     break;
                 case ".aspx":
-                    textEditorControlEx1.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("ASPX"); ;
+                    textEditorControlEx1.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("ASPX");
                     break;
                 case ".cs":
-                    textEditorControlEx1.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("C#"); ;
+                    textEditorControlEx1.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("C#");
                     break;
                 case ".sql":
-                    textEditorControlEx1.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("SQL"); ;
+                    textEditorControlEx1.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("SQL");
                     break;
             }
             textEditorControlEx1.Refresh();
