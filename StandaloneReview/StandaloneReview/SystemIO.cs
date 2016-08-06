@@ -1,3 +1,5 @@
+using StandaloneReview.Contracts;
+
 namespace StandaloneReview
 {
     using System.IO;

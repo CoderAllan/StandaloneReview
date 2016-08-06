@@ -1,20 +1,41 @@
-﻿using System;
-using System.Windows.Forms;
-using ICSharpCode.TextEditor.Document;
-using ICSharpCode.TextEditor;
-using ICSharpCode.TextEditor.Src.Document.FoldingStrategy;
-
-namespace StandaloneReview
+﻿namespace StandaloneReview
 {
-    public partial class FrmStandaloneReview : Form
+    using System;
+    using System.Drawing;
+    using System.Windows.Forms;
+    using ICSharpCode.TextEditor.Document;
+    using ICSharpCode.TextEditor;
+    using ICSharpCode.TextEditor.Src.Document.FoldingStrategy;
+    
+    using Contracts;
+    using Model;
+    using Views;
+    using Presenters;
+    
+    public partial class FrmStandaloneReview : Form, IBaseForm, IFrmStandaloneReview
     {
+        private readonly ApplicationState _appState;
         private readonly ISystemIO _systemIO;
+        private BaseFormPresenter _baseFormPresenter;
+        private FrmStandaloneReviewPresenter _frmStandaloneReviewPresenter;
 
         public FrmStandaloneReview()
         {
             _systemIO = new SystemIO();
+            _baseFormPresenter = new BaseFormPresenter(this);
+            _frmStandaloneReviewPresenter = new FrmStandaloneReviewPresenter(this);
+            _appState = ApplicationState.ReadApplicationState();
 
             InitializeComponent();
+
+            var eventArgs = new BaseFormEventArgs
+            {
+                Height = _appState.FrmStandaloneReviewHeight,
+                Width = _appState.FrmStandaloneReviewWidth,
+                Location = new Point(_appState.FrmStandaloneReviewPosX, _appState.FrmStandaloneReviewPosY)
+            };
+            DoFormLoad(this, eventArgs);
+
             textEditorControlEx1.Document.FoldingManager.FoldingStrategy = new XmlFoldingStrategy();
 
             textEditorControlEx1.ActiveTextAreaControl.TextArea.MouseClick += ShowSelectionLength;
@@ -24,15 +45,15 @@ namespace StandaloneReview
 
         }
 
-        private delegate void SetTextEditorControlTextCallback(TextEditorControlEx control, string text);
-        public void SetTextEditorControlText(TextEditorControlEx editControl, string text)
+        public ISystemIO SystemIO { get { return _systemIO; } }
+
+        public event EventHandler<BaseFormEventArgs> DoFormLoad;
+        public event EventHandler<LoadEventArgs> BtnLoadClick;
+
+        public void SetTextEditorControlText(string textEditorControlName, string text)
         {
-            if (editControl.InvokeRequired)
-            {
-                var callback = new SetTextEditorControlTextCallback(SetTextEditorControlText);
-                Invoke(callback, new object[] { editControl, text });
-            }
-            else
+            var editControl = (TextEditorControlEx) Controls[textEditorControlName];
+            if (editControl != null)
             {
                 editControl.Document.TextContent = text;
                 editControl.Document.FoldingManager.UpdateFoldings(null, null);
@@ -42,12 +63,17 @@ namespace StandaloneReview
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (BtnLoadClick != null)
             {
-                string filename = openFileDialog1.FileName;
-                var text = _systemIO.FileReadAllText(filename);
-                SetTextEditorControlText(textEditorControlEx1, text);
-                SetSyntaxHighlighting(_systemIO.PathGetExtension(filename));
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    var loadEventArgs = new LoadEventArgs
+                        {
+                            Filename = openFileDialog1.FileName,
+                            EditorControlName = textEditorControlEx1.Name
+                        };
+                    BtnLoadClick(sender, loadEventArgs);
+                }
             }
         }
 
@@ -57,7 +83,7 @@ namespace StandaloneReview
             //string line = textEditorControlEx1.Document.GetText(lineSegment);
         }
 
-        private void SetSyntaxHighlighting(string fileType)
+        public void SetSyntaxHighlighting(string fileType)
         {
             switch (fileType)
             {
@@ -89,7 +115,6 @@ namespace StandaloneReview
         {
             SetStatusText(textEditorControlEx1);
         }
-
         private void ShowSelectionLength(object sender, MouseEventArgs e)
         {
             SetStatusText(textEditorControlEx1);
@@ -111,24 +136,24 @@ namespace StandaloneReview
             else
             {
                 SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionLength, "");
+                SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionStart, "");
+                SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionEnd, "");
             }
         }
 
-        private delegate void SetLabelStatusTextCallback(StatusStrip toolStrip, ToolStripStatusLabel label, string text);
         private void SetLabelStatusText(StatusStrip toolStrip, ToolStripStatusLabel label, string text)
         {
-            if (toolStrip.InvokeRequired)
-            {
-                var callback = new SetLabelStatusTextCallback(SetLabelStatusText);
-                Invoke(callback, new object[] { toolStrip, label, text });
-            }
-            else
-            {
-                label.Text = text;
-                label.BorderStyle = Border3DStyle.Flat;
-                label.BorderSides = !String.IsNullOrEmpty(label.Text) ? ToolStripStatusLabelBorderSides.Left : ToolStripStatusLabelBorderSides.None;
-                toolStrip.Refresh();
-            }
+            label.Text = text;
+            label.BorderStyle = Border3DStyle.Flat;
+            label.BorderSides = !String.IsNullOrEmpty(label.Text) ? ToolStripStatusLabelBorderSides.Left : ToolStripStatusLabelBorderSides.None;
+            toolStrip.Refresh();
+        }
+
+        private void FrmStandaloneReview_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var frmStandaloneReview = (FrmStandaloneReview) sender;
+            _appState.PersistFrmStandaloneReview(frmStandaloneReview);
+            ApplicationState.WriteApplicationState(_appState);
         }
     }
 }

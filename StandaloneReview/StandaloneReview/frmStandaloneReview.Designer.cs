@@ -78,6 +78,7 @@ namespace StandaloneReview
             this.textEditorControlEx1.Location = new System.Drawing.Point(15, 16);
             this.textEditorControlEx1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textEditorControlEx1.Name = "textEditorControlEx1";
+            this.textEditorControlEx1.ShowVRuler = false;
             this.textEditorControlEx1.Size = new System.Drawing.Size(1331, 778);
             this.textEditorControlEx1.SyntaxHighlighting = "XML";
             this.textEditorControlEx1.TabIndex = 0;
@@ -140,7 +141,9 @@ namespace StandaloneReview
             this.Controls.Add(this.textEditorControlEx1);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FrmStandaloneReview";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Standalone Review";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmStandaloneReview_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);

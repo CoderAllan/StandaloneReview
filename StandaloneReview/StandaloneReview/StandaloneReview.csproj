@@ -56,13 +56,18 @@
     <Compile Include="FrmStandaloneReview.Designer.cs">
       <DependentUpon>FrmStandaloneReview.cs</DependentUpon>
     </Compile>
-    <Compile Include="ISystemIO.cs" />
+    <Compile Include="Contracts\ISystemIO.cs" />
+    <Compile Include="Model\ApplicationState.cs" />
     <Compile Include="Model\Review.cs" />
     <Compile Include="Model\ReviewComment.cs" />
     <Compile Include="Model\ReviewedFile.cs" />
+    <Compile Include="Presenters\BaseFormPresenter.cs" />
+    <Compile Include="Presenters\FrmStandaloneReviewPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemIO.cs" />
+    <Compile Include="Views\IBaseForm.cs" />
+    <Compile Include="Views\IFrmStandaloneReview.cs" />
     <EmbeddedResource Include="FrmStandaloneReview.resx">
       <DependentUpon>FrmStandaloneReview.cs</DependentUpon>
     </EmbeddedResource>
@@ -89,6 +94,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Presenters\Readme.txt" />
+    <Content Include="Resources\App.ico" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

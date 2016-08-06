@@ -1,4 +1,4 @@
-namespace StandaloneReview
+namespace StandaloneReview.Contracts
 {
     public interface ISystemIO
     {
