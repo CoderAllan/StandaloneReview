@@ -16,8 +16,8 @@
     {
         private readonly ApplicationState _appState;
         private readonly ISystemIO _systemIO;
-        private BaseFormPresenter _baseFormPresenter;
-        private FrmStandaloneReviewPresenter _frmStandaloneReviewPresenter;
+        private readonly BaseFormPresenter _baseFormPresenter;
+        private readonly FrmStandaloneReviewPresenter _frmStandaloneReviewPresenter;
 
         public FrmStandaloneReview()
         {

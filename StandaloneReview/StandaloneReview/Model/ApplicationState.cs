@@ -17,6 +17,10 @@ namespace StandaloneReview.Model
         public int FrmStandaloneReviewHeight;
         public int FrmStandaloneReviewPosX;
         public int FrmStandaloneReviewPosY;
+        public int FrmInsertCommentWidth;
+        public int FrmInsertCommentHeight;
+        public int FrmInsertCommentPosX;
+        public int FrmInsertCommentPosY;
 
         public static void WriteApplicationState(ApplicationState state)
         {
@@ -80,12 +84,21 @@ namespace StandaloneReview.Model
             }
         }
 
-        public void PersistFrmStandaloneReview(FrmStandaloneReview form)
+        internal void PersistFrmStandaloneReview(FrmStandaloneReview form)
         {
             FrmStandaloneReviewHeight = form.Height;
             FrmStandaloneReviewWidth = form.Width;
             FrmStandaloneReviewPosX = form.Location.X;
             FrmStandaloneReviewPosY = form.Location.Y;
         }
+
+        internal void PersistFrmInsertComment(FrmInsertComment form)
+        {
+            FrmInsertCommentHeight = form.Height;
+            FrmInsertCommentWidth = form.Width;
+            FrmInsertCommentPosX = form.Location.X;
+            FrmInsertCommentPosY = form.Location.Y;
+        }
+
     }
 }
