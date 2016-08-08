@@ -7,6 +7,6 @@ namespace StandaloneReview.Model
     {
         public DateTime ReviewTime { get; set; }
         public string CommitId { get; set; }
-        public List<ReviewedFile> ReviewdFiles { get; set; }
+        public Dictionary<string, ReviewedFile> ReviewedFiles { get; set; }
     }
 }

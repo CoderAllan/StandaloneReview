@@ -46,9 +46,12 @@
         }
 
         public ISystemIO SystemIO { get { return _systemIO; } }
+        public ApplicationState AppState { get { return _appState; } }
 
         public event EventHandler<BaseFormEventArgs> DoFormLoad;
         public event EventHandler<LoadEventArgs> BtnLoadClick;
+        public event EventHandler<EventArgs> CommitComment;
+        public event EventHandler<ReviewCommentEventArgs> SetReviewComment;
 
         public void SetTextEditorControlText(string textEditorControlName, string text)
         {
@@ -121,7 +124,8 @@
         }
         private void SetStatusText(TextEditorControlEx editor)
         {
-            SetLabelStatusText(statusStrip1, toolStripStatusLblLine, string.Format("Ln: {0}", editor.ActiveTextAreaControl.Caret.Position.Line + 1));
+            var reviewCommentEventArgs = new ReviewCommentEventArgs { Line = editor.ActiveTextAreaControl.Caret.Position.Line + 1 };
+            SetLabelStatusText(statusStrip1, toolStripStatusLblLine, string.Format("Ln: {0}", reviewCommentEventArgs.Line));
             SetLabelStatusText(statusStrip1, toolStripStatusLblColumn, string.Format("Col: {0}", editor.ActiveTextAreaControl.Caret.Position.Column));
             if (editor.ActiveTextAreaControl.SelectionManager.SelectionCollection.Count > 0)
             {
@@ -129,8 +133,12 @@
                 if (selection != null && selection.Length > 0)
                 {
                     SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionLength, string.Format("Selection length: {0}", selection.Length));
-                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionStart, string.Format("Selection start: (Ln: {0}, Col: {1})", selection.StartPosition.Line + 1, selection.StartPosition.Column));
-                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionEnd, string.Format("Selection end: (Ln: {0}, Col: {1})", selection.EndPosition.Line + 1, selection.EndPosition.Column));
+                    reviewCommentEventArgs.SelectionStartLine = selection.StartPosition.Line + 1;
+                    reviewCommentEventArgs.SelectionStartColumn = selection.StartPosition.Column;
+                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionStart, string.Format("Selection start: (Ln: {0}, Col: {1})", reviewCommentEventArgs.SelectionStartLine, reviewCommentEventArgs.SelectionStartColumn));
+                    reviewCommentEventArgs.SelectionEndLine = selection.EndPosition.Line + 1;
+                    reviewCommentEventArgs.SelectionEndColumn = selection.EndPosition.Column;
+                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionEnd, string.Format("Selection end: (Ln: {0}, Col: {1})", reviewCommentEventArgs.SelectionEndLine, reviewCommentEventArgs.SelectionEndColumn));
                 }
             }
             else
@@ -138,6 +146,10 @@
                 SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionLength, "");
                 SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionStart, "");
                 SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionEnd, "");
+            }
+            if (SetReviewComment != null)
+            {
+                SetReviewComment(null, reviewCommentEventArgs);
             }
         }
 
@@ -154,6 +166,18 @@
             var frmStandaloneReview = (FrmStandaloneReview) sender;
             _appState.PersistFrmStandaloneReview(frmStandaloneReview);
             ApplicationState.WriteApplicationState(_appState);
+        }
+
+        private void insertCommentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frmInsertComment = new FrmInsertComment(_appState)
+            {
+                Visible = false
+            };
+            if (frmInsertComment.ShowDialog() == DialogResult.OK && CommitComment != null)
+            {
+                CommitComment(sender, e);
+            }
         }
     }
 }

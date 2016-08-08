@@ -14,6 +14,8 @@
         private readonly BaseFormPresenter _baseFormPresenter;
         private readonly FrmInsertCommentPresenter _frmInsertCommentPresenter;
 
+        public ApplicationState AppState {get { return _appState; }}
+
         public FrmInsertComment(ApplicationState appState)
         {
             _appState = appState;
@@ -24,21 +26,27 @@
 
             var eventArgs = new BaseFormEventArgs
             {
-                Height = _appState.FrmStandaloneReviewHeight,
-                Width = _appState.FrmStandaloneReviewWidth,
-                Location = new Point(_appState.FrmStandaloneReviewPosX, _appState.FrmStandaloneReviewPosY)
+                Height = _appState.FrmInsertCommentHeight,
+                Width = _appState.FrmInsertCommentWidth,
+                Location = new Point(_appState.FrmInsertCommentPosX, _appState.FrmInsertCommentPosY)
             };
             DoFormLoad(this, eventArgs);
         }
 
         public event EventHandler<BaseFormEventArgs> DoFormLoad;
-        public event EventHandler<EventArgs> BtnInsertCommentClick;
+        public event EventHandler<InsertCommentEventArgs> BtnInsertCommentClick;
 
         private void btnInsertComment_Click(object sender, EventArgs e)
         {
             if(BtnInsertCommentClick != null)
             {
-                BtnInsertCommentClick(sender, e);
+                var args = new InsertCommentEventArgs
+                    {
+                        Comment = txtComment.Text
+                    };
+                BtnInsertCommentClick(sender, args);
+                DialogResult = DialogResult.OK;
+                Close();
             }
         }
 

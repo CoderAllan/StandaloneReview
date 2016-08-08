@@ -11,7 +11,18 @@ namespace StandaloneReview.Model
     [XmlRoot("AppState")]
     public class ApplicationState
     {
-        [XmlIgnore] public static readonly string AppFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "StandaloneReview");
+        [XmlIgnore] 
+        public static readonly string AppFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "StandaloneReview");
+        [XmlIgnore]
+        public Review CurrentReview = new Review
+            {
+                ReviewTime = DateTime.Now,
+                ReviewedFiles = new Dictionary<string, ReviewedFile>()
+            };
+        [XmlIgnore]
+        public ReviewedFile CurrentReviewedFile;
+        [XmlIgnore]
+        public ReviewComment WorkingComment;
 
         public int FrmStandaloneReviewWidth;
         public int FrmStandaloneReviewHeight;

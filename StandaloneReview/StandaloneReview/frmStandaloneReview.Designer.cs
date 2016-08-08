@@ -40,7 +40,14 @@ namespace StandaloneReview
             this.toolStripStatusLblSelectionStart = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLblSelectionEnd = new System.Windows.Forms.ToolStripStatusLabel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newReviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveReviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.insertCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // BtnSaveReview
@@ -49,7 +56,7 @@ namespace StandaloneReview
             this.BtnSaveReview.Location = new System.Drawing.Point(1192, 801);
             this.BtnSaveReview.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.BtnSaveReview.Name = "BtnSaveReview";
-            this.BtnSaveReview.Size = new System.Drawing.Size(153, 29);
+            this.BtnSaveReview.Size = new System.Drawing.Size(153, 43);
             this.BtnSaveReview.TabIndex = 1;
             this.BtnSaveReview.Text = "Save review";
             this.BtnSaveReview.UseVisualStyleBackColor = true;
@@ -61,7 +68,7 @@ namespace StandaloneReview
             this.BtnLoad.Location = new System.Drawing.Point(14, 801);
             this.BtnLoad.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.BtnLoad.Name = "BtnLoad";
-            this.BtnLoad.Size = new System.Drawing.Size(153, 29);
+            this.BtnLoad.Size = new System.Drawing.Size(153, 43);
             this.BtnLoad.TabIndex = 2;
             this.BtnLoad.Text = "Load";
             this.BtnLoad.UseVisualStyleBackColor = true;
@@ -75,11 +82,11 @@ namespace StandaloneReview
             this.textEditorControlEx1.EnableFolding = false;
             this.textEditorControlEx1.FoldingStrategy = "XML";
             this.textEditorControlEx1.Font = new System.Drawing.Font("Courier New", 10F);
-            this.textEditorControlEx1.Location = new System.Drawing.Point(15, 16);
+            this.textEditorControlEx1.Location = new System.Drawing.Point(15, 37);
             this.textEditorControlEx1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textEditorControlEx1.Name = "textEditorControlEx1";
             this.textEditorControlEx1.ShowVRuler = false;
-            this.textEditorControlEx1.Size = new System.Drawing.Size(1331, 778);
+            this.textEditorControlEx1.Size = new System.Drawing.Size(1331, 757);
             this.textEditorControlEx1.SyntaxHighlighting = "XML";
             this.textEditorControlEx1.TabIndex = 0;
             // 
@@ -130,15 +137,65 @@ namespace StandaloneReview
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1359, 33);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newReviewToolStripMenuItem,
+            this.saveReviewToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(50, 29);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // newReviewToolStripMenuItem
+            // 
+            this.newReviewToolStripMenuItem.Name = "newReviewToolStripMenuItem";
+            this.newReviewToolStripMenuItem.Size = new System.Drawing.Size(180, 30);
+            this.newReviewToolStripMenuItem.Text = "New Review";
+            // 
+            // saveReviewToolStripMenuItem
+            // 
+            this.saveReviewToolStripMenuItem.Name = "saveReviewToolStripMenuItem";
+            this.saveReviewToolStripMenuItem.Size = new System.Drawing.Size(180, 30);
+            this.saveReviewToolStripMenuItem.Text = "Save Review";
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.insertCommentToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(54, 29);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // insertCommentToolStripMenuItem
+            // 
+            this.insertCommentToolStripMenuItem.Name = "insertCommentToolStripMenuItem";
+            this.insertCommentToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.insertCommentToolStripMenuItem.Size = new System.Drawing.Size(265, 30);
+            this.insertCommentToolStripMenuItem.Text = "Insert comment";
+            this.insertCommentToolStripMenuItem.Click += new System.EventHandler(this.insertCommentToolStripMenuItem_Click);
+            // 
             // FrmStandaloneReview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1359, 878);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.BtnLoad);
             this.Controls.Add(this.BtnSaveReview);
             this.Controls.Add(this.textEditorControlEx1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FrmStandaloneReview";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
@@ -146,6 +203,8 @@ namespace StandaloneReview
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmStandaloneReview_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,6 +222,12 @@ namespace StandaloneReview
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLblSelectionStart;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLblSelectionEnd;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newReviewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveReviewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem insertCommentToolStripMenuItem;
     }
 }
 

@@ -34,6 +34,9 @@
             // 
             // txtComment
             // 
+            this.txtComment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtComment.Location = new System.Drawing.Point(13, 22);
             this.txtComment.Name = "txtComment";
             this.txtComment.Size = new System.Drawing.Size(709, 486);
@@ -42,6 +45,7 @@
             // 
             // btnInsertComment
             // 
+            this.btnInsertComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInsertComment.Location = new System.Drawing.Point(589, 527);
             this.btnInsertComment.Name = "btnInsertComment";
             this.btnInsertComment.Size = new System.Drawing.Size(132, 46);

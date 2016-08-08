@@ -1,6 +1,6 @@
 ﻿namespace StandaloneReview.Presenters
 {
-    using System;
+    using Model;
     using Views;
 
     public class FrmInsertCommentPresenter
@@ -19,9 +19,13 @@
             _view.BtnInsertCommentClick += DoBtnInsertCommentClick;
         }
 
-        private void DoBtnInsertCommentClick(object sender, EventArgs e)
+        private void DoBtnInsertCommentClick(object sender, InsertCommentEventArgs e)
         {
-            
+            if (_view.AppState.WorkingComment == null)
+            {
+                _view.AppState.WorkingComment = new ReviewComment();
+            }
+            _view.AppState.WorkingComment.Comment = e.Comment;
         }
     }
 }
