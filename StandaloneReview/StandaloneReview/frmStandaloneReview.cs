@@ -50,6 +50,7 @@
 
         public event EventHandler<BaseFormEventArgs> DoFormLoad;
         public event EventHandler<LoadEventArgs> BtnLoadClick;
+        public event EventHandler<SaveEventArgs> BtnSaveClick;
         public event EventHandler<EventArgs> CommitComment;
         public event EventHandler<ReviewCommentEventArgs> SetReviewComment;
 
@@ -64,28 +65,6 @@
             }
         }
 
-        private void btnLoad_Click(object sender, EventArgs e)
-        {
-            if (BtnLoadClick != null)
-            {
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    var loadEventArgs = new LoadEventArgs
-                        {
-                            Filename = openFileDialog1.FileName,
-                            EditorControlName = textEditorControlEx1.Name
-                        };
-                    BtnLoadClick(sender, loadEventArgs);
-                }
-            }
-        }
-
-        private void BtnSaveReview_Click(object sender, EventArgs e)
-        {
-            //LineSegment lineSegment = textEditorControlEx1.Document.GetLineSegmentForOffset(textEditorControlEx1.ActiveTextAreaControl.Caret.Offset);
-            //string line = textEditorControlEx1.Document.GetText(lineSegment);
-        }
-
         public void SetSyntaxHighlighting(string fileType)
         {
             switch (fileType)
@@ -93,6 +72,7 @@
                 case ".xml":
                 case ".wsdl":
                 case ".xsd":
+                case ".xsl":
                 case ".csproj":
                 case ".sln":
                 case ".config":
@@ -124,7 +104,11 @@
         }
         private void SetStatusText(TextEditorControlEx editor)
         {
-            var reviewCommentEventArgs = new ReviewCommentEventArgs { Line = editor.ActiveTextAreaControl.Caret.Position.Line + 1 };
+            var reviewCommentEventArgs = new ReviewCommentEventArgs
+            {
+                Line = editor.ActiveTextAreaControl.Caret.Position.Line + 1,
+                LineText = editor.ActiveTextAreaControl.Document.GetText(editor.ActiveTextAreaControl.Document.GetLineSegment(editor.ActiveTextAreaControl.Caret.Position.Line))
+            };
             SetLabelStatusText(statusStrip1, toolStripStatusLblLine, string.Format("Ln: {0}", reviewCommentEventArgs.Line));
             SetLabelStatusText(statusStrip1, toolStripStatusLblColumn, string.Format("Col: {0}", editor.ActiveTextAreaControl.Caret.Position.Column));
             if (editor.ActiveTextAreaControl.SelectionManager.SelectionCollection.Count > 0)
@@ -139,6 +123,7 @@
                     reviewCommentEventArgs.SelectionEndLine = selection.EndPosition.Line + 1;
                     reviewCommentEventArgs.SelectionEndColumn = selection.EndPosition.Column;
                     SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionEnd, string.Format("Selection end: (Ln: {0}, Col: {1})", reviewCommentEventArgs.SelectionEndLine, reviewCommentEventArgs.SelectionEndColumn));
+                    reviewCommentEventArgs.SelectedText = selection.SelectedText;
                 }
             }
             else
@@ -170,6 +155,16 @@
 
         private void insertCommentToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ShowInsertCommentForm(sender, e);
+        }
+
+        private void insertCommentToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ShowInsertCommentForm(sender, e);
+        }
+
+        private void ShowInsertCommentForm(object sender, EventArgs e)
+        {
             var frmInsertComment = new FrmInsertComment(_appState)
             {
                 Visible = false
@@ -179,5 +174,49 @@
                 CommitComment(sender, e);
             }
         }
+
+        public int GetTextOffset(int column, int line)
+        {
+            return textEditorControlEx1.ActiveTextAreaControl.Document.PositionToOffset(new TextLocation(column, line));
+        }
+
+        public void AddMarker(int offset, int length)
+        {
+            var marker = new TextMarker(offset, length, TextMarkerType.SolidBlock, Color.Gold);
+            textEditorControlEx1.Document.MarkerStrategy.AddMarker(marker);
+            textEditorControlEx1.Refresh();
+        }
+
+        private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BtnLoadClick != null)
+            {
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    var loadEventArgs = new LoadEventArgs
+                    {
+                        Filename = openFileDialog1.FileName,
+                        EditorControlName = textEditorControlEx1.Name
+                    };
+                    BtnLoadClick(sender, loadEventArgs);
+                }
+            }
+        }
+
+        private void saveReviewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BtnSaveClick != null)
+            {
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    var args = new SaveEventArgs
+                    {
+                        Filename = saveFileDialog1.FileName
+                    };
+                    BtnSaveClick(sender, args);
+                }
+            }
+        }
+
     }
 }

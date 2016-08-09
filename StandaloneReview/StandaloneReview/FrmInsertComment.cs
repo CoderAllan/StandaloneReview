@@ -55,5 +55,11 @@
             var form = (FrmInsertComment)sender;
             _appState.PersistFrmInsertComment(form);
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
     }
 }

@@ -11,6 +11,11 @@ namespace StandaloneReview
             return File.ReadAllText(filename);
         }
 
+        public void WriteAllText(string filename, string text)
+        {
+            File.WriteAllText(filename, text);
+        }
+
         public string PathGetExtension(string filename)
         {
             return Path.GetExtension(filename);

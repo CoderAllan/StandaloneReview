@@ -20,6 +20,7 @@ namespace StandaloneReview.Presenters
         public void Initialize()
         {
             _view.BtnLoadClick += DoLoadClick;
+            _view.BtnSaveClick += DoSaveClick;
             _view.CommitComment += DoCommitComment;
             _view.SetReviewComment += DoSetReviewComment;
         }
@@ -36,6 +37,11 @@ namespace StandaloneReview.Presenters
                 };
         }
 
+        private void DoSaveClick(object sender, SaveEventArgs e)
+        {
+            string review = _view.AppState.CurrentReview.ToString();
+            _view.SystemIO.WriteAllText(e.Filename, review);
+        }
 
         private void DoCommitComment(object sender, EventArgs e)
         {
@@ -44,6 +50,19 @@ namespace StandaloneReview.Presenters
                 _view.AppState.CurrentReview.ReviewedFiles.Add(_view.AppState.CurrentReviewedFile.Filename, _view.AppState.CurrentReviewedFile);
             }
             _view.AppState.CurrentReview.ReviewedFiles[_view.AppState.CurrentReviewedFile.Filename].Comments.Add(_view.AppState.WorkingComment);
+            int offset;
+            int length;
+            if (_view.AppState.WorkingComment.SelectionStartLine > 0)
+            {
+                offset = _view.GetTextOffset(_view.AppState.WorkingComment.SelectionStartColumn, _view.AppState.WorkingComment.SelectionStartLine - 1);
+                length = _view.AppState.WorkingComment.SelectedText.Length;
+            }
+            else
+            {
+                offset = _view.GetTextOffset(1, _view.AppState.WorkingComment.Line - 1);
+                length = _view.AppState.WorkingComment.LineText.Length;
+            } 
+            _view.AddMarker(offset, length);
             _view.AppState.WorkingComment = new ReviewComment();
         }
 
@@ -54,10 +73,12 @@ namespace StandaloneReview.Presenters
                 _view.AppState.WorkingComment = new ReviewComment();
             }
             _view.AppState.WorkingComment.Line = e.Line;
+            _view.AppState.WorkingComment.LineText = e.LineText;
             _view.AppState.WorkingComment.SelectionStartLine = e.SelectionStartLine;
-            _view.AppState.WorkingComment.SelectionStartColoumn = e.SelectionStartColumn;
+            _view.AppState.WorkingComment.SelectionStartColumn = e.SelectionStartColumn;
             _view.AppState.WorkingComment.SelectionEndLine = e.SelectionEndLine;
-            _view.AppState.WorkingComment.SelectionEndColoumn = e.SelectionEndColumn;
+            _view.AppState.WorkingComment.SelectionEndColumn = e.SelectionEndColumn;
+            _view.AppState.WorkingComment.SelectedText = e.SelectedText;
         }
     }
 }
