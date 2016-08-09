@@ -76,8 +76,14 @@
     <Compile Include="Views\IBaseForm.cs" />
     <Compile Include="Views\IFrmInsertComment.cs" />
     <Compile Include="Views\IFrmStandaloneReview.cs" />
+    <EmbeddedResource Include="FrmInsertComment.da-DK.resx">
+      <DependentUpon>FrmInsertComment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmInsertComment.resx">
       <DependentUpon>FrmInsertComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmStandaloneReview.da-DK.resx">
+      <DependentUpon>FrmStandaloneReview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmStandaloneReview.resx">
       <DependentUpon>FrmStandaloneReview.cs</DependentUpon>
