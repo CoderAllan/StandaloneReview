@@ -75,8 +75,8 @@ namespace StandaloneReview.Presenters
             {
                 offset = _view.GetTextOffset(1, _view.AppState.WorkingComment.Line - 1);
                 length = _view.AppState.WorkingComment.LineText.Length;
-            } 
-            _view.AddMarker(offset, length);
+            }
+            _view.AddMarker(offset, length, _view.AppState.WorkingComment.Comment);
             _view.AppState.WorkingComment = new ReviewComment();
             _view.AppState.CurrentReview.Saved = false;
         }

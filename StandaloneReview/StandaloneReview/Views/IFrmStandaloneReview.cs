@@ -19,7 +19,7 @@
         void SetSyntaxHighlighting(string fileType);
         void SetTextEditorControlText(string textEditorControlName, string text);
         int GetTextOffset(int column, int line);
-        void AddMarker(int offset, int length);
+        void AddMarker(int offset, int length, string tooltipText);
         void ResetTextEditor();
     }
 

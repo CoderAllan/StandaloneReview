@@ -182,9 +182,12 @@
             return textEditorControlEx1.ActiveTextAreaControl.Document.PositionToOffset(new TextLocation(column, line));
         }
 
-        public void AddMarker(int offset, int length)
+        public void AddMarker(int offset, int length, string tooltipText)
         {
-            var marker = new TextMarker(offset, length, TextMarkerType.SolidBlock, Color.Gold);
+            var marker = new TextMarker(offset, length, TextMarkerType.SolidBlock, Color.Gold)
+            {
+                ToolTip = tooltipText
+            };
             textEditorControlEx1.Document.MarkerStrategy.AddMarker(marker);
             textEditorControlEx1.Refresh();
         }
