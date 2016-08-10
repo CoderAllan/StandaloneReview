@@ -30,7 +30,7 @@ namespace StandaloneReview.Model
                     sb.Append(SelectionEndLine.ToString(CultureInfo.InvariantCulture));
                     sb.Append(",Col ");
                     sb.Append(SelectionEndColumn.ToString(CultureInfo.InvariantCulture));
-                    sb.Append(": ");
+                    sb.AppendLine(": ");
                     sb.AppendLine(SelectedText);
                     sb.Append("* ");
                     sb.AppendLine(Comment);
@@ -39,7 +39,7 @@ namespace StandaloneReview.Model
                 {
                     sb.Append("Linje ");
                     sb.Append(Line.ToString(CultureInfo.InvariantCulture));
-                    sb.Append(": ");
+                    sb.AppendLine(": ");
                     sb.AppendLine(LineText);
                     sb.Append("* ");
                     sb.AppendLine(Comment);

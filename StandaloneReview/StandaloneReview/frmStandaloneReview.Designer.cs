@@ -44,6 +44,7 @@ namespace StandaloneReview
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nytReviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveReviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -129,10 +130,17 @@ namespace StandaloneReview
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nytReviewToolStripMenuItem,
             this.openFileToolStripMenuItem,
             this.saveReviewToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
+            // 
+            // nytReviewToolStripMenuItem
+            // 
+            this.nytReviewToolStripMenuItem.Name = "nytReviewToolStripMenuItem";
+            resources.ApplyResources(this.nytReviewToolStripMenuItem, "nytReviewToolStripMenuItem");
+            this.nytReviewToolStripMenuItem.Click += new System.EventHandler(this.nytReviewToolStripMenuItem_Click);
             // 
             // openFileToolStripMenuItem
             // 
@@ -198,6 +206,7 @@ namespace StandaloneReview
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem insertCommentToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem nytReviewToolStripMenuItem;
     }
 }
 

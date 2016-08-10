@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StandaloneReview.Properties
-{
-
-
+namespace StandaloneReview.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,49 +22,86 @@ namespace StandaloneReview.Properties
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
-
+    internal class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
-        {
+        internal Resources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if ((resourceMan == null))
-                {
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StandaloneReview.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are unsaved comments. Do you want to discard unsaved comments?.
+        /// </summary>
+        internal static string FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes {
+            get {
+                return ResourceManager.GetString("FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsaved changes.
+        /// </summary>
+        internal static string FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes_Caption {
+            get {
+                return ResourceManager.GetString("FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection end: (Ln: {0}, Col: {1}).
+        /// </summary>
+        internal static string StatusStrip1SelectionEnd {
+            get {
+                return ResourceManager.GetString("StatusStrip1SelectionEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection length {0}.
+        /// </summary>
+        internal static string StatusStrip1SelectionLength {
+            get {
+                return ResourceManager.GetString("StatusStrip1SelectionLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection start: (Ln: {0}, Col: {1}).
+        /// </summary>
+        internal static string StatusStrip1SelectionStart {
+            get {
+                return ResourceManager.GetString("StatusStrip1SelectionStart", resourceCulture);
             }
         }
     }

@@ -20,6 +20,7 @@ namespace StandaloneReview.Presenters
         public void Initialize()
         {
             _view.BtnLoadClick += DoLoadClick;
+            _view.BtnNewClick += DoNewClick;
             _view.BtnSaveClick += DoSaveClick;
             _view.CommitComment += DoCommitComment;
             _view.SetReviewComment += DoSetReviewComment;
@@ -41,6 +42,19 @@ namespace StandaloneReview.Presenters
         {
             string review = _view.AppState.CurrentReview.ToString();
             _view.SystemIO.WriteAllText(e.Filename, review);
+            _view.AppState.CurrentReview.Saved = true;
+        }
+
+        private void DoNewClick(object sender, EventArgs e)
+        {
+            _view.AppState.WorkingComment = new ReviewComment();
+            _view.AppState.CurrentReview = new Review
+            {
+                ReviewTime = DateTime.Now,
+                ReviewedFiles = new Dictionary<string, ReviewedFile>(),
+                Saved = false
+            };
+            _view.ResetTextEditor();
         }
 
         private void DoCommitComment(object sender, EventArgs e)
@@ -64,6 +78,7 @@ namespace StandaloneReview.Presenters
             } 
             _view.AddMarker(offset, length);
             _view.AppState.WorkingComment = new ReviewComment();
+            _view.AppState.CurrentReview.Saved = false;
         }
 
         private void DoSetReviewComment(object sender, ReviewCommentEventArgs e)

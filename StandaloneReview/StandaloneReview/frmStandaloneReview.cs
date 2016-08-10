@@ -11,6 +11,7 @@
     using Model;
     using Views;
     using Presenters;
+    using Properties;
     
     public partial class FrmStandaloneReview : Form, IBaseForm, IFrmStandaloneReview
     {
@@ -50,6 +51,7 @@
 
         public event EventHandler<BaseFormEventArgs> DoFormLoad;
         public event EventHandler<LoadEventArgs> BtnLoadClick;
+        public event EventHandler<EventArgs> BtnNewClick;
         public event EventHandler<SaveEventArgs> BtnSaveClick;
         public event EventHandler<EventArgs> CommitComment;
         public event EventHandler<ReviewCommentEventArgs> SetReviewComment;
@@ -116,13 +118,13 @@
                 var selection = editor.ActiveTextAreaControl.SelectionManager.SelectionCollection[0];
                 if (selection != null && selection.Length > 0)
                 {
-                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionLength, string.Format("Selection length: {0}", selection.Length));
+                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionLength, string.Format(Resources.StatusStrip1SelectionLength, selection.Length));
                     reviewCommentEventArgs.SelectionStartLine = selection.StartPosition.Line + 1;
                     reviewCommentEventArgs.SelectionStartColumn = selection.StartPosition.Column;
-                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionStart, string.Format("Selection start: (Ln: {0}, Col: {1})", reviewCommentEventArgs.SelectionStartLine, reviewCommentEventArgs.SelectionStartColumn));
+                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionStart, string.Format(Resources.StatusStrip1SelectionStart, reviewCommentEventArgs.SelectionStartLine, reviewCommentEventArgs.SelectionStartColumn));
                     reviewCommentEventArgs.SelectionEndLine = selection.EndPosition.Line + 1;
                     reviewCommentEventArgs.SelectionEndColumn = selection.EndPosition.Column;
-                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionEnd, string.Format("Selection end: (Ln: {0}, Col: {1})", reviewCommentEventArgs.SelectionEndLine, reviewCommentEventArgs.SelectionEndColumn));
+                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionEnd, string.Format(Resources.StatusStrip1SelectionEnd, reviewCommentEventArgs.SelectionEndLine, reviewCommentEventArgs.SelectionEndColumn));
                     reviewCommentEventArgs.SelectedText = selection.SelectedText;
                 }
             }
@@ -207,6 +209,8 @@
         {
             if (BtnSaveClick != null)
             {
+                saveFileDialog1.Filter = @"Review (*.review)|*.review";
+                saveFileDialog1.FileName = "Review-" + _appState.CurrentReview.ReviewTime.ToString("yyyy-MM-dd");
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     var args = new SaveEventArgs
@@ -218,5 +222,29 @@
             }
         }
 
+        private void nytReviewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BtnNewClick != null)
+            {
+                if (_appState.CurrentReview.Saved)
+                {
+                    BtnNewClick(sender, e);
+                }
+                else
+                {
+                    if (MessageBox.Show(Resources.FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes, Resources.FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes_Caption, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    {
+                        BtnNewClick(sender, e);
+                    }
+                }
+            }
+        }
+
+        public void ResetTextEditor()
+        {
+            textEditorControlEx1.Document.MarkerStrategy.RemoveAll(marker => true);
+            textEditorControlEx1.Document.TextContent = "";
+            textEditorControlEx1.Refresh();
+        }
     }
 }

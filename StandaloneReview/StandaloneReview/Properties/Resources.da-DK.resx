@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes" xml:space="preserve">
-    <value>There are unsaved comments. Do you want to discard unsaved comments?</value>
+    <value>Der er kommentarer der ikke er gemt. Vil du fortsætte uden at gemme?</value>
   </data>
   <data name="FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes_Caption" xml:space="preserve">
-    <value>Unsaved changes</value>
+    <value>Kommentarer ikke gemt</value>
   </data>
   <data name="StatusStrip1SelectionEnd" xml:space="preserve">
-    <value>Selection end: (Ln: {0}, Col: {1})</value>
+    <value>Markering slut (Ln: {0}, Col: {1})</value>
   </data>
   <data name="StatusStrip1SelectionLength" xml:space="preserve">
-    <value>Selection length {0}</value>
+    <value>Markering længde {0}</value>
   </data>
   <data name="StatusStrip1SelectionStart" xml:space="preserve">
-    <value>Selection start: (Ln: {0}, Col: {1})</value>
+    <value>Markering start: (Ln: {0}, Col: {1})</value>
   </data>
 </root>

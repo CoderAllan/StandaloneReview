@@ -9,6 +9,7 @@ namespace StandaloneReview.Model
         public DateTime ReviewTime { get; set; }
         public string CommitId { get; set; }
         public Dictionary<string, ReviewedFile> ReviewedFiles { get; set; }
+        public bool Saved { get; set; }
 
         public override string ToString()
         {

@@ -121,10 +121,10 @@
   <data name="textEditorControlEx1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>681, 17</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+    <value>681, 17</value>
+  </data>
   <data name="insertCommentToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 30</value>
   </data>
@@ -168,9 +168,9 @@
   <data name="&gt;&gt;textEditorControlEx1.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>17, 17</value>
-  </metadata>
+  </data>
   <data name="toolStripStatusLblLine.Size" type="System.Drawing.Size, System.Drawing">
     <value>49, 25</value>
   </data>
@@ -219,17 +219,26 @@
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>167, 17</value>
-  </metadata>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  </data>
+  <data name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>353, 17</value>
-  </metadata>
+  </data>
+  <data name="nytReviewToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+N</value>
+  </data>
+  <data name="nytReviewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>242, 30</value>
+  </data>
+  <data name="nytReviewToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;New Review</value>
+  </data>
   <data name="openFileToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+O</value>
   </data>
   <data name="openFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 30</value>
+    <value>242, 30</value>
   </data>
   <data name="openFileToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Open file</value>
@@ -238,7 +247,7 @@
     <value>Ctrl+S</value>
   </data>
   <data name="saveReviewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 30</value>
+    <value>242, 30</value>
   </data>
   <data name="saveReviewToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Save Review</value>
@@ -288,15 +297,12 @@
   <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>501, 17</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>da-DK</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  </data>
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>9, 20</value>
   </data>
@@ -358,6 +364,12 @@
     <value>fileToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;fileToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nytReviewToolStripMenuItem.Name" xml:space="preserve">
+    <value>nytReviewToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;nytReviewToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;openFileToolStripMenuItem.Name" xml:space="preserve">

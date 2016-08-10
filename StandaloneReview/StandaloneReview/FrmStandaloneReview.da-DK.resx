@@ -118,11 +118,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="openFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 30</value>
+  <data name="insertCommentToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>236, 30</value>
   </data>
-  <data name="saveReviewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 30</value>
+  <data name="insertCommentToolStripMenuItem1.Text" xml:space="preserve">
+    <value>&amp;Indsæt kommentar</value>
+  </data>
+  <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="statusStrip1.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="nytReviewToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+N</value>
+  </data>
+  <data name="nytReviewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>241, 30</value>
+  </data>
+  <data name="nytReviewToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Nyt Review</value>
+  </data>
+  <data name="openFileToolStripMenuItem.Text" xml:space="preserve">
+    <value>Å&amp;ben fil</value>
   </data>
   <data name="saveReviewToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Gem Review</value>
@@ -133,31 +152,28 @@
   <data name="fileToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Fil</value>
   </data>
-  <data name="toolStripStatusLblLine.Text" xml:space="preserve">
-    <value>Ln: 0</value>
+  <data name="insertCommentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>292, 30</value>
+  </data>
+  <data name="insertCommentToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Indsæt kommentar</value>
+  </data>
+  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 29</value>
+  </data>
+  <data name="editToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Rediger</value>
   </data>
   <data name="menuStrip1.Text" xml:space="preserve">
     <value>-</value>
   </data>
-  <data name="insertCommentToolStripMenuItem1.Text" xml:space="preserve">
-    <value>&amp;Indsæt kommentar</value>
-  </data>
-  <data name="openFileToolStripMenuItem.Text" xml:space="preserve">
-    <value>Å&amp;ben fil</value>
-  </data>
-  <data name="insertCommentToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Indsæt kommentar</value>
+  <data name="toolStripStatusLblLine.Text" xml:space="preserve">
+    <value>Ln: 0</value>
   </data>
   <data name="toolStripStatusLblColumn.Text" xml:space="preserve">
     <value>Col: 0</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Standalone Review</value>
-  </data>
-  <data name="editToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Rediger</value>
-  </data>
-  <data name="statusStrip1.Text" xml:space="preserve">
-    <value>-</value>
   </data>
 </root>

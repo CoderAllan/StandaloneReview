@@ -11,6 +11,7 @@
         ApplicationState AppState { get; }
 
         event EventHandler<LoadEventArgs> BtnLoadClick;
+        event EventHandler<EventArgs> BtnNewClick;
         event EventHandler<SaveEventArgs> BtnSaveClick;
         event EventHandler<EventArgs> CommitComment;
         event EventHandler<ReviewCommentEventArgs> SetReviewComment;
@@ -19,6 +20,7 @@
         void SetTextEditorControlText(string textEditorControlName, string text);
         int GetTextOffset(int column, int line);
         void AddMarker(int offset, int length);
+        void ResetTextEditor();
     }
 
     public class LoadEventArgs : EventArgs
