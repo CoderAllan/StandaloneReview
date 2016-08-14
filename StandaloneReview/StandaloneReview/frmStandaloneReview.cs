@@ -56,6 +56,8 @@
         public event EventHandler<SaveEventArgs> BtnSaveClick;
         public event EventHandler<EventArgs> CommitComment;
         public event EventHandler<ReviewCommentEventArgs> SetReviewComment;
+        public event EventHandler<CaretPositionEventArgs> DeleteComment;
+        public event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
 
         public void SetTextEditorControlText(string textEditorControlName, string text)
         {
@@ -99,12 +101,17 @@
 
         private void ShowSelectionLength(object sender, KeyEventArgs e)
         {
-            SetStatusText(textEditorControlEx1);
+            SetStatusText(GetActiveTextEditor());
         }
         private void ShowSelectionLength(object sender, MouseEventArgs e)
         {
-            SetStatusText(textEditorControlEx1);
+            SetStatusText(GetActiveTextEditor());
         }
+        private TextEditorControlEx GetActiveTextEditor()
+        {
+            return textEditorControlEx1;
+        }
+
         private void SetStatusText(TextEditorControlEx editor)
         {
             var reviewCommentEventArgs = new ReviewCommentEventArgs
@@ -180,7 +187,8 @@
 
         public int GetTextOffset(int column, int line)
         {
-            return textEditorControlEx1.ActiveTextAreaControl.Document.PositionToOffset(new TextLocation(column, line));
+            var editor = GetActiveTextEditor();
+            return editor.ActiveTextAreaControl.Document.PositionToOffset(new TextLocation(column, line));
         }
 
         public void AddMarker(int offset, int length, string tooltipText)
@@ -189,8 +197,9 @@
             {
                 ToolTip = tooltipText
             };
-            textEditorControlEx1.Document.MarkerStrategy.AddMarker(marker);
-            textEditorControlEx1.Refresh();
+            var editor = GetActiveTextEditor();
+            editor.Document.MarkerStrategy.AddMarker(marker);
+            editor.Refresh();
         }
 
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -199,10 +208,11 @@
             {
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
+                    var editor = GetActiveTextEditor();
                     var loadEventArgs = new LoadEventArgs
                     {
                         Filename = openFileDialog1.FileName,
-                        EditorControlName = textEditorControlEx1.Name
+                        EditorControlName = editor.Name
                     };
                     BtnLoadClick(sender, loadEventArgs);
                 }
@@ -241,9 +251,10 @@
 
         public void ResetTextEditor()
         {
-            textEditorControlEx1.Document.MarkerStrategy.RemoveAll(marker => true);
-            textEditorControlEx1.Document.TextContent = "";
-            textEditorControlEx1.Refresh();
+            var editor = GetActiveTextEditor();
+            editor.Document.MarkerStrategy.RemoveAll(marker => true);
+            editor.Document.TextContent = "";
+            editor.Refresh();
         }
 
         public void EnableDisableMenuToolstripItems()
@@ -261,6 +272,46 @@
                 insertCommentToolStripMenuItem.Enabled = false;
                 saveReviewToolStripMenuItem.Enabled = false;
                 nytReviewToolStripMenuItem.Enabled = false;
+                deleteCommentToolStripMenuItem.Enabled = false;
+            }
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (ContextMenuStripOpening != null)
+            {
+                var editor = GetActiveTextEditor();
+                var shouldEnableDisableEventArgs = new CaretPositionEventArgs
+                {
+                    Line = editor.ActiveTextAreaControl.Caret.Position.Line + 1,
+                    Column = editor.ActiveTextAreaControl.Caret.Position.Column
+                };
+                ContextMenuStripOpening(sender, shouldEnableDisableEventArgs);
+            }
+        }
+
+        public void EnableDisableContextMenuToolsstripItems(bool menuToolStripEnabled)
+        {
+            deleteCommentToolStripMenuItem.Enabled = menuToolStripEnabled;
+        }
+
+        private void deleteCommentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DeleteComment != null)
+            {
+                var editor = GetActiveTextEditor();
+                var deleteCommentEventArgs = new CaretPositionEventArgs
+                {
+                    Line = editor.ActiveTextAreaControl.Caret.Position.Line + 1,
+                    Column = editor.ActiveTextAreaControl.Caret.Position.Column
+                };
+                DeleteComment(sender, deleteCommentEventArgs);
+                var textLocation = new TextLocation(editor.ActiveTextAreaControl.Caret.Position.Line, editor.ActiveTextAreaControl.Caret.Position.Column);
+                foreach (var textMarker in editor.Document.MarkerStrategy.GetMarkers(textLocation))
+                {
+                    editor.Document.MarkerStrategy.RemoveMarker(textMarker);
+                }
+                editor.Refresh();
             }
         }
     }

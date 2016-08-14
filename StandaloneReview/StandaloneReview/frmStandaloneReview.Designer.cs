@@ -50,6 +50,7 @@ namespace StandaloneReview
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insertCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.deleteCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -68,9 +69,11 @@ namespace StandaloneReview
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.insertCommentToolStripMenuItem1});
+            this.insertCommentToolStripMenuItem1,
+            this.deleteCommentToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // insertCommentToolStripMenuItem1
             // 
@@ -167,6 +170,12 @@ namespace StandaloneReview
             resources.ApplyResources(this.insertCommentToolStripMenuItem, "insertCommentToolStripMenuItem");
             this.insertCommentToolStripMenuItem.Click += new System.EventHandler(this.insertCommentToolStripMenuItem_Click);
             // 
+            // deleteCommentToolStripMenuItem
+            // 
+            this.deleteCommentToolStripMenuItem.Name = "deleteCommentToolStripMenuItem";
+            resources.ApplyResources(this.deleteCommentToolStripMenuItem, "deleteCommentToolStripMenuItem");
+            this.deleteCommentToolStripMenuItem.Click += new System.EventHandler(this.deleteCommentToolStripMenuItem_Click);
+            // 
             // FrmStandaloneReview
             // 
             resources.ApplyResources(this, "$this");
@@ -207,6 +216,7 @@ namespace StandaloneReview
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem insertCommentToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem nytReviewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteCommentToolStripMenuItem;
     }
 }
 

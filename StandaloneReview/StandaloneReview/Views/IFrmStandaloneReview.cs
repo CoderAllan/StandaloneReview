@@ -15,6 +15,8 @@
         event EventHandler<SaveEventArgs> BtnSaveClick;
         event EventHandler<EventArgs> CommitComment;
         event EventHandler<ReviewCommentEventArgs> SetReviewComment;
+        event EventHandler<CaretPositionEventArgs> DeleteComment;
+        event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
 
         void SetSyntaxHighlighting(string fileType);
         void SetTextEditorControlText(string textEditorControlName, string text);
@@ -23,6 +25,7 @@
         void ResetTextEditor();
         void EnableDisableMenuToolstripItems();
         bool MessageBoxUnsavedCommentsWarningOkCancel();
+        void EnableDisableContextMenuToolsstripItems(bool menuToolStripEnabled);
     }
 
     public class LoadEventArgs : EventArgs
@@ -45,5 +48,11 @@
         public int SelectionEndLine { get; set; }
         public int SelectionEndColumn { get; set; }
         public string SelectedText { get; set; }
+    }
+
+    public class CaretPositionEventArgs : EventArgs
+    {
+        public int Line { get; set; }
+        public int Column { get; set; }
     }
 }

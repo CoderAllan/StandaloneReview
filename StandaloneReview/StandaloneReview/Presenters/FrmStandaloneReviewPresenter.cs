@@ -24,6 +24,8 @@ namespace StandaloneReview.Presenters
             _view.BtnSaveClick += DoSaveClick;
             _view.CommitComment += DoCommitComment;
             _view.SetReviewComment += DoSetReviewComment;
+            _view.DeleteComment += DoDeleteComment;
+            _view.ContextMenuStripOpening += DoContextMenuStripOpening;
         }
 
         private void DoLoadClick(object sender, LoadEventArgs args)
@@ -121,6 +123,59 @@ namespace StandaloneReview.Presenters
             _view.AppState.WorkingComment.SelectionEndLine = e.SelectionEndLine;
             _view.AppState.WorkingComment.SelectionEndColumn = e.SelectionEndColumn;
             _view.AppState.WorkingComment.SelectedText = e.SelectedText;
+        }
+
+        private void DoContextMenuStripOpening(object sender, CaretPositionEventArgs e)
+        {
+            var commentAtCaretPosition = GetCommentAtCaretPosition(e.Line, e.Column);
+            _view.EnableDisableContextMenuToolsstripItems(commentAtCaretPosition != null);
+        }
+
+        private void DoDeleteComment(object sender, CaretPositionEventArgs e)
+        {
+            var commentAtCaretPosition = GetCommentAtCaretPosition(e.Line, e.Column);
+            if (commentAtCaretPosition != null)
+            {
+                _view.AppState.CurrentReviewedFile.Comments.Remove(commentAtCaretPosition);
+            }
+        }
+
+        private ReviewComment GetCommentAtCaretPosition(int line, int column)
+        {
+            ReviewComment commentAtCaretPosition = null;
+            foreach (var reviewComment in _view.AppState.CurrentReviewedFile.Comments)
+            {
+                if (reviewComment.SelectionStartLine > 0) // Its only when SelectionStartLine > 0 that its a ReviewComment on a text-selection
+                {
+                    if (reviewComment.SelectionStartLine < line && reviewComment.SelectionEndLine > line) 
+                    {
+                        commentAtCaretPosition = reviewComment;
+                        break;
+                    }
+                    if (reviewComment.SelectionStartLine == reviewComment.SelectionEndLine && 
+                        reviewComment.SelectionStartColumn <= column && 
+                        reviewComment.SelectionEndColumn >= column)
+                    {
+                        commentAtCaretPosition = reviewComment;
+                        break;
+                    }
+                    if ((reviewComment.SelectionStartLine == line && reviewComment.SelectionStartColumn <= column) ||
+                        (reviewComment.SelectionEndLine == line && reviewComment.SelectionEndColumn >= column))
+                    {
+                        commentAtCaretPosition = reviewComment;
+                        break;
+                    }
+                }
+                else // When its not a ReviewComment on a text-selection, it is a ReviewComment on a given line
+                {
+                    if (reviewComment.Line == line)
+                    {
+                        commentAtCaretPosition = reviewComment;
+                        break;
+                    }
+                }
+            }
+            return commentAtCaretPosition;
         }
     }
 }
