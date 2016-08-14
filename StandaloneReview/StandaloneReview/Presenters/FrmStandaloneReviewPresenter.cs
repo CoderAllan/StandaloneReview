@@ -36,6 +36,7 @@ namespace StandaloneReview.Presenters
                     Filename = args.Filename,
                     Comments = new List<ReviewComment>()
                 };
+            _view.EnableDisableMenuToolstripItems();
         }
 
         private void DoSaveClick(object sender, SaveEventArgs e)
@@ -47,7 +48,32 @@ namespace StandaloneReview.Presenters
 
         private void DoNewClick(object sender, EventArgs e)
         {
+            if (_view.AppState.CurrentReview.Saved)
+            {
+                ResetCurrentReviewWorkingComment();
+            }
+            else
+            {
+                if (_view.AppState.CurrentReviewedFile != null &&
+                    _view.AppState.CurrentReviewedFile.Comments != null &&
+                    _view.AppState.CurrentReviewedFile.Comments.Count > 0)
+                {
+                    if (_view.MessageBoxUnsavedCommentsWarningOkCancel())
+                    {
+                        ResetCurrentReviewWorkingComment();
+                    }
+                }
+                else
+                {
+                    ResetCurrentReviewWorkingComment();
+                }
+            }
+        }
+
+        private void ResetCurrentReviewWorkingComment()
+        {
             _view.AppState.WorkingComment = new ReviewComment();
+            _view.AppState.CurrentReviewedFile = null;
             _view.AppState.CurrentReview = new Review
             {
                 ReviewTime = DateTime.Now,
@@ -55,6 +81,7 @@ namespace StandaloneReview.Presenters
                 Saved = false
             };
             _view.ResetTextEditor();
+            _view.EnableDisableMenuToolstripItems();
         }
 
         private void DoCommitComment(object sender, EventArgs e)

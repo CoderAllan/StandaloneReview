@@ -21,6 +21,8 @@
         int GetTextOffset(int column, int line);
         void AddMarker(int offset, int length, string tooltipText);
         void ResetTextEditor();
+        void EnableDisableMenuToolstripItems();
+        bool MessageBoxUnsavedCommentsWarningOkCancel();
     }
 
     public class LoadEventArgs : EventArgs

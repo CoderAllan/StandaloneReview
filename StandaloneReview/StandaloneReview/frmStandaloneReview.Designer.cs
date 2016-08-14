@@ -140,7 +140,7 @@ namespace StandaloneReview
             // 
             this.nytReviewToolStripMenuItem.Name = "nytReviewToolStripMenuItem";
             resources.ApplyResources(this.nytReviewToolStripMenuItem, "nytReviewToolStripMenuItem");
-            this.nytReviewToolStripMenuItem.Click += new System.EventHandler(this.nytReviewToolStripMenuItem_Click);
+            this.nytReviewToolStripMenuItem.Click += new System.EventHandler(this.newReviewToolStripMenuItem_Click);
             // 
             // openFileToolStripMenuItem
             // 

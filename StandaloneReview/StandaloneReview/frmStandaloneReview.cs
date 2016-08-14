@@ -44,6 +44,7 @@
             textEditorControlEx1.ActiveTextAreaControl.TextArea.MouseUp += ShowSelectionLength;
             textEditorControlEx1.ActiveTextAreaControl.TextArea.KeyUp += ShowSelectionLength;
 
+            EnableDisableMenuToolstripItems();
         }
 
         public ISystemIO SystemIO { get { return _systemIO; } }
@@ -225,22 +226,17 @@
             }
         }
 
-        private void nytReviewToolStripMenuItem_Click(object sender, EventArgs e)
+        private void newReviewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (BtnNewClick != null)
             {
-                if (_appState.CurrentReview.Saved)
-                {
-                    BtnNewClick(sender, e);
-                }
-                else
-                {
-                    if (MessageBox.Show(Resources.FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes, Resources.FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes_Caption, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-                    {
-                        BtnNewClick(sender, e);
-                    }
-                }
+                BtnNewClick(sender, e);
             }
+        }
+
+        public bool MessageBoxUnsavedCommentsWarningOkCancel()
+        {
+            return MessageBox.Show(Resources.FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes, Resources.FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes_Caption, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning) == DialogResult.Yes;
         }
 
         public void ResetTextEditor()
@@ -248,6 +244,24 @@
             textEditorControlEx1.Document.MarkerStrategy.RemoveAll(marker => true);
             textEditorControlEx1.Document.TextContent = "";
             textEditorControlEx1.Refresh();
+        }
+
+        public void EnableDisableMenuToolstripItems()
+        {
+            if (_appState != null && _appState.CurrentReviewedFile != null)
+            {
+                insertCommentToolStripMenuItem1.Enabled = true;
+                insertCommentToolStripMenuItem.Enabled = true;
+                saveReviewToolStripMenuItem.Enabled = true;
+                nytReviewToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                insertCommentToolStripMenuItem1.Enabled = false;
+                insertCommentToolStripMenuItem.Enabled = false;
+                saveReviewToolStripMenuItem.Enabled = false;
+                nytReviewToolStripMenuItem.Enabled = false;
+            }
         }
     }
 }
