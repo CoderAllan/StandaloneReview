@@ -176,4 +176,7 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Standalone Review</value>
   </data>
+  <data name="deleteCommentToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Slet kommentar</value>
+  </data>
 </root>
