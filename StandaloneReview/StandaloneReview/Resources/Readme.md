@@ -1,0 +1,1 @@
+Icons for the application is from: https://github.com/ioBroker/ioBroker.icons-open-icon-library-png

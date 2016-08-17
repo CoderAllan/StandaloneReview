@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>edit-find-and-replace-2.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.TextEditorEx, Version=1.0.0.6, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -117,6 +120,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="edit-find-and-replace-2.ico" />
     <Content Include="Presenters\Readme.txt" />
     <Content Include="Resources\App.ico" />
   </ItemGroup>

@@ -36,6 +36,7 @@ namespace StandaloneReview
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.insertCommentToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLblLine = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLblColumn = new System.Windows.Forms.ToolStripStatusLabel();
@@ -48,10 +49,10 @@ namespace StandaloneReview
             this.nytReviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveReviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insertCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.editCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -71,8 +72,8 @@ namespace StandaloneReview
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.insertCommentToolStripMenuItem1,
-            this.deleteCommentToolStripMenuItem,
-            this.editCommentToolStripMenuItem});
+            this.editCommentToolStripMenuItem,
+            this.deleteCommentToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
@@ -85,9 +86,15 @@ namespace StandaloneReview
             // 
             // deleteCommentToolStripMenuItem
             // 
-            this.deleteCommentToolStripMenuItem.Name = "deleteCommentToolStripMenuItem";
             resources.ApplyResources(this.deleteCommentToolStripMenuItem, "deleteCommentToolStripMenuItem");
+            this.deleteCommentToolStripMenuItem.Name = "deleteCommentToolStripMenuItem";
             this.deleteCommentToolStripMenuItem.Click += new System.EventHandler(this.deleteCommentToolStripMenuItem_Click);
+            // 
+            // editCommentToolStripMenuItem
+            // 
+            resources.ApplyResources(this.editCommentToolStripMenuItem, "editCommentToolStripMenuItem");
+            this.editCommentToolStripMenuItem.Name = "editCommentToolStripMenuItem";
+            this.editCommentToolStripMenuItem.Click += new System.EventHandler(this.editCommentToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -143,7 +150,8 @@ namespace StandaloneReview
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nytReviewToolStripMenuItem,
             this.openFileToolStripMenuItem,
-            this.saveReviewToolStripMenuItem});
+            this.saveReviewToolStripMenuItem,
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
@@ -155,15 +163,20 @@ namespace StandaloneReview
             // 
             // openFileToolStripMenuItem
             // 
-            this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
             resources.ApplyResources(this.openFileToolStripMenuItem, "openFileToolStripMenuItem");
+            this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
             this.openFileToolStripMenuItem.Click += new System.EventHandler(this.openFileToolStripMenuItem_Click);
             // 
             // saveReviewToolStripMenuItem
             // 
-            this.saveReviewToolStripMenuItem.Name = "saveReviewToolStripMenuItem";
             resources.ApplyResources(this.saveReviewToolStripMenuItem, "saveReviewToolStripMenuItem");
+            this.saveReviewToolStripMenuItem.Name = "saveReviewToolStripMenuItem";
             this.saveReviewToolStripMenuItem.Click += new System.EventHandler(this.saveReviewToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             // 
             // editToolStripMenuItem
             // 
@@ -174,15 +187,9 @@ namespace StandaloneReview
             // 
             // insertCommentToolStripMenuItem
             // 
-            this.insertCommentToolStripMenuItem.Name = "insertCommentToolStripMenuItem";
             resources.ApplyResources(this.insertCommentToolStripMenuItem, "insertCommentToolStripMenuItem");
+            this.insertCommentToolStripMenuItem.Name = "insertCommentToolStripMenuItem";
             this.insertCommentToolStripMenuItem.Click += new System.EventHandler(this.insertCommentToolStripMenuItem_Click);
-            // 
-            // editCommentToolStripMenuItem
-            // 
-            this.editCommentToolStripMenuItem.Name = "editCommentToolStripMenuItem";
-            resources.ApplyResources(this.editCommentToolStripMenuItem, "editCommentToolStripMenuItem");
-            this.editCommentToolStripMenuItem.Click += new System.EventHandler(this.editCommentToolStripMenuItem_Click);
             // 
             // FrmStandaloneReview
             // 
@@ -226,6 +233,7 @@ namespace StandaloneReview
         private System.Windows.Forms.ToolStripMenuItem nytReviewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteCommentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editCommentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 

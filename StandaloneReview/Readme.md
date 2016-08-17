@@ -5,3 +5,5 @@ So in order to use them you have to be connected to the internet, and you have t
 
 Stanalone Review is build to be entirely standalone and disconnected. If you have the file you want to review locally and you have Standalone Review installed, you can make comments to the file, thats it.
 
+Icons for the application is from: https://github.com/ioBroker/ioBroker.icons-open-icon-library-png
+
