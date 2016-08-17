@@ -129,16 +129,22 @@
     <value>218, 30</value>
   </data>
   <data name="insertCommentToolStripMenuItem1.Text" xml:space="preserve">
-    <value>&amp;Insert Comment</value>
+    <value>&amp;Insert comment</value>
   </data>
   <data name="deleteCommentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>218, 30</value>
   </data>
   <data name="deleteCommentToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Delete Comment</value>
+    <value>&amp;Delete comment</value>
+  </data>
+  <data name="editCommentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 30</value>
+  </data>
+  <data name="editCommentToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Edit comment</value>
   </data>
   <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 86</value>
+    <value>219, 116</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip1.Name" xml:space="preserve">
     <value>contextMenuStrip1</value>
@@ -330,6 +336,12 @@
   <data name="&gt;&gt;insertCommentToolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;deleteCommentToolStripMenuItem.Name" xml:space="preserve">
+    <value>deleteCommentToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;deleteCommentToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;toolStripStatusLblLine.Name" xml:space="preserve">
     <value>toolStripStatusLblLine</value>
   </data>
@@ -408,10 +420,10 @@
   <data name="&gt;&gt;saveFileDialog1.Type" xml:space="preserve">
     <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;deleteCommentToolStripMenuItem.Name" xml:space="preserve">
-    <value>deleteCommentToolStripMenuItem</value>
+  <data name="&gt;&gt;editCommentToolStripMenuItem.Name" xml:space="preserve">
+    <value>editCommentToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;deleteCommentToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;editCommentToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

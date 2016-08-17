@@ -16,7 +16,7 @@
 
         public ApplicationState AppState {get { return _appState; }}
 
-        public FrmInsertComment(ApplicationState appState)
+        public FrmInsertComment(ApplicationState appState, bool editWorkingComment)
         {
             _appState = appState;
             _baseFormPresenter = new BaseFormPresenter(this);
@@ -31,6 +31,11 @@
                 Location = new Point(_appState.FrmInsertCommentPosX, _appState.FrmInsertCommentPosY)
             };
             DoFormLoad(this, eventArgs);
+
+            if (editWorkingComment)
+            {
+                txtComment.Text = _appState.WorkingComment.Comment;
+            }
         }
 
         public event EventHandler<BaseFormEventArgs> DoFormLoad;

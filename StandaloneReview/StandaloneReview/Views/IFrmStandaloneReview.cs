@@ -13,9 +13,10 @@
         event EventHandler<LoadEventArgs> BtnLoadClick;
         event EventHandler<EventArgs> BtnNewClick;
         event EventHandler<SaveEventArgs> BtnSaveClick;
-        event EventHandler<EventArgs> CommitComment;
+        event EventHandler<CommitCommentEventArgs> CommitComment;
         event EventHandler<ReviewCommentEventArgs> SetReviewComment;
         event EventHandler<CaretPositionEventArgs> DeleteComment;
+        event EventHandler<CaretPositionEventArgs> EditComment;
         event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
 
         void SetSyntaxHighlighting(string fileType);
@@ -26,6 +27,8 @@
         void EnableDisableMenuToolstripItems();
         bool MessageBoxUnsavedCommentsWarningOkCancel();
         void EnableDisableContextMenuToolsstripItems(bool menuToolStripEnabled);
+        void ShowInsertCommentForm(bool editCurrentWorkingComment);
+        void SetMarkerTooltip(string tooltipText);
     }
 
     public class LoadEventArgs : EventArgs
@@ -37,6 +40,11 @@
     public class SaveEventArgs : EventArgs
     {
         public string Filename { get; set; }
+    }
+
+    public class CommitCommentEventArgs : EventArgs
+    {
+        public bool EditCurrentWorkingComment { get; set; }
     }
 
     public class ReviewCommentEventArgs : EventArgs

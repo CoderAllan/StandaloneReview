@@ -54,9 +54,10 @@
         public event EventHandler<LoadEventArgs> BtnLoadClick;
         public event EventHandler<EventArgs> BtnNewClick;
         public event EventHandler<SaveEventArgs> BtnSaveClick;
-        public event EventHandler<EventArgs> CommitComment;
+        public event EventHandler<CommitCommentEventArgs> CommitComment;
         public event EventHandler<ReviewCommentEventArgs> SetReviewComment;
         public event EventHandler<CaretPositionEventArgs> DeleteComment;
+        public event EventHandler<CaretPositionEventArgs> EditComment;
         public event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
 
         public void SetTextEditorControlText(string textEditorControlName, string text)
@@ -175,13 +176,40 @@
 
         private void ShowInsertCommentForm(object sender, EventArgs e)
         {
-            var frmInsertComment = new FrmInsertComment(_appState)
+            ShowInsertCommentForm(false);
+        }
+
+        public void ShowInsertCommentForm(bool editCurrentWorkingComment)
+        {
+            var frmInsertComment = new FrmInsertComment(_appState, editCurrentWorkingComment)
             {
                 Visible = false
             };
             if (frmInsertComment.ShowDialog() == DialogResult.OK && CommitComment != null)
             {
-                CommitComment(sender, e);
+                var commitCommentEventArgs = new CommitCommentEventArgs
+                {
+                    EditCurrentWorkingComment = editCurrentWorkingComment
+                };
+                CommitComment(null, commitCommentEventArgs);
+            }
+            else
+            {
+                _appState.WorkingComment = new ReviewComment();
+            }
+        }
+
+        private void editCommentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (EditComment != null)
+            {
+                var editor = GetActiveTextEditor();
+                var editCommentEventArgs = new CaretPositionEventArgs
+                {
+                    Line = editor.ActiveTextAreaControl.Caret.Position.Line + 1,
+                    Column = editor.ActiveTextAreaControl.Caret.Position.Column
+                };
+                EditComment(sender, editCommentEventArgs);
             }
         }
 
@@ -199,6 +227,17 @@
             };
             var editor = GetActiveTextEditor();
             editor.Document.MarkerStrategy.AddMarker(marker);
+            editor.Refresh();
+        }
+
+        public void SetMarkerTooltip(string tooltipText)
+        {
+            var editor = GetActiveTextEditor();
+            var textLocation = new TextLocation(editor.ActiveTextAreaControl.Caret.Position.Column, editor.ActiveTextAreaControl.Caret.Position.Line);
+            foreach (var textMarker in editor.Document.MarkerStrategy.GetMarkers(textLocation))
+            {
+                textMarker.ToolTip = tooltipText;
+            }
             editor.Refresh();
         }
 
@@ -273,6 +312,7 @@
                 saveReviewToolStripMenuItem.Enabled = false;
                 nytReviewToolStripMenuItem.Enabled = false;
                 deleteCommentToolStripMenuItem.Enabled = false;
+                editCommentToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -293,6 +333,7 @@
         public void EnableDisableContextMenuToolsstripItems(bool menuToolStripEnabled)
         {
             deleteCommentToolStripMenuItem.Enabled = menuToolStripEnabled;
+            editCommentToolStripMenuItem.Enabled = menuToolStripEnabled;
         }
 
         private void deleteCommentToolStripMenuItem_Click(object sender, EventArgs e)
@@ -306,7 +347,7 @@
                     Column = editor.ActiveTextAreaControl.Caret.Position.Column
                 };
                 DeleteComment(sender, deleteCommentEventArgs);
-                var textLocation = new TextLocation(editor.ActiveTextAreaControl.Caret.Position.Line, editor.ActiveTextAreaControl.Caret.Position.Column);
+                var textLocation = new TextLocation(editor.ActiveTextAreaControl.Caret.Position.Column, editor.ActiveTextAreaControl.Caret.Position.Line);
                 foreach (var textMarker in editor.Document.MarkerStrategy.GetMarkers(textLocation))
                 {
                     editor.Document.MarkerStrategy.RemoveMarker(textMarker);

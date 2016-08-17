@@ -35,6 +35,7 @@ namespace StandaloneReview
             this.textEditorControlEx1 = new ICSharpCode.TextEditor.TextEditorControlEx();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.insertCommentToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLblLine = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLblColumn = new System.Windows.Forms.ToolStripStatusLabel();
@@ -50,7 +51,7 @@ namespace StandaloneReview
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insertCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.deleteCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -70,7 +71,8 @@ namespace StandaloneReview
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.insertCommentToolStripMenuItem1,
-            this.deleteCommentToolStripMenuItem});
+            this.deleteCommentToolStripMenuItem,
+            this.editCommentToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
@@ -80,6 +82,12 @@ namespace StandaloneReview
             this.insertCommentToolStripMenuItem1.Name = "insertCommentToolStripMenuItem1";
             resources.ApplyResources(this.insertCommentToolStripMenuItem1, "insertCommentToolStripMenuItem1");
             this.insertCommentToolStripMenuItem1.Click += new System.EventHandler(this.insertCommentToolStripMenuItem1_Click);
+            // 
+            // deleteCommentToolStripMenuItem
+            // 
+            this.deleteCommentToolStripMenuItem.Name = "deleteCommentToolStripMenuItem";
+            resources.ApplyResources(this.deleteCommentToolStripMenuItem, "deleteCommentToolStripMenuItem");
+            this.deleteCommentToolStripMenuItem.Click += new System.EventHandler(this.deleteCommentToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -170,11 +178,11 @@ namespace StandaloneReview
             resources.ApplyResources(this.insertCommentToolStripMenuItem, "insertCommentToolStripMenuItem");
             this.insertCommentToolStripMenuItem.Click += new System.EventHandler(this.insertCommentToolStripMenuItem_Click);
             // 
-            // deleteCommentToolStripMenuItem
+            // editCommentToolStripMenuItem
             // 
-            this.deleteCommentToolStripMenuItem.Name = "deleteCommentToolStripMenuItem";
-            resources.ApplyResources(this.deleteCommentToolStripMenuItem, "deleteCommentToolStripMenuItem");
-            this.deleteCommentToolStripMenuItem.Click += new System.EventHandler(this.deleteCommentToolStripMenuItem_Click);
+            this.editCommentToolStripMenuItem.Name = "editCommentToolStripMenuItem";
+            resources.ApplyResources(this.editCommentToolStripMenuItem, "editCommentToolStripMenuItem");
+            this.editCommentToolStripMenuItem.Click += new System.EventHandler(this.editCommentToolStripMenuItem_Click);
             // 
             // FrmStandaloneReview
             // 
@@ -217,6 +225,7 @@ namespace StandaloneReview
         private System.Windows.Forms.ToolStripMenuItem insertCommentToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem nytReviewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteCommentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editCommentToolStripMenuItem;
     }
 }
 

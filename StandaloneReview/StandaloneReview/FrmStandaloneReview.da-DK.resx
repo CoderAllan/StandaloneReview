@@ -179,4 +179,7 @@
   <data name="deleteCommentToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Slet kommentar</value>
   </data>
+  <data name="editCommentToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Rediger kommentar</value>
+  </data>
 </root>

@@ -25,6 +25,7 @@ namespace StandaloneReview.Presenters
             _view.CommitComment += DoCommitComment;
             _view.SetReviewComment += DoSetReviewComment;
             _view.DeleteComment += DoDeleteComment;
+            _view.EditComment += DoEditComment;
             _view.ContextMenuStripOpening += DoContextMenuStripOpening;
         }
 
@@ -86,26 +87,36 @@ namespace StandaloneReview.Presenters
             _view.EnableDisableMenuToolstripItems();
         }
 
-        private void DoCommitComment(object sender, EventArgs e)
+        private void DoCommitComment(object sender, CommitCommentEventArgs e)
         {
             if (!_view.AppState.CurrentReview.ReviewedFiles.ContainsKey(_view.AppState.CurrentReviewedFile.Filename))
             {
                 _view.AppState.CurrentReview.ReviewedFiles.Add(_view.AppState.CurrentReviewedFile.Filename, _view.AppState.CurrentReviewedFile);
             }
-            _view.AppState.CurrentReview.ReviewedFiles[_view.AppState.CurrentReviewedFile.Filename].Comments.Add(_view.AppState.WorkingComment);
-            int offset;
-            int length;
-            if (_view.AppState.WorkingComment.SelectionStartLine > 0)
+            if (!e.EditCurrentWorkingComment)
             {
-                offset = _view.GetTextOffset(_view.AppState.WorkingComment.SelectionStartColumn, _view.AppState.WorkingComment.SelectionStartLine - 1);
-                length = _view.AppState.WorkingComment.SelectedText.Length;
+                _view.AppState.CurrentReview.ReviewedFiles[_view.AppState.CurrentReviewedFile.Filename].Comments.Add(_view.AppState.WorkingComment);
+            }
+            if (!e.EditCurrentWorkingComment)
+            {
+                int offset;
+                int length;
+                if (_view.AppState.WorkingComment.SelectionStartLine > 0)
+                {
+                    offset = _view.GetTextOffset(_view.AppState.WorkingComment.SelectionStartColumn, _view.AppState.WorkingComment.SelectionStartLine - 1);
+                    length = _view.AppState.WorkingComment.SelectedText.Length;
+                }
+                else
+                {
+                    offset = _view.GetTextOffset(1, _view.AppState.WorkingComment.Line - 1);
+                    length = _view.AppState.WorkingComment.LineText.Length;
+                }
+                _view.AddMarker(offset, length, _view.AppState.WorkingComment.Comment);
             }
             else
             {
-                offset = _view.GetTextOffset(1, _view.AppState.WorkingComment.Line - 1);
-                length = _view.AppState.WorkingComment.LineText.Length;
+                _view.SetMarkerTooltip(_view.AppState.WorkingComment.Comment);
             }
-            _view.AddMarker(offset, length, _view.AppState.WorkingComment.Comment);
             _view.AppState.WorkingComment = new ReviewComment();
             _view.AppState.CurrentReview.Saved = false;
         }
@@ -137,41 +148,56 @@ namespace StandaloneReview.Presenters
             if (commentAtCaretPosition != null)
             {
                 _view.AppState.CurrentReviewedFile.Comments.Remove(commentAtCaretPosition);
+                _view.AppState.WorkingComment = new ReviewComment();
+                _view.AppState.CurrentReview.Saved = false;
+            }
+        }
+
+        private void DoEditComment(object sender, CaretPositionEventArgs e)
+        {
+            var commentAtCaretPosition = GetCommentAtCaretPosition(e.Line, e.Column);
+            if (commentAtCaretPosition != null)
+            {
+                _view.AppState.WorkingComment = commentAtCaretPosition;
+                _view.ShowInsertCommentForm(true);
             }
         }
 
         private ReviewComment GetCommentAtCaretPosition(int line, int column)
         {
             ReviewComment commentAtCaretPosition = null;
-            foreach (var reviewComment in _view.AppState.CurrentReviewedFile.Comments)
+            if (_view.AppState.CurrentReviewedFile != null)
             {
-                if (reviewComment.SelectionStartLine > 0) // Its only when SelectionStartLine > 0 that its a ReviewComment on a text-selection
+                foreach (var reviewComment in _view.AppState.CurrentReviewedFile.Comments)
                 {
-                    if (reviewComment.SelectionStartLine < line && reviewComment.SelectionEndLine > line) 
+                    if (reviewComment.SelectionStartLine > 0) // Its only when SelectionStartLine > 0 that its a ReviewComment on a text-selection
                     {
-                        commentAtCaretPosition = reviewComment;
-                        break;
+                        if (reviewComment.SelectionStartLine < line && reviewComment.SelectionEndLine > line)
+                        {
+                            commentAtCaretPosition = reviewComment;
+                            break;
+                        }
+                        if (reviewComment.SelectionStartLine == reviewComment.SelectionEndLine &&
+                            reviewComment.SelectionStartColumn <= column &&
+                            reviewComment.SelectionEndColumn >= column)
+                        {
+                            commentAtCaretPosition = reviewComment;
+                            break;
+                        }
+                        if ((reviewComment.SelectionStartLine == line && reviewComment.SelectionStartColumn <= column) ||
+                            (reviewComment.SelectionEndLine == line && reviewComment.SelectionEndColumn >= column))
+                        {
+                            commentAtCaretPosition = reviewComment;
+                            break;
+                        }
                     }
-                    if (reviewComment.SelectionStartLine == reviewComment.SelectionEndLine && 
-                        reviewComment.SelectionStartColumn <= column && 
-                        reviewComment.SelectionEndColumn >= column)
+                    else // When its not a ReviewComment on a text-selection, it is a ReviewComment on a given line
                     {
-                        commentAtCaretPosition = reviewComment;
-                        break;
-                    }
-                    if ((reviewComment.SelectionStartLine == line && reviewComment.SelectionStartColumn <= column) ||
-                        (reviewComment.SelectionEndLine == line && reviewComment.SelectionEndColumn >= column))
-                    {
-                        commentAtCaretPosition = reviewComment;
-                        break;
-                    }
-                }
-                else // When its not a ReviewComment on a text-selection, it is a ReviewComment on a given line
-                {
-                    if (reviewComment.Line == line)
-                    {
-                        commentAtCaretPosition = reviewComment;
-                        break;
+                        if (reviewComment.Line == line)
+                        {
+                            commentAtCaretPosition = reviewComment;
+                            break;
+                        }
                     }
                 }
             }

@@ -13,9 +13,10 @@ namespace StandaloneReview.Tests.MockViews
         public event EventHandler<LoadEventArgs> BtnLoadClick;
         public event EventHandler<EventArgs> BtnNewClick;
         public event EventHandler<SaveEventArgs> BtnSaveClick;
-        public event EventHandler<EventArgs> CommitComment;
+        public event EventHandler<CommitCommentEventArgs> CommitComment;
         public event EventHandler<ReviewCommentEventArgs> SetReviewComment;
         public event EventHandler<CaretPositionEventArgs> DeleteComment;
+        public event EventHandler<CaretPositionEventArgs> EditComment;
         public event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
 
         public MockFrmStandaloneReview()
@@ -81,6 +82,16 @@ namespace StandaloneReview.Tests.MockViews
         {
             EnableDisableContextMenuToolsstripItemsWasCalled = true;
             EnableDisableContextMenuToolsstripItemsCalledValue = menuToolStripEnabled;
+        }
+
+        public void ShowInsertCommentForm(bool editCurrentWorkingComment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetMarkerTooltip(string tooltipText)
+        {
+            throw new NotImplementedException();
         }
     }
 }
