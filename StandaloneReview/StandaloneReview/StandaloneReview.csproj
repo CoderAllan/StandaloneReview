@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>edit-find-and-replace-2.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\edit-find-and-replace-2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.TextEditorEx, Version=1.0.0.6, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
@@ -115,14 +115,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\Readme.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="edit-find-and-replace-2.ico" />
+    <Content Include="Resources\dialog-close.png" />
+    <Content Include="Resources\document-open-8.png" />
+    <Content Include="Resources\document-preview.png" />
+    <Content Include="Resources\document-save-5.png" />
+    <Content Include="Resources\edit-4.png" />
+    <Content Include="Resources\edit-find-and-replace-2.ico" />
     <Content Include="Presenters\Readme.txt" />
-    <Content Include="Resources\App.ico" />
+    <Content Include="Resources\edit-find-and-replace-2.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
