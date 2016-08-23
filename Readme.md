@@ -15,11 +15,6 @@ Task Lists
 - [ ] Use richtext to format the review
 - [ ] Save the review as HTML
 
-Known Bugs
-----
-- [ ] Exit application doesnt work
-- [ ] Sometimes right-clicking a comment opens the first comment added.
-
 Icons
 ----
 Icons for the application is from: [https://github.com/ioBroker/ioBroker.icons-open-icon-library-png]([https://github.com/ioBroker/ioBroker.icons-open-icon-library-png])
