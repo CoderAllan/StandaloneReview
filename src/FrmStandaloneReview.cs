@@ -54,6 +54,7 @@
         public event EventHandler<LoadEventArgs> BtnLoadClick;
         public event EventHandler<EventArgs> BtnNewClick;
         public event EventHandler<SaveEventArgs> BtnSaveClick;
+        public event EventHandler<EventArgs> BtnExitClick;
         public event EventHandler<CommitCommentEventArgs> CommitComment;
         public event EventHandler<ReviewCommentEventArgs> SetReviewComment;
         public event EventHandler<CaretPositionEventArgs> DeleteComment;
@@ -155,6 +156,19 @@
             label.BorderStyle = Border3DStyle.Flat;
             label.BorderSides = !String.IsNullOrEmpty(label.Text) ? ToolStripStatusLabelBorderSides.Left : ToolStripStatusLabelBorderSides.None;
             toolStrip.Refresh();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BtnExitClick != null)
+            {
+                BtnExitClick(sender, e);
+            }
+        }
+
+        public void CloseApplication()
+        {
+            Close();
         }
 
         private void FrmStandaloneReview_FormClosing(object sender, FormClosingEventArgs e)
@@ -304,6 +318,7 @@
                 insertCommentToolStripMenuItem.Enabled = true;
                 saveReviewToolStripMenuItem.Enabled = true;
                 nytReviewToolStripMenuItem.Enabled = true;
+                previewToolStripMenuItem.Enabled = true;
             }
             else
             {
@@ -313,6 +328,7 @@
                 nytReviewToolStripMenuItem.Enabled = false;
                 deleteCommentToolStripMenuItem.Enabled = false;
                 editCommentToolStripMenuItem.Enabled = false;
+                previewToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -354,6 +370,12 @@
                 }
                 editor.Refresh();
             }
+        }
+
+        private void previewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frmPreview = new FrmPreview(_appState);
+            frmPreview.ShowDialog();
         }
     }
 }

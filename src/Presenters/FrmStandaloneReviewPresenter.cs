@@ -22,6 +22,7 @@ namespace StandaloneReview.Presenters
             _view.BtnLoadClick += DoLoadClick;
             _view.BtnNewClick += DoNewClick;
             _view.BtnSaveClick += DoSaveClick;
+            _view.BtnExitClick += DoExitClick;
             _view.CommitComment += DoCommitComment;
             _view.SetReviewComment += DoSetReviewComment;
             _view.DeleteComment += DoDeleteComment;
@@ -40,6 +41,30 @@ namespace StandaloneReview.Presenters
                     Comments = new List<ReviewComment>()
                 };
             _view.EnableDisableMenuToolstripItems();
+        }
+
+        private void DoExitClick(object sender, EventArgs e)
+        {
+            if (_view.AppState.CurrentReview.Saved)
+            {
+                _view.CloseApplication();
+            }
+            else
+            {
+                if (_view.AppState.CurrentReviewedFile != null &&
+                    _view.AppState.CurrentReviewedFile.Comments != null &&
+                    _view.AppState.CurrentReviewedFile.Comments.Count > 0)
+                {
+                    if (_view.MessageBoxUnsavedCommentsWarningOkCancel())
+                    {
+                        _view.CloseApplication();
+                    }
+                }
+                else
+                {
+                    _view.CloseApplication();
+                }
+            }            
         }
 
         private void DoSaveClick(object sender, SaveEventArgs e)

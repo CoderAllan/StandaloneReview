@@ -7,6 +7,7 @@
     public class ReviewedFile
     {
         public string Filename { get; set; }
+        public int Position { get; set; }
         public List<ReviewComment> Comments { get; set; }
 
         public override string ToString()

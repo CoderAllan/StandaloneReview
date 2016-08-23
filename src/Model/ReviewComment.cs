@@ -13,6 +13,7 @@ namespace StandaloneReview.Model
         public int SelectionEndColumn { get; set; }
         public string SelectedText { get; set; }
         public string Comment { get; set; }
+        public int Position { get; set; }
 
         public override string ToString()
         {

@@ -20,5 +20,10 @@ namespace StandaloneReview
         {
             return Path.GetExtension(filename);
         }
+
+        public string PathGetFilename(string filename)
+        {
+            return Path.GetFileName(filename);
+        }
     }
 }

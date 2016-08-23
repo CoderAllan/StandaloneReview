@@ -35,8 +35,8 @@ namespace StandaloneReview
             this.textEditorControlEx1 = new ICSharpCode.TextEditor.TextEditorControlEx();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.insertCommentToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLblLine = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLblColumn = new System.Windows.Forms.ToolStripStatusLabel();
@@ -53,6 +53,7 @@ namespace StandaloneReview
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insertCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -84,17 +85,17 @@ namespace StandaloneReview
             resources.ApplyResources(this.insertCommentToolStripMenuItem1, "insertCommentToolStripMenuItem1");
             this.insertCommentToolStripMenuItem1.Click += new System.EventHandler(this.insertCommentToolStripMenuItem1_Click);
             // 
-            // deleteCommentToolStripMenuItem
-            // 
-            resources.ApplyResources(this.deleteCommentToolStripMenuItem, "deleteCommentToolStripMenuItem");
-            this.deleteCommentToolStripMenuItem.Name = "deleteCommentToolStripMenuItem";
-            this.deleteCommentToolStripMenuItem.Click += new System.EventHandler(this.deleteCommentToolStripMenuItem_Click);
-            // 
             // editCommentToolStripMenuItem
             // 
             resources.ApplyResources(this.editCommentToolStripMenuItem, "editCommentToolStripMenuItem");
             this.editCommentToolStripMenuItem.Name = "editCommentToolStripMenuItem";
             this.editCommentToolStripMenuItem.Click += new System.EventHandler(this.editCommentToolStripMenuItem_Click);
+            // 
+            // deleteCommentToolStripMenuItem
+            // 
+            resources.ApplyResources(this.deleteCommentToolStripMenuItem, "deleteCommentToolStripMenuItem");
+            this.deleteCommentToolStripMenuItem.Name = "deleteCommentToolStripMenuItem";
+            this.deleteCommentToolStripMenuItem.Click += new System.EventHandler(this.deleteCommentToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -151,6 +152,7 @@ namespace StandaloneReview
             this.nytReviewToolStripMenuItem,
             this.openFileToolStripMenuItem,
             this.saveReviewToolStripMenuItem,
+            this.previewToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
@@ -177,6 +179,7 @@ namespace StandaloneReview
             // 
             resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -190,6 +193,12 @@ namespace StandaloneReview
             resources.ApplyResources(this.insertCommentToolStripMenuItem, "insertCommentToolStripMenuItem");
             this.insertCommentToolStripMenuItem.Name = "insertCommentToolStripMenuItem";
             this.insertCommentToolStripMenuItem.Click += new System.EventHandler(this.insertCommentToolStripMenuItem_Click);
+            // 
+            // previewToolStripMenuItem
+            // 
+            resources.ApplyResources(this.previewToolStripMenuItem, "previewToolStripMenuItem");
+            this.previewToolStripMenuItem.Name = "previewToolStripMenuItem";
+            this.previewToolStripMenuItem.Click += new System.EventHandler(this.previewToolStripMenuItem_Click);
             // 
             // FrmStandaloneReview
             // 
@@ -234,6 +243,7 @@ namespace StandaloneReview
         private System.Windows.Forms.ToolStripMenuItem deleteCommentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editCommentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem previewToolStripMenuItem;
     }
 }
 

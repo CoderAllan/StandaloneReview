@@ -13,6 +13,7 @@ namespace StandaloneReview.Tests.MockViews
         public event EventHandler<LoadEventArgs> BtnLoadClick;
         public event EventHandler<EventArgs> BtnNewClick;
         public event EventHandler<SaveEventArgs> BtnSaveClick;
+        public event EventHandler<EventArgs> BtnExitClick;
         public event EventHandler<CommitCommentEventArgs> CommitComment;
         public event EventHandler<ReviewCommentEventArgs> SetReviewComment;
         public event EventHandler<CaretPositionEventArgs> DeleteComment;
@@ -71,13 +72,16 @@ namespace StandaloneReview.Tests.MockViews
             throw new NotImplementedException();
         }
 
+        public bool MessageBoxUnsavedCommentsWarningOkCancelWasCalled { get; private set; }
+        public bool MessageBoxUnsavedCommentsWarningOkCancelValue { get; set; }
         public bool MessageBoxUnsavedCommentsWarningOkCancel()
         {
-            throw new NotImplementedException();
+            MessageBoxUnsavedCommentsWarningOkCancelWasCalled = true;
+            return MessageBoxUnsavedCommentsWarningOkCancelValue;
         }
 
-        public bool EnableDisableContextMenuToolsstripItemsWasCalled { get; set; }
-        public bool EnableDisableContextMenuToolsstripItemsCalledValue { get; set; }
+        public bool EnableDisableContextMenuToolsstripItemsWasCalled { get; private set; }
+        public bool EnableDisableContextMenuToolsstripItemsCalledValue { get; private set; }
         public void EnableDisableContextMenuToolsstripItems(bool menuToolStripEnabled)
         {
             EnableDisableContextMenuToolsstripItemsWasCalled = true;
@@ -92,6 +96,26 @@ namespace StandaloneReview.Tests.MockViews
         public void SetMarkerTooltip(string tooltipText)
         {
             throw new NotImplementedException();
+        }
+
+
+        public void FireExitMenuClickedEvent(bool discardUnsavedComments = false)
+        {
+            if (BtnExitClick == null)
+            {
+                throw new NotImplementedException();
+            }
+            else
+            {
+                MessageBoxUnsavedCommentsWarningOkCancelValue = discardUnsavedComments;
+                BtnExitClick(null, EventArgs.Empty);
+            }
+        }
+
+        public bool CloseApplicationWasCalled { get; private set; }
+        public void CloseApplication()
+        {
+            CloseApplicationWasCalled = true;
         }
     }
 }

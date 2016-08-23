@@ -32,6 +32,10 @@ namespace StandaloneReview.Model
         public int FrmInsertCommentHeight;
         public int FrmInsertCommentPosX;
         public int FrmInsertCommentPosY;
+        public int FrmPreviewWidth;
+        public int FrmPreviewHeight;
+        public int FrmPreviewPosX;
+        public int FrmPreviewPosY;
 
         public static void WriteApplicationState(ApplicationState state)
         {
@@ -111,5 +115,12 @@ namespace StandaloneReview.Model
             FrmInsertCommentPosY = form.Location.Y;
         }
 
+        internal void PersistFrmPreview(FrmPreview form)
+        {
+            FrmPreviewHeight = form.Height;
+            FrmPreviewWidth = form.Width;
+            FrmPreviewPosX = form.Location.X;
+            FrmPreviewPosY = form.Location.Y;
+        }
     }
 }

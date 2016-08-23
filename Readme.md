@@ -37,5 +37,3 @@ The insert comment dialog:
 The preview review dialog
 
 ![preview](Screenshots/StandaloneReview_Preview.png)
-
-

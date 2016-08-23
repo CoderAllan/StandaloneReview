@@ -182,4 +182,10 @@
   <data name="editCommentToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Rediger kommentar</value>
   </data>
+  <data name="exitToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Afslut</value>
+  </data>
+  <data name="previewToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Vis Review</value>
+  </data>
 </root>

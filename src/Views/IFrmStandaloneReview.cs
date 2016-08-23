@@ -13,6 +13,7 @@
         event EventHandler<LoadEventArgs> BtnLoadClick;
         event EventHandler<EventArgs> BtnNewClick;
         event EventHandler<SaveEventArgs> BtnSaveClick;
+        event EventHandler<EventArgs> BtnExitClick;
         event EventHandler<CommitCommentEventArgs> CommitComment;
         event EventHandler<ReviewCommentEventArgs> SetReviewComment;
         event EventHandler<CaretPositionEventArgs> DeleteComment;
@@ -29,6 +30,7 @@
         void EnableDisableContextMenuToolsstripItems(bool menuToolStripEnabled);
         void ShowInsertCommentForm(bool editCurrentWorkingComment);
         void SetMarkerTooltip(string tooltipText);
+        void CloseApplication();
     }
 
     public class LoadEventArgs : EventArgs
