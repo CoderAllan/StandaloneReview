@@ -28,6 +28,15 @@ namespace StandaloneReview.Presenters
             _view.DeleteComment += DoDeleteComment;
             _view.EditComment += DoEditComment;
             _view.ContextMenuStripOpening += DoContextMenuStripOpening;
+
+            DoSetFrmStandaloneReviewTitle();
+        }
+
+        private void DoSetFrmStandaloneReviewTitle()
+        {
+            const string mainFormTitle = "Standalone Review";
+            string isReviewSaved = _view.AppState.CurrentReview.Saved ? "" : " *";
+            _view.SetFrmStandaloneReviewTitle(mainFormTitle + isReviewSaved);
         }
 
         private void DoLoadClick(object sender, LoadEventArgs args)
@@ -72,6 +81,7 @@ namespace StandaloneReview.Presenters
             string review = _view.AppState.CurrentReview.ToString();
             _view.SystemIO.WriteAllText(e.Filename, review);
             _view.AppState.CurrentReview.Saved = true;
+            DoSetFrmStandaloneReviewTitle();
         }
 
         private void DoNewClick(object sender, EventArgs e)
@@ -106,10 +116,11 @@ namespace StandaloneReview.Presenters
             {
                 ReviewTime = DateTime.Now,
                 ReviewedFiles = new Dictionary<string, ReviewedFile>(),
-                Saved = false
+                Saved = true
             };
             _view.ResetTextEditor();
             _view.EnableDisableMenuToolstripItems();
+            DoSetFrmStandaloneReviewTitle();
         }
 
         private void DoCommitComment(object sender, CommitCommentEventArgs e)
@@ -144,6 +155,7 @@ namespace StandaloneReview.Presenters
             }
             _view.AppState.WorkingComment = new ReviewComment();
             _view.AppState.CurrentReview.Saved = false;
+            DoSetFrmStandaloneReviewTitle();
         }
 
         private void DoSetReviewComment(object sender, ReviewCommentEventArgs e)

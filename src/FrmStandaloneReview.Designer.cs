@@ -49,11 +49,11 @@ namespace StandaloneReview
             this.nytReviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveReviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insertCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -175,6 +175,12 @@ namespace StandaloneReview
             this.saveReviewToolStripMenuItem.Name = "saveReviewToolStripMenuItem";
             this.saveReviewToolStripMenuItem.Click += new System.EventHandler(this.saveReviewToolStripMenuItem_Click);
             // 
+            // previewToolStripMenuItem
+            // 
+            resources.ApplyResources(this.previewToolStripMenuItem, "previewToolStripMenuItem");
+            this.previewToolStripMenuItem.Name = "previewToolStripMenuItem";
+            this.previewToolStripMenuItem.Click += new System.EventHandler(this.previewToolStripMenuItem_Click);
+            // 
             // exitToolStripMenuItem
             // 
             resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
@@ -193,12 +199,6 @@ namespace StandaloneReview
             resources.ApplyResources(this.insertCommentToolStripMenuItem, "insertCommentToolStripMenuItem");
             this.insertCommentToolStripMenuItem.Name = "insertCommentToolStripMenuItem";
             this.insertCommentToolStripMenuItem.Click += new System.EventHandler(this.insertCommentToolStripMenuItem_Click);
-            // 
-            // previewToolStripMenuItem
-            // 
-            resources.ApplyResources(this.previewToolStripMenuItem, "previewToolStripMenuItem");
-            this.previewToolStripMenuItem.Name = "previewToolStripMenuItem";
-            this.previewToolStripMenuItem.Click += new System.EventHandler(this.previewToolStripMenuItem_Click);
             // 
             // FrmStandaloneReview
             // 

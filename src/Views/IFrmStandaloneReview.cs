@@ -20,6 +20,7 @@
         event EventHandler<CaretPositionEventArgs> EditComment;
         event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
 
+        void SetFrmStandaloneReviewTitle(string text);
         void SetSyntaxHighlighting(string fileType);
         void SetTextEditorControlText(string textEditorControlName, string text);
         int GetTextOffset(int column, int line);

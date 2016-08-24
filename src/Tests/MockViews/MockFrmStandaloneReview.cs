@@ -41,7 +41,12 @@ namespace StandaloneReview.Tests.MockViews
                 ContextMenuStripOpening(null, caretPositionEventArgs);
             }
         }
-        
+
+        public void SetFrmStandaloneReviewTitle(string text)
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetSyntaxHighlighting(string fileType)
         {
             throw new NotImplementedException();

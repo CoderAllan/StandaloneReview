@@ -22,10 +22,10 @@
 
         public FrmStandaloneReview()
         {
+            _appState = ApplicationState.ReadApplicationState();
             _systemIO = new SystemIO();
             _baseFormPresenter = new BaseFormPresenter(this);
             _frmStandaloneReviewPresenter = new FrmStandaloneReviewPresenter(this);
-            _appState = ApplicationState.ReadApplicationState();
 
             InitializeComponent();
 
@@ -60,6 +60,11 @@
         public event EventHandler<CaretPositionEventArgs> DeleteComment;
         public event EventHandler<CaretPositionEventArgs> EditComment;
         public event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
+
+        public void SetFrmStandaloneReviewTitle(string text)
+        {
+            Text = text;
+        }
 
         public void SetTextEditorControlText(string textEditorControlName, string text)
         {
