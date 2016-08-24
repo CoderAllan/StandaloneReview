@@ -121,20 +121,20 @@
                 Line = editor.ActiveTextAreaControl.Caret.Position.Line + 1,
                 LineText = editor.ActiveTextAreaControl.Document.GetText(editor.ActiveTextAreaControl.Document.GetLineSegment(editor.ActiveTextAreaControl.Caret.Position.Line))
             };
-            SetLabelStatusText(statusStrip1, toolStripStatusLblLine, string.Format("Ln: {0}", reviewCommentEventArgs.Line));
-            SetLabelStatusText(statusStrip1, toolStripStatusLblColumn, string.Format("Col: {0}", editor.ActiveTextAreaControl.Caret.Position.Column));
+            SetLabelStatusText(statusStrip1, toolStripStatusLblLine, string.Format(Resources.StatusStripLineNumber, reviewCommentEventArgs.Line));
+            SetLabelStatusText(statusStrip1, toolStripStatusLblColumn, string.Format(Resources.StatusStripColumnNumber, editor.ActiveTextAreaControl.Caret.Position.Column));
             if (editor.ActiveTextAreaControl.SelectionManager.SelectionCollection.Count > 0)
             {
                 var selection = editor.ActiveTextAreaControl.SelectionManager.SelectionCollection[0];
                 if (selection != null && selection.Length > 0)
                 {
-                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionLength, string.Format(Resources.StatusStrip1SelectionLength, selection.Length));
+                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionLength, string.Format(Resources.StatusStripSelectionLength, selection.Length));
                     reviewCommentEventArgs.SelectionStartLine = selection.StartPosition.Line + 1;
                     reviewCommentEventArgs.SelectionStartColumn = selection.StartPosition.Column;
-                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionStart, string.Format(Resources.StatusStrip1SelectionStart, reviewCommentEventArgs.SelectionStartLine, reviewCommentEventArgs.SelectionStartColumn));
+                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionStart, string.Format(Resources.StatusStripSelectionStart, reviewCommentEventArgs.SelectionStartLine, reviewCommentEventArgs.SelectionStartColumn));
                     reviewCommentEventArgs.SelectionEndLine = selection.EndPosition.Line + 1;
                     reviewCommentEventArgs.SelectionEndColumn = selection.EndPosition.Column;
-                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionEnd, string.Format(Resources.StatusStrip1SelectionEnd, reviewCommentEventArgs.SelectionEndLine, reviewCommentEventArgs.SelectionEndColumn));
+                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionEnd, string.Format(Resources.StatusStripSelectionEnd, reviewCommentEventArgs.SelectionEndLine, reviewCommentEventArgs.SelectionEndColumn));
                     reviewCommentEventArgs.SelectedText = selection.SelectedText;
                 }
             }

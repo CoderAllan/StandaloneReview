@@ -79,29 +79,47 @@ namespace StandaloneReview.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Col: {0}.
+        /// </summary>
+        internal static string StatusStripColumnNumber {
+            get {
+                return ResourceManager.GetString("StatusStripColumnNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ln: {0}.
+        /// </summary>
+        internal static string StatusStripLineNumber {
+            get {
+                return ResourceManager.GetString("StatusStripLineNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selection end: (Ln: {0}, Col: {1}).
         /// </summary>
-        internal static string StatusStrip1SelectionEnd {
+        internal static string StatusStripSelectionEnd {
             get {
-                return ResourceManager.GetString("StatusStrip1SelectionEnd", resourceCulture);
+                return ResourceManager.GetString("StatusStripSelectionEnd", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Selection length {0}.
         /// </summary>
-        internal static string StatusStrip1SelectionLength {
+        internal static string StatusStripSelectionLength {
             get {
-                return ResourceManager.GetString("StatusStrip1SelectionLength", resourceCulture);
+                return ResourceManager.GetString("StatusStripSelectionLength", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Selection start: (Ln: {0}, Col: {1}).
         /// </summary>
-        internal static string StatusStrip1SelectionStart {
+        internal static string StatusStripSelectionStart {
             get {
-                return ResourceManager.GetString("StatusStrip1SelectionStart", resourceCulture);
+                return ResourceManager.GetString("StatusStripSelectionStart", resourceCulture);
             }
         }
     }

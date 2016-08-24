@@ -123,13 +123,19 @@
   <data name="FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes_Caption" xml:space="preserve">
     <value>Unsaved changes</value>
   </data>
-  <data name="StatusStrip1SelectionEnd" xml:space="preserve">
+  <data name="StatusStripSelectionEnd" xml:space="preserve">
     <value>Selection end: (Ln: {0}, Col: {1})</value>
   </data>
-  <data name="StatusStrip1SelectionLength" xml:space="preserve">
+  <data name="StatusStripSelectionLength" xml:space="preserve">
     <value>Selection length {0}</value>
   </data>
-  <data name="StatusStrip1SelectionStart" xml:space="preserve">
+  <data name="StatusStripSelectionStart" xml:space="preserve">
     <value>Selection start: (Ln: {0}, Col: {1})</value>
+  </data>
+  <data name="StatusStripLineNumber" xml:space="preserve">
+    <value>Ln: {0}</value>
+  </data>
+  <data name="StatusStripColumnNumber" xml:space="preserve">
+    <value>Col: {0}</value>
   </data>
 </root>
