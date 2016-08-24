@@ -188,6 +188,7 @@ namespace StandaloneReview.Presenters
                 _view.AppState.WorkingComment = new ReviewComment();
                 _view.AppState.CurrentReview.Saved = false;
             }
+            DoSetFrmStandaloneReviewTitle();
         }
 
         private void DoEditComment(object sender, CaretPositionEventArgs e)

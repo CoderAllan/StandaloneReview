@@ -17,7 +17,8 @@ namespace StandaloneReview.Model
         public Review CurrentReview = new Review
             {
                 ReviewTime = DateTime.Now,
-                ReviewedFiles = new Dictionary<string, ReviewedFile>()
+                ReviewedFiles = new Dictionary<string, ReviewedFile>(),
+                Saved = true
             };
         [XmlIgnore]
         public ReviewedFile CurrentReviewedFile;

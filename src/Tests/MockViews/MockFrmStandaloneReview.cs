@@ -31,20 +31,48 @@ namespace StandaloneReview.Tests.MockViews
             {
                 throw new NotImplementedException();
             }
-            else
+            var caretPositionEventArgs = new CaretPositionEventArgs
             {
-                var caretPositionEventArgs = new CaretPositionEventArgs
-                {
-                    Line = line,
-                    Column = column
-                };
-                ContextMenuStripOpening(null, caretPositionEventArgs);
-            }
+                Line = line,
+                Column = column
+            };
+            ContextMenuStripOpening(null, caretPositionEventArgs);
         }
 
+        public void FireDeleteCommentToolStripMenuItemClickEvent(int line, int column)
+        {
+            if (DeleteComment == null)
+            {
+                throw new NotImplementedException();
+            }
+            var caretPositionEventArgs = new CaretPositionEventArgs
+            {
+                Line = line,
+                Column = column
+            };
+            DeleteComment(null, caretPositionEventArgs);
+        }
+
+        public void FireCommitCommentToolStripMenuItemClickEvent(bool editCurrentWorkingComment)
+        {
+            if (CommitComment == null)
+            {
+                throw new NotImplementedException();
+            }
+            var commitCommentEventArgs = new CommitCommentEventArgs
+            {
+                EditCurrentWorkingComment = editCurrentWorkingComment
+            };
+            CommitComment(null, commitCommentEventArgs);
+        }
+
+
+        public bool SetFrmStandaloneReviewTitleWasCalled { get; private set; }
+        public string SetFrmStandaloneReviewTitleValue { get; private set; }
         public void SetFrmStandaloneReviewTitle(string text)
         {
-            throw new NotImplementedException();
+            SetFrmStandaloneReviewTitleWasCalled = true;
+            SetFrmStandaloneReviewTitleValue = text;
         }
 
         public void SetSyntaxHighlighting(string fileType)
@@ -57,14 +85,28 @@ namespace StandaloneReview.Tests.MockViews
             throw new NotImplementedException();
         }
 
+        public bool GetTextOffsetWasCalled { get; private set; }
+        public int GetTextOffsetColumnValue { get; private set; }
+        public int GetTextOffsetLineValue { get; private set; }
+        public int GetTextOffsetReturnValue { get; set; }
         public int GetTextOffset(int column, int line)
         {
-            throw new NotImplementedException();
+            GetTextOffsetWasCalled = true;
+            GetTextOffsetColumnValue = column;
+            GetTextOffsetLineValue = line;
+            return GetTextOffsetReturnValue;
         }
 
+        public bool AddMarkerWasCalled { get; private set; }
+        public int AddMarkerOffsetValue { get; private set; }
+        public int AddMarkerLengthValue { get; private set; }
+        public string AddMarkerTooltipTextValue { get; private set; }
         public void AddMarker(int offset, int length, string tooltipText)
         {
-            throw new NotImplementedException();
+            AddMarkerWasCalled = true;
+            AddMarkerOffsetValue = offset;
+            AddMarkerLengthValue = length;
+            AddMarkerTooltipTextValue = tooltipText;
         }
 
         public void ResetTextEditor()
@@ -110,11 +152,8 @@ namespace StandaloneReview.Tests.MockViews
             {
                 throw new NotImplementedException();
             }
-            else
-            {
-                MessageBoxUnsavedCommentsWarningOkCancelValue = discardUnsavedComments;
-                BtnExitClick(null, EventArgs.Empty);
-            }
+            MessageBoxUnsavedCommentsWarningOkCancelValue = discardUnsavedComments;
+            BtnExitClick(null, EventArgs.Empty);
         }
 
         public bool CloseApplicationWasCalled { get; private set; }
