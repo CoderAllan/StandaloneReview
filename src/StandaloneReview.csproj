@@ -91,8 +91,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemIO.cs" />
-    <Compile Include="Tests\FrmPreviewTests.cs" />
+    <Compile Include="Tests\FrmInsertCommentPresenterTests.cs" />
+    <Compile Include="Tests\FrmPreviewPresenterTests.cs" />
     <Compile Include="Tests\FrmStandaloneReviewPresenterTests.cs" />
+    <Compile Include="Tests\MockViews\MockFrmInsertComment.cs" />
     <Compile Include="Tests\MockViews\MockFrmPreview.cs" />
     <Compile Include="Tests\MockViews\MockFrmStandaloneReview.cs" />
     <Compile Include="Views\IBaseForm.cs" />

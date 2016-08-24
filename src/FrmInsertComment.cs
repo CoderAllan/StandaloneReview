@@ -14,7 +14,13 @@
         private readonly BaseFormPresenter _baseFormPresenter;
         private readonly FrmInsertCommentPresenter _frmInsertCommentPresenter;
 
-        public ApplicationState AppState {get { return _appState; }}
+        public ApplicationState AppState { get { return _appState; } }
+        public string TxtCommentText { get { return txtComment.Text; } }
+        
+        public void SetBtnInsertCommentEnabled(bool value)
+        {
+            btnInsertComment.Enabled = value;
+        }
 
         public FrmInsertComment(ApplicationState appState, bool editWorkingComment)
         {
@@ -36,10 +42,15 @@
             {
                 txtComment.Text = _appState.WorkingComment.Comment;
             }
+            if (TxtCommentTextChanged != null)
+            {
+                TxtCommentTextChanged(null, EventArgs.Empty);
+            }
         }
 
         public event EventHandler<BaseFormEventArgs> DoFormLoad;
         public event EventHandler<InsertCommentEventArgs> BtnInsertCommentClick;
+        public event EventHandler<EventArgs> TxtCommentTextChanged;
 
         private void btnInsertComment_Click(object sender, EventArgs e)
         {
@@ -65,6 +76,14 @@
         {
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        private void txtComment_TextChanged(object sender, EventArgs e)
+        {
+            if (TxtCommentTextChanged != null)
+            {
+                TxtCommentTextChanged(null, EventArgs.Empty);
+            }
         }
     }
 }

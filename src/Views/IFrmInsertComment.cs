@@ -9,6 +9,10 @@
         ApplicationState AppState { get; }
 
         event EventHandler<InsertCommentEventArgs> BtnInsertCommentClick;
+        event EventHandler<EventArgs> TxtCommentTextChanged;
+
+        string TxtCommentText { get; }
+        void SetBtnInsertCommentEnabled(bool value);
     }
 
     public class InsertCommentEventArgs : EventArgs

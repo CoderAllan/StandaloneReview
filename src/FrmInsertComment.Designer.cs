@@ -38,6 +38,7 @@
             // 
             resources.ApplyResources(this.txtComment, "txtComment");
             this.txtComment.Name = "txtComment";
+            this.txtComment.TextChanged += new System.EventHandler(this.txtComment_TextChanged);
             // 
             // btnInsertComment
             // 

@@ -1,4 +1,3 @@
-
 namespace StandaloneReview.Tests
 {
     using System.Collections.Generic;
@@ -10,7 +9,7 @@ namespace StandaloneReview.Tests
     using Presenters;
 
     [TestClass]
-    public class FrmPreviewTests
+    public class FrmPreviewPresenterTests
     {
         private readonly Fixture _fixture = new Fixture();
 
