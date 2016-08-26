@@ -1,3 +1,5 @@
+using StandaloneReview.Model;
+
 namespace StandaloneReview.Tests
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -41,6 +43,23 @@ namespace StandaloneReview.Tests
             // Assert
             Assert.IsTrue(mockView.SetBtnInsertCommentEnabledWasCalled);
             Assert.IsTrue(mockView.SetBtnInsertCommentEnabledValue);
+        }
+
+        [TestMethod]
+        public void InsertComment_InsertCommentWorkingCommentIsNull_ExpectReviewCommentAdded()
+        {
+            // Arrange
+            var mockView = new MockFrmInsertComment();
+            mockView.AppState.WorkingComment = null;
+            var presenter = new FrmInsertCommentPresenter(mockView);
+            var comment = _fixture.Create<string>();
+
+            // Act
+            mockView.FireBtnInsertCommentClickEvent(comment);
+
+            // Assert
+            Assert.IsNotNull(mockView.AppState.WorkingComment);
+            Assert.AreEqual(comment, mockView.AppState.WorkingComment.Comment);
         }
     }
 }
