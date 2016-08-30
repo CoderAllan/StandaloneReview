@@ -382,5 +382,15 @@
             var frmPreview = new FrmPreview(_appState);
             frmPreview.ShowDialog();
         }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frmOptions = new FrmOptions(_appState);
+            if (frmOptions.ShowDialog() == DialogResult.OK)
+            {
+                // http://stackoverflow.com/a/11738932/57855
+                Refresh();
+            }
+        }
     }
 }

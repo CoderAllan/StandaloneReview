@@ -79,6 +79,24 @@ namespace StandaloneReview.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Danish.
+        /// </summary>
+        internal static string OptionsLocaleDanish {
+            get {
+                return ResourceManager.GetString("OptionsLocaleDanish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        internal static string OptionsLocaleDefault {
+            get {
+                return ResourceManager.GetString("OptionsLocaleDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Col: {0}.
         /// </summary>
         internal static string StatusStripColumnNumber {

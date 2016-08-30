@@ -25,6 +25,7 @@ namespace StandaloneReview.Model
         [XmlIgnore]
         public ReviewComment WorkingComment;
 
+        public string ApplicationLocale;
         public int FrmStandaloneReviewWidth;
         public int FrmStandaloneReviewHeight;
         public int FrmStandaloneReviewPosX;
@@ -37,6 +38,10 @@ namespace StandaloneReview.Model
         public int FrmPreviewHeight;
         public int FrmPreviewPosX;
         public int FrmPreviewPosY;
+        public int FrmOptionsWidth;
+        public int FrmOptionsHeight;
+        public int FrmOptionsPosX;
+        public int FrmOptionsPosY;
 
         public static void WriteApplicationState(ApplicationState state)
         {
@@ -122,6 +127,14 @@ namespace StandaloneReview.Model
             FrmPreviewWidth = form.Width;
             FrmPreviewPosX = form.Location.X;
             FrmPreviewPosY = form.Location.Y;
+        }
+
+        internal void PersistFrmOptions(FrmOptions form)
+        {
+            FrmOptionsHeight = form.Height;
+            FrmOptionsWidth = form.Width;
+            FrmOptionsPosX = form.Location.X;
+            FrmOptionsPosY = form.Location.Y;
         }
     }
 }

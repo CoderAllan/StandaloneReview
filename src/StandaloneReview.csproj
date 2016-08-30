@@ -66,6 +66,12 @@
     <Compile Include="FrmInsertComment.Designer.cs">
       <DependentUpon>FrmInsertComment.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmOptions.Designer.cs">
+      <DependentUpon>FrmOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmPreview.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +87,7 @@
     <Compile Include="Contracts\ISystemIO.cs" />
     <Compile Include="Model\ApplicationState.cs" />
     <Compile Include="Model\ListboxFilesItem.cs" />
+    <Compile Include="Model\OptionsLocaleComboboxItem.cs" />
     <Compile Include="Model\Review.cs" />
     <Compile Include="Model\ReviewComment.cs" />
     <Compile Include="Model\ReviewedFile.cs" />
@@ -106,6 +113,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmInsertComment.resx">
       <DependentUpon>FrmInsertComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmOptions.da-DK.resx">
+      <DependentUpon>FrmOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmOptions.resx">
+      <DependentUpon>FrmOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPreview.da-DK.resx">
       <DependentUpon>FrmPreview.cs</DependentUpon>
@@ -157,6 +170,7 @@
     <Content Include="Resources\go-down-4.png" />
     <Content Include="Resources\go-up-4.png" />
     <Content Include="Resources\Logo_64.png" />
+    <Content Include="Resources\options.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
