@@ -97,6 +97,7 @@
     <Compile Include="Presenters\FrmStandaloneReviewPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuntimeLocalizer.cs" />
     <Compile Include="SystemIO.cs" />
     <Compile Include="Tests\FrmInsertCommentPresenterTests.cs" />
     <Compile Include="Tests\FrmPreviewPresenterTests.cs" />

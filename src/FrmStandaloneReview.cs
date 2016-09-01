@@ -12,7 +12,7 @@
     using Views;
     using Presenters;
     using Properties;
-    
+
     public partial class FrmStandaloneReview : Form, IBaseForm, IFrmStandaloneReview
     {
         private readonly ApplicationState _appState;
@@ -26,6 +26,8 @@
             _systemIO = new SystemIO();
             _baseFormPresenter = new BaseFormPresenter(this);
             _frmStandaloneReviewPresenter = new FrmStandaloneReviewPresenter(this);
+
+            RuntimeLocalizer.ChangeCulture(_appState.ApplicationLocale);
 
             InitializeComponent();
 
@@ -388,7 +390,7 @@
             var frmOptions = new FrmOptions(_appState);
             if (frmOptions.ShowDialog() == DialogResult.OK)
             {
-                // http://stackoverflow.com/a/11738932/57855
+                RuntimeLocalizer.ChangeCulture(_appState.ApplicationLocale);
                 Refresh();
             }
         }

@@ -1,10 +1,7 @@
-﻿using System.Globalization;
-
-namespace StandaloneReview
+﻿namespace StandaloneReview
 {
     using System;
     using System.Drawing;
-    using System.Threading;
     using System.Windows.Forms;
 
     using Model;
@@ -44,18 +41,25 @@ namespace StandaloneReview
 
         private void FrmOptions_Load(object sender, EventArgs e)
         {
-            var locale = new OptionsLocaleComboboxItem { Locale = "", Text = Resources.OptionsLocaleDefault };
+            var locale = new OptionsLocaleComboboxItem { Locale = "da-DK", Text = Resources.OptionsLocaleDanish };
             comboBox1.Items.Add(locale);
-            locale = new OptionsLocaleComboboxItem { Locale = "da-DK", Text = Resources.OptionsLocaleDanish };
-            comboBox1.Items.Add(locale);
+            if (string.Compare(_appState.ApplicationLocale, locale.Locale, StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                comboBox1.SelectedItem = locale;
+            }
+            locale = new OptionsLocaleComboboxItem { Locale = "", Text = Resources.OptionsLocaleDefault };
+            comboBox1.Items.Insert(0, locale);
+            if (string.IsNullOrWhiteSpace(_appState.ApplicationLocale))
+            {
+                comboBox1.SelectedItem = locale;
+            }
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
             var optionsLocaleComboboxItem = (OptionsLocaleComboboxItem)comboBox1.SelectedItem;
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(optionsLocaleComboboxItem.Locale);
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(optionsLocaleComboboxItem.Locale);
+            _appState.ApplicationLocale = optionsLocaleComboboxItem.Locale;
             Close();
         }
 

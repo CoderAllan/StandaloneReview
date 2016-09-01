@@ -9,7 +9,7 @@ So in order to use them you have to be connected to the internet, and you have t
 Task Lists
 ----
 - [ ] Open multiple files in a Review
-- [ ] Manually choose the locale used for the application
+- [x] Manually choose the locale used for the application
 - [ ] Show mini-markers for where the comments are in the file
 - [ ] Open Review 
 - [ ] Use richtext to format the review
