@@ -56,6 +56,8 @@ namespace StandaloneReview
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.navigatorCanvas = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -216,6 +218,19 @@ namespace StandaloneReview
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
+            // shapeContainer1
+            // 
+            resources.ApplyResources(this.shapeContainer1, "shapeContainer1");
+            this.shapeContainer1.Name = "shapeContainer1";
+            this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.navigatorCanvas});
+            this.shapeContainer1.TabStop = false;
+            // 
+            // navigatorCanvas
+            // 
+            resources.ApplyResources(this.navigatorCanvas, "navigatorCanvas");
+            this.navigatorCanvas.Name = "navigatorCanvas";
+            // 
             // FrmStandaloneReview
             // 
             resources.ApplyResources(this, "$this");
@@ -223,6 +238,7 @@ namespace StandaloneReview
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.textEditorControlEx1);
+            this.Controls.Add(this.shapeContainer1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmStandaloneReview";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmStandaloneReview_FormClosing);
@@ -262,6 +278,8 @@ namespace StandaloneReview
         private System.Windows.Forms.ToolStripMenuItem previewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape navigatorCanvas;
     }
 }
 

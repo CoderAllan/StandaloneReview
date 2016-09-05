@@ -171,6 +171,7 @@ namespace StandaloneReview.Presenters
             _view.AppState.WorkingComment.SelectionEndLine = e.SelectionEndLine;
             _view.AppState.WorkingComment.SelectionEndColumn = e.SelectionEndColumn;
             _view.AppState.WorkingComment.SelectedText = e.SelectedText;
+            _view.AddNavigatorCurrentLineMarker(e.Line);
         }
 
         private void DoContextMenuStripOpening(object sender, CaretPositionEventArgs e)

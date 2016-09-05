@@ -97,6 +97,11 @@ namespace StandaloneReview.Tests.MockViews
             return GetTextOffsetReturnValue;
         }
 
+        public void AddNavigatorCurrentLineMarker(int line)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool AddMarkerWasCalled { get; private set; }
         public int AddMarkerOffsetValue { get; private set; }
         public int AddMarkerLengthValue { get; private set; }
