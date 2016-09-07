@@ -10,7 +10,7 @@ Task Lists
 ----
 - [ ] Open multiple files in a Review
 - [x] Manually choose the locale used for the application
-- [ ] Show mini-markers for where the comments are in the file
+- [x] Show mini-markers for where the comments are in the file
 - [ ] Open Review 
 - [ ] Use richtext to format the review
 - [ ] Save the review as HTML
