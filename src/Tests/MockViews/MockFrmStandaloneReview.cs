@@ -97,9 +97,28 @@ namespace StandaloneReview.Tests.MockViews
             return GetTextOffsetReturnValue;
         }
 
+        public bool AddNavigatorCurrentLineMarkerWasCalled { get; private set; }
+        public int AddNavigatorCurrentLineMarkerLineValue { get; private set; }
         public void AddNavigatorCurrentLineMarker(int line)
         {
-            throw new NotImplementedException();
+            AddNavigatorCurrentLineMarkerWasCalled = true;
+            AddNavigatorCurrentLineMarkerLineValue = line;
+        }
+
+        public bool AddNavigatorCommentMarkerWasCalled { get; private set; }
+        public int AddNavigatorCommentMarkerLineValue { get; private set; }
+        public void AddNavigatorCommentMarker(int line)
+        {
+            AddNavigatorCommentMarkerWasCalled = true;
+            AddNavigatorCommentMarkerLineValue = line;
+        }
+
+        public bool RemoveNavigatorCommentMarkerWasCalled { get; private set; }
+        public int RemoveNavigatorCommentMarkerLineValue { get; private set; }
+        public void RemoveNavigatorCommentMarker(int line)
+        {
+            RemoveNavigatorCommentMarkerWasCalled = true;
+            RemoveNavigatorCommentMarkerLineValue = line;
         }
 
         public bool AddMarkerWasCalled { get; private set; }

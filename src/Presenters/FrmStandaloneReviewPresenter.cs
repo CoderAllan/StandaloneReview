@@ -141,11 +141,13 @@ namespace StandaloneReview.Presenters
                 {
                     offset = _view.GetTextOffset(_view.AppState.WorkingComment.SelectionStartColumn, _view.AppState.WorkingComment.SelectionStartLine - 1);
                     length = _view.AppState.WorkingComment.SelectedText.Length;
+                    _view.AddNavigatorCommentMarker(_view.AppState.WorkingComment.SelectionStartLine);
                 }
                 else
                 {
                     offset = _view.GetTextOffset(1, _view.AppState.WorkingComment.Line - 1);
                     length = _view.AppState.WorkingComment.LineText.Length;
+                    _view.AddNavigatorCommentMarker(_view.AppState.WorkingComment.Line);
                 }
                 _view.AddMarker(offset, length, _view.AppState.WorkingComment.Comment);
             }
@@ -188,6 +190,7 @@ namespace StandaloneReview.Presenters
                 _view.AppState.CurrentReviewedFile.Comments.Remove(commentAtCaretPosition);
                 _view.AppState.WorkingComment = new ReviewComment();
                 _view.AppState.CurrentReview.Saved = false;
+                _view.RemoveNavigatorCommentMarker(e.Line);
             }
             DoSetFrmStandaloneReviewTitle();
         }

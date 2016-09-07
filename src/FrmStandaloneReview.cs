@@ -1,11 +1,11 @@
-﻿using System.Drawing.Drawing2D;
-using Microsoft.VisualBasic.PowerPacks;
-
-namespace StandaloneReview
+﻿namespace StandaloneReview
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
+    using System.Drawing.Drawing2D;
     using System.Windows.Forms;
+    using Microsoft.VisualBasic.PowerPacks;
     using ICSharpCode.TextEditor.Document;
     using ICSharpCode.TextEditor;
     using ICSharpCode.TextEditor.Src.Document.FoldingStrategy;
@@ -22,6 +22,7 @@ namespace StandaloneReview
         private readonly ISystemIO _systemIO;
         private readonly BaseFormPresenter _baseFormPresenter;
         private readonly FrmStandaloneReviewPresenter _frmStandaloneReviewPresenter;
+        private readonly Dictionary<int, RectangleShape> _navigatorCommentRectangles = new Dictionary<int, RectangleShape>();
         private RectangleShape _navigatorCurrentLineRectangle;
 
         public FrmStandaloneReview()
@@ -246,34 +247,67 @@ namespace StandaloneReview
             return editor.ActiveTextAreaControl.Document.PositionToOffset(new TextLocation(column, line));
         }
 
+        private RectangleShape CreateRectangleShape(int line, Color color)
+        {
+            double correctionFactor = 1;
+            if (navigatorCanvas.Height - navigatorCanvas.Top < textEditorControlEx1.Document.TotalNumberOfLines)
+            {
+                correctionFactor = (navigatorCanvas.Height - navigatorCanvas.Top) / (double)textEditorControlEx1.Document.TotalNumberOfLines;
+            }
+            var rectangleShape = new RectangleShape
+            {
+                Height = 2,
+                Top = navigatorCanvas.Top + (int)(line * correctionFactor),
+                Width = navigatorCanvas.Width - 2,
+                Left = navigatorCanvas.Left + 1,
+                FillStyle = FillStyle.Solid,
+                FillColor = color,
+                BorderStyle = DashStyle.Solid,
+                BorderColor = color,
+                Tag = line,
+                Cursor = Cursors.Hand,
+            };
+            rectangleShape.Click += rectangle_Click;
+            navigatorCanvas.SendToBack();
+            rectangleShape.BringToFront();
+            return rectangleShape;
+        }
+
+        public void rectangle_Click(object sender, EventArgs e)
+        {
+            var rectangle = (RectangleShape) sender;
+            var line = (int)rectangle.Tag;
+            var editor = GetActiveTextEditor();
+            editor.ActiveTextAreaControl.Caret.Line = line - 1;
+        }
+
         public void AddNavigatorCurrentLineMarker(int line)
         {
             if (_navigatorCurrentLineRectangle != null)
             {
                 shapeContainer1.Shapes.Remove(_navigatorCurrentLineRectangle);
             }
-            double correctionFactor = 1;
-            if (navigatorCanvas.Height - navigatorCanvas.Top < textEditorControlEx1.Document.TotalNumberOfLines)
-            {
-                correctionFactor = (navigatorCanvas.Height - navigatorCanvas.Top) / (double)textEditorControlEx1.Document.TotalNumberOfLines;
-            }
-            _navigatorCurrentLineRectangle = new RectangleShape(shapeContainer1)
-            {
-                Height = 2, 
-                Top = navigatorCanvas.Top + (int)(line * correctionFactor), 
-                Width = navigatorCanvas.Width - 2, 
-                Left = navigatorCanvas.Left + 1,
-                FillStyle = FillStyle.Solid,
-                FillColor = Color.DarkBlue,
-                BorderStyle = DashStyle.Solid,
-                BorderColor = Color.DarkBlue,
-            };
+            _navigatorCurrentLineRectangle = CreateRectangleShape(line, Color.DarkBlue);
             shapeContainer1.Shapes.Add(_navigatorCurrentLineRectangle);
         }
 
-        public void AddNavigatorMarker(int line)
+        public void AddNavigatorCommentMarker(int line)
         {
-            
+            if (!_navigatorCommentRectangles.ContainsKey(line))
+            {
+                var rectangle = CreateRectangleShape(line, Color.Goldenrod);
+                _navigatorCommentRectangles.Add(line, rectangle);
+                shapeContainer1.Shapes.Add(rectangle);
+            }
+        }
+
+        public void RemoveNavigatorCommentMarker(int line)
+        {
+            if(_navigatorCommentRectangles.ContainsKey(line))
+            {
+                shapeContainer1.Shapes.Remove(_navigatorCommentRectangles[line]);
+                _navigatorCommentRectangles.Remove(line);
+            }
         }
 
         public void AddMarker(int offset, int length, string tooltipText)
