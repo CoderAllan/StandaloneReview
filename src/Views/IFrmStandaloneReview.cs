@@ -1,6 +1,7 @@
 ﻿namespace StandaloneReview.Views
 {
     using System;
+    using System.ComponentModel;
 
     using Contracts;
     using Model;
@@ -13,7 +14,7 @@
         event EventHandler<LoadEventArgs> BtnLoadClick;
         event EventHandler<EventArgs> BtnNewClick;
         event EventHandler<SaveEventArgs> BtnSaveClick;
-        event EventHandler<EventArgs> BtnExitClick;
+        event EventHandler<CancelEventArgs> BtnExitClick;
         event EventHandler<CommitCommentEventArgs> CommitComment;
         event EventHandler<ReviewCommentEventArgs> SetReviewComment;
         event EventHandler<CaretPositionEventArgs> DeleteComment;

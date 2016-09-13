@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
@@ -63,7 +64,7 @@
         public event EventHandler<LoadEventArgs> BtnLoadClick;
         public event EventHandler<EventArgs> BtnNewClick;
         public event EventHandler<SaveEventArgs> BtnSaveClick;
-        public event EventHandler<EventArgs> BtnExitClick;
+        public event EventHandler<CancelEventArgs> BtnExitClick;
         public event EventHandler<CommitCommentEventArgs> CommitComment;
         public event EventHandler<ReviewCommentEventArgs> SetReviewComment;
         public event EventHandler<CaretPositionEventArgs> DeleteComment;
@@ -174,22 +175,21 @@
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (BtnExitClick != null)
-            {
-                BtnExitClick(sender, e);
-            }
+            Close();
         }
 
         public void CloseApplication()
         {
-            Close();
+            _appState.PersistFrmStandaloneReview(this);
+            ApplicationState.WriteApplicationState(_appState);
         }
 
         private void FrmStandaloneReview_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var frmStandaloneReview = (FrmStandaloneReview) sender;
-            _appState.PersistFrmStandaloneReview(frmStandaloneReview);
-            ApplicationState.WriteApplicationState(_appState);
+            if (BtnExitClick != null)
+            {
+                BtnExitClick(sender, e);
+            }
         }
 
         private void insertCommentToolStripMenuItem_Click(object sender, EventArgs e)

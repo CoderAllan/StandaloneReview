@@ -1,6 +1,7 @@
 namespace StandaloneReview.Tests.MockViews
 {
     using System;
+    using System.ComponentModel;
     
     using Contracts;
     using Model;
@@ -13,7 +14,7 @@ namespace StandaloneReview.Tests.MockViews
         public event EventHandler<LoadEventArgs> BtnLoadClick;
         public event EventHandler<EventArgs> BtnNewClick;
         public event EventHandler<SaveEventArgs> BtnSaveClick;
-        public event EventHandler<EventArgs> BtnExitClick;
+        public event EventHandler<CancelEventArgs> BtnExitClick;
         public event EventHandler<CommitCommentEventArgs> CommitComment;
         public event EventHandler<ReviewCommentEventArgs> SetReviewComment;
         public event EventHandler<CaretPositionEventArgs> DeleteComment;
@@ -177,7 +178,11 @@ namespace StandaloneReview.Tests.MockViews
                 throw new NotImplementedException();
             }
             MessageBoxUnsavedCommentsWarningOkCancelValue = discardUnsavedComments;
-            BtnExitClick(null, EventArgs.Empty);
+            var e = new CancelEventArgs
+            {
+                Cancel = false
+            };
+            BtnExitClick(null, e);
         }
 
         public bool CloseApplicationWasCalled { get; private set; }

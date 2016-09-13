@@ -1,6 +1,7 @@
 namespace StandaloneReview.Presenters
 {
     using System;
+    using System.ComponentModel;
     using System.Collections.Generic;
 
     using Model;
@@ -52,7 +53,7 @@ namespace StandaloneReview.Presenters
             _view.EnableDisableMenuToolstripItems();
         }
 
-        private void DoExitClick(object sender, EventArgs e)
+        private void DoExitClick(object sender, CancelEventArgs e)
         {
             if (_view.AppState.CurrentReview.Saved)
             {
@@ -67,6 +68,10 @@ namespace StandaloneReview.Presenters
                     if (_view.MessageBoxUnsavedCommentsWarningOkCancel())
                     {
                         _view.CloseApplication();
+                    }
+                    else
+                    {
+                        e.Cancel = true;
                     }
                 }
                 else
