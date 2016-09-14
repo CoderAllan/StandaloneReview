@@ -150,7 +150,7 @@ namespace StandaloneReview.Presenters
                 }
                 else
                 {
-                    offset = _view.GetTextOffset(1, _view.AppState.WorkingComment.Line - 1);
+                    offset = _view.GetTextOffset(0, _view.AppState.WorkingComment.Line - 1);
                     length = _view.AppState.WorkingComment.LineText.Length;
                     _view.AddNavigatorCommentMarker(_view.AppState.WorkingComment.Line);
                 }
@@ -195,7 +195,10 @@ namespace StandaloneReview.Presenters
                 _view.AppState.CurrentReviewedFile.Comments.Remove(commentAtCaretPosition);
                 _view.AppState.WorkingComment = new ReviewComment();
                 _view.AppState.CurrentReview.Saved = false;
-                _view.RemoveNavigatorCommentMarker(e.Line);
+                if (!_view.AppState.CurrentReviewedFile.Comments.Exists(p => p.Line == e.Line))
+                {
+                    _view.RemoveNavigatorCommentMarker(e.Line);
+                }
             }
             DoSetFrmStandaloneReviewTitle();
         }
@@ -231,7 +234,13 @@ namespace StandaloneReview.Presenters
                             commentAtCaretPosition = reviewComment;
                             break;
                         }
-                        if ((reviewComment.SelectionStartLine == line && reviewComment.SelectionStartColumn <= column) ||
+                        if ((reviewComment.SelectionStartLine == line && reviewComment.SelectionStartColumn <= column) &&
+                            (reviewComment.SelectionEndLine >= line && reviewComment.SelectionEndColumn >= column))
+                        {
+                            commentAtCaretPosition = reviewComment;
+                            break;
+                        }
+                        if ((reviewComment.SelectionStartLine <= line && reviewComment.SelectionStartColumn <= column) &&
                             (reviewComment.SelectionEndLine == line && reviewComment.SelectionEndColumn >= column))
                         {
                             commentAtCaretPosition = reviewComment;
