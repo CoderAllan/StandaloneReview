@@ -2,6 +2,7 @@ namespace StandaloneReview.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
 
     public class Review
@@ -18,9 +19,9 @@ namespace StandaloneReview.Model
             {
                 sb.Append("Review - Dato: ");
                 sb.AppendLine(ReviewTime.ToString("dd-MM-yyyy"));
-                foreach (var reviewedFile in ReviewedFiles.Keys)
+                foreach (var reviewedFile in ReviewedFiles.OrderBy(p => ReviewedFiles[p.Key].Position))
                 {
-                    sb.Append(ReviewedFiles[reviewedFile]);
+                    sb.Append(ReviewedFiles[reviewedFile.Key]);
                 }
             }
             return sb.ToString();

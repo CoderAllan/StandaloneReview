@@ -5,6 +5,7 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+    using System.Linq;
     using System.Windows.Forms;
     using Microsoft.VisualBasic.PowerPacks;
     using ICSharpCode.TextEditor.Document;
@@ -89,7 +90,7 @@
 
         public void SetSyntaxHighlighting(string fileType)
         {
-            switch (fileType)
+            switch (fileType.ToLower())
             {
                 case ".xml":
                 case ".wsdl":
@@ -131,10 +132,16 @@
 
         private void SetStatusText(TextEditorControlEx editor)
         {
+            int commentPosition = 0;
+            if (_appState.CurrentReview.ReviewedFiles.Count > 0)
+            {
+                commentPosition = _appState.CurrentReview.ReviewedFiles[_appState.CurrentReviewedFile.Filename].Comments.Max(p => p.Position) + 1;
+            }
             var reviewCommentEventArgs = new ReviewCommentEventArgs
             {
+                Position = commentPosition,
                 Line = editor.ActiveTextAreaControl.Caret.Position.Line + 1,
-                LineText = editor.ActiveTextAreaControl.Document.GetText(editor.ActiveTextAreaControl.Document.GetLineSegment(editor.ActiveTextAreaControl.Caret.Position.Line))
+                LineText = editor.ActiveTextAreaControl.Document.GetText(editor.ActiveTextAreaControl.Document.GetLineSegment(editor.ActiveTextAreaControl.Caret.Position.Line)),
             };
             SetLabelStatusText(statusStrip1, toolStripStatusLblLine, string.Format(Resources.StatusStripLineNumber, reviewCommentEventArgs.Line));
             SetLabelStatusText(statusStrip1, toolStripStatusLblColumn, string.Format(Resources.StatusStripColumnNumber, editor.ActiveTextAreaControl.Caret.Position.Column));

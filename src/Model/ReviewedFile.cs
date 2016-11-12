@@ -1,6 +1,7 @@
 ﻿namespace StandaloneReview.Model
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
 
 
@@ -17,7 +18,7 @@
             {
                 sb.Append("Fil: ");
                 sb.AppendLine(Filename);
-                foreach (var reviewComment in Comments)
+                foreach (var reviewComment in Comments.OrderBy(p => p.Position))
                 {
                     sb.Append(reviewComment);
                 }

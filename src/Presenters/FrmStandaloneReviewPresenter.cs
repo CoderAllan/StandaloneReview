@@ -171,6 +171,7 @@ namespace StandaloneReview.Presenters
             {
                 _view.AppState.WorkingComment = new ReviewComment();
             }
+            _view.AppState.WorkingComment.Position = e.Position;
             _view.AppState.WorkingComment.Line = e.Line;
             _view.AppState.WorkingComment.LineText = e.LineText;
             _view.AppState.WorkingComment.SelectionStartLine = e.SelectionStartLine;

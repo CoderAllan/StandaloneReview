@@ -56,6 +56,7 @@
 
     public class ReviewCommentEventArgs : EventArgs
     {
+        public int Position { get; set; }
         public int Line { get; set; }
         public string LineText { get; set; }
         public int SelectionStartLine { get; set; }
