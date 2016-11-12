@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Text;
 
+    using Properties;
 
     public class ReviewedFile
     {
@@ -16,7 +17,8 @@
             var sb = new StringBuilder();
             if (Comments != null && Comments.Count > 0)
             {
-                sb.Append("Fil: ");
+                sb.Append(Resources.ReviewdFileToStringFile);
+                sb.Append(" ");
                 sb.AppendLine(Filename);
                 foreach (var reviewComment in Comments.OrderBy(p => p.Position))
                 {

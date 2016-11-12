@@ -97,6 +97,24 @@ namespace StandaloneReview.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File:.
+        /// </summary>
+        internal static string ReviewdFileToStringFile {
+            get {
+                return ResourceManager.GetString("ReviewdFileToStringFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Review - Date:.
+        /// </summary>
+        internal static string ReviewToStringReviewDate {
+            get {
+                return ResourceManager.GetString("ReviewToStringReviewDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Col: {0}.
         /// </summary>
         internal static string StatusStripColumnNumber {

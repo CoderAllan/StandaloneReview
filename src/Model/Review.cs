@@ -5,6 +5,8 @@ namespace StandaloneReview.Model
     using System.Linq;
     using System.Text;
 
+    using Properties;
+
     public class Review
     {
         public DateTime ReviewTime { get; set; }
@@ -17,7 +19,8 @@ namespace StandaloneReview.Model
             var sb = new StringBuilder();
             if (ReviewedFiles != null && ReviewedFiles.Count > 0)
             {
-                sb.Append("Review - Dato: ");
+                sb.Append(Resources.ReviewToStringReviewDate);
+                sb.Append(" ");
                 sb.AppendLine(ReviewTime.ToString("dd-MM-yyyy"));
                 foreach (var reviewedFile in ReviewedFiles.OrderBy(p => ReviewedFiles[p.Key].Position))
                 {

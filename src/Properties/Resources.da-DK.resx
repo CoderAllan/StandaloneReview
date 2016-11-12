@@ -144,4 +144,10 @@
   <data name="OptionsLocaleDanish" xml:space="preserve">
     <value>Dansk</value>
   </data>
+  <data name="ReviewdFileToStringFile" xml:space="preserve">
+    <value>Fil:</value>
+  </data>
+  <data name="ReviewToStringReviewDate" xml:space="preserve">
+    <value>Review - Dato:</value>
+  </data>
 </root>
