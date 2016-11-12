@@ -103,6 +103,9 @@
     <Compile Include="SystemIO.cs" />
     <Compile Include="Tests\FrmInsertCommentPresenterTests.cs" />
     <Compile Include="Tests\FrmPreviewPresenterTests.cs" />
+    <Compile Include="Tests\FrmStandaloneReviewPresenterContextMenuStripOpeningTests.cs" />
+    <Compile Include="Tests\FrmStandaloneReviewPresenterDeleteCommentTests.cs" />
+    <Compile Include="Tests\FrmStandaloneReviewPresenterExitMenuItemTests.cs" />
     <Compile Include="Tests\FrmStandaloneReviewPresenterTests.cs" />
     <Compile Include="Tests\MockViews\MockFrmInsertComment.cs" />
     <Compile Include="Tests\MockViews\MockFrmPreview.cs" />

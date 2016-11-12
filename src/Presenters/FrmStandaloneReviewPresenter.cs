@@ -193,7 +193,7 @@ namespace StandaloneReview.Presenters
             var commentAtCaretPosition = GetCommentAtCaretPosition(e.Line, e.Column);
             if (commentAtCaretPosition != null)
             {
-                _view.AppState.CurrentReviewedFile.Comments.Remove(commentAtCaretPosition);
+                _view.AppState.CurrentReviewedFile.RemoveComment(commentAtCaretPosition);
                 _view.AppState.WorkingComment = new ReviewComment();
                 _view.AppState.CurrentReview.Saved = false;
                 if (!_view.AppState.CurrentReviewedFile.Comments.Exists(p => p.Line == e.Line))

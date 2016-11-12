@@ -25,5 +25,14 @@
             }
             return sb.ToString();
         }
+
+        public void RemoveComment(ReviewComment commentToRemove)
+        {
+            Comments.Remove(commentToRemove);
+            foreach (var comment in Comments.Where(comment => comment.Position > commentToRemove.Position))
+            {
+                comment.Position = comment.Position - 1;
+            }
+        }
     }
 }
