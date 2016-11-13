@@ -29,6 +29,8 @@
         void AddNavigatorCommentMarker(int line);
         void RemoveNavigatorCommentMarker(int line);
         void AddMarker(int offset, int length, string tooltipText);
+        void AddGreyedArea();
+        void RemoveAllNavigatorShapes();
         void ResetTextEditor();
         void EnableDisableMenuToolstripItems();
         bool MessageBoxUnsavedCommentsWarningOkCancel();

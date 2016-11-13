@@ -134,6 +134,16 @@ namespace StandaloneReview.Tests.MockViews
             AddMarkerTooltipTextValue = tooltipText;
         }
 
+        public void AddGreyedArea()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveAllNavigatorShapes()
+        {
+            throw new NotImplementedException();
+        }
+
         public void ResetTextEditor()
         {
             throw new NotImplementedException();

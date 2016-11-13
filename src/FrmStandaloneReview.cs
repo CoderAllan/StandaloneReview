@@ -58,8 +58,15 @@
             EnableDisableMenuToolstripItems();
         }
 
-        public ISystemIO SystemIO { get { return _systemIO; } }
-        public ApplicationState AppState { get { return _appState; } }
+        public ISystemIO SystemIO
+        {
+            get { return _systemIO; }
+        }
+
+        public ApplicationState AppState
+        {
+            get { return _appState; }
+        }
 
         public event EventHandler<BaseFormEventArgs> DoFormLoad;
         public event EventHandler<LoadEventArgs> BtnLoadClick;
@@ -121,10 +128,12 @@
         {
             SetStatusText(GetActiveTextEditor());
         }
+
         private void ShowSelectionLength(object sender, MouseEventArgs e)
         {
             SetStatusText(GetActiveTextEditor());
         }
+
         private TextEditorControlEx GetActiveTextEditor()
         {
             return textEditorControlEx1;
@@ -259,20 +268,21 @@
             double correctionFactor = 1;
             if (navigatorCanvas.Height - navigatorCanvas.Top < textEditorControlEx1.Document.TotalNumberOfLines)
             {
-                correctionFactor = (navigatorCanvas.Height - navigatorCanvas.Top) / (double)textEditorControlEx1.Document.TotalNumberOfLines;
+                correctionFactor = (navigatorCanvas.Height - navigatorCanvas.Top)/(double) textEditorControlEx1.Document.TotalNumberOfLines;
             }
             var rectangleShape = new RectangleShape
             {
                 Height = 2,
                 Top = navigatorCanvas.Top + (int)(line * correctionFactor),
                 Width = navigatorCanvas.Width - 2,
-                Left = navigatorCanvas.Left + 1,
+                Left = Width - 42, // This calculation should be: 'Left = navigatorCanvas.Left + 1', but the navigatorCanvas.Left property never changes when resizing the form. So we have to use the magic number 42 to make the placement of the navigator lines work.
                 FillStyle = FillStyle.Solid,
                 FillColor = color,
                 BorderStyle = DashStyle.Solid,
                 BorderColor = color,
                 Tag = line,
                 Cursor = Cursors.Hand,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
             };
             rectangleShape.Click += rectangle_Click;
             navigatorCanvas.SendToBack();
@@ -283,7 +293,7 @@
         public void rectangle_Click(object sender, EventArgs e)
         {
             var rectangle = (RectangleShape) sender;
-            var line = (int)rectangle.Tag;
+            var line = (int) rectangle.Tag;
             var editor = GetActiveTextEditor();
             editor.ActiveTextAreaControl.Caret.Line = line - 1;
         }
@@ -308,9 +318,31 @@
             }
         }
 
+        public void AddGreyedArea()
+        {
+            var rectangleShape = new RectangleShape
+            {
+                Height = navigatorCanvas.Height - textEditorControlEx1.Document.TotalNumberOfLines,
+                Top = navigatorCanvas.Top + textEditorControlEx1.Document.TotalNumberOfLines + 2,
+                Width = navigatorCanvas.Width - 2,
+                Left = navigatorCanvas.Left + 1,
+                FillStyle = FillStyle.Solid,
+                FillColor = Color.LightGray,
+                BorderStyle = DashStyle.Solid,
+                BorderColor = Color.LightGray,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom,
+            };
+            shapeContainer1.Shapes.Add(rectangleShape);
+        }
+
+        public void RemoveAllNavigatorShapes()
+        {
+            shapeContainer1.Shapes.Clear();
+        }
+
         public void RemoveNavigatorCommentMarker(int line)
         {
-            if(_navigatorCommentRectangles.ContainsKey(line))
+            if (_navigatorCommentRectangles.ContainsKey(line))
             {
                 shapeContainer1.Shapes.Remove(_navigatorCommentRectangles[line]);
                 _navigatorCommentRectangles.Remove(line);

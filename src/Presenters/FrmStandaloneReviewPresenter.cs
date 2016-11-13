@@ -51,6 +51,8 @@ namespace StandaloneReview.Presenters
                     Comments = new List<ReviewComment>()
                 };
             _view.EnableDisableMenuToolstripItems();
+            _view.RemoveAllNavigatorShapes();
+            _view.AddGreyedArea();
         }
 
         private void DoExitClick(object sender, CancelEventArgs e)
