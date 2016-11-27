@@ -32,7 +32,6 @@ namespace StandaloneReview
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmStandaloneReview));
-            this.textEditorControlEx1 = new ICSharpCode.TextEditor.TextEditorControlEx();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.insertCommentToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,20 +57,11 @@ namespace StandaloneReview
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.navigatorCanvas = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // textEditorControlEx1
-            // 
-            resources.ApplyResources(this.textEditorControlEx1, "textEditorControlEx1");
-            this.textEditorControlEx1.ContextMenuStrip = this.contextMenuStrip1;
-            this.textEditorControlEx1.EnableFolding = false;
-            this.textEditorControlEx1.FoldingStrategy = "XML";
-            this.textEditorControlEx1.Name = "textEditorControlEx1";
-            this.textEditorControlEx1.ShowVRuler = false;
-            this.textEditorControlEx1.SyntaxHighlighting = "XML";
             // 
             // contextMenuStrip1
             // 
@@ -231,13 +221,20 @@ namespace StandaloneReview
             resources.ApplyResources(this.navigatorCanvas, "navigatorCanvas");
             this.navigatorCanvas.Name = "navigatorCanvas";
             // 
+            // tabControl1
+            // 
+            resources.ApplyResources(this.tabControl1, "tabControl1");
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            // 
             // FrmStandaloneReview
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.textEditorControlEx1);
             this.Controls.Add(this.shapeContainer1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmStandaloneReview";
@@ -254,7 +251,6 @@ namespace StandaloneReview
 
         #endregion
 
-        private ICSharpCode.TextEditor.TextEditorControlEx textEditorControlEx1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLblLine;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLblColumn;
@@ -280,6 +276,7 @@ namespace StandaloneReview
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape navigatorCanvas;
+        private System.Windows.Forms.TabControl tabControl1;
     }
 }
 

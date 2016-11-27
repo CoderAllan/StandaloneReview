@@ -88,11 +88,7 @@
         {
             if (BtnMoveFileUpClick != null)
             {
-                var item = (ListboxFilesItem)lstFiles.SelectedItem;
-                var fileMoveEventArgs = new FileMoveEventArgs
-                {
-                    Filename = item.FullFilename
-                };
+                var fileMoveEventArgs = GetFileMoveEventArgs();
                 BtnMoveFileUpClick(sender, fileMoveEventArgs);
             }
         }
@@ -101,13 +97,21 @@
         {
             if (BtnMoveFileDownClick != null)
             {
-                var item = (ListboxFilesItem) lstFiles.SelectedItem;
-                var fileMoveEventArgs = new FileMoveEventArgs
-                {
-                    Filename = item.FullFilename
-                };
+                var fileMoveEventArgs = GetFileMoveEventArgs();
                 BtnMoveFileDownClick(sender, fileMoveEventArgs);
             }
+        }
+
+        private FileMoveEventArgs GetFileMoveEventArgs()
+        {
+            ListboxFilesItem item = GetSelectedFileOrDefault();
+            string filename = item.FullFilename;
+            var fileMoveEventArgs = new FileMoveEventArgs
+            {
+                Filename = filename,
+                Position = lstFiles.SelectedIndex
+            };
+            return fileMoveEventArgs;
         }
 
         private void btnMoveCommentUp_Click(object sender, EventArgs e)
@@ -145,6 +149,11 @@
             txtPreview.Text = text;
         }
 
+        public void ClearLstFiles()
+        {
+            lstFiles.Items.Clear();
+        }
+
         public void InsertFilenameInListbox(ListboxFilesItem filename)
         {
             lstFiles.Items.Add(filename);
@@ -167,7 +176,8 @@
                 ListboxFilesItem item = GetSelectedFileOrDefault();
                 var selectedIndexChangedEventArgs = new SelectedIndexChangedEventArgs
                 {
-                    Filename = item.FullFilename
+                    Filename = item.FullFilename,
+                    Position = lstFiles.SelectedIndex
                 };
                 LstFilesSelectedIndexChanged(sender, selectedIndexChangedEventArgs);
             }

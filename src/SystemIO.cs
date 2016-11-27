@@ -1,8 +1,8 @@
-using StandaloneReview.Contracts;
-
 namespace StandaloneReview
 {
     using System.IO;
+
+    using Contracts;
 
     public class SystemIO : ISystemIO
     {

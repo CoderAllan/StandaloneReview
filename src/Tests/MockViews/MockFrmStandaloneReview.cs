@@ -20,6 +20,7 @@ namespace StandaloneReview.Tests.MockViews
         public event EventHandler<CaretPositionEventArgs> DeleteComment;
         public event EventHandler<CaretPositionEventArgs> EditComment;
         public event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
+        public event EventHandler<SelectedTabChangedEventArgs> SelectedTabChanged;
 
         public MockFrmStandaloneReview()
         {
@@ -86,6 +87,11 @@ namespace StandaloneReview.Tests.MockViews
             throw new NotImplementedException();
         }
 
+        public string AddNewTab(string filename, int newTabPageNumber)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool GetTextOffsetWasCalled { get; private set; }
         public int GetTextOffsetColumnValue { get; private set; }
         public int GetTextOffsetLineValue { get; private set; }
@@ -108,10 +114,12 @@ namespace StandaloneReview.Tests.MockViews
 
         public bool AddNavigatorCommentMarkerWasCalled { get; private set; }
         public int AddNavigatorCommentMarkerLineValue { get; private set; }
+        public int AddNavigatorCommentMarkerNumberOfCalls { get; private set; }
         public void AddNavigatorCommentMarker(int line)
         {
             AddNavigatorCommentMarkerWasCalled = true;
             AddNavigatorCommentMarkerLineValue = line;
+            AddNavigatorCommentMarkerNumberOfCalls++;
         }
 
         public bool RemoveNavigatorCommentMarkerWasCalled { get; private set; }
@@ -134,14 +142,16 @@ namespace StandaloneReview.Tests.MockViews
             AddMarkerTooltipTextValue = tooltipText;
         }
 
+        public bool AddGreyedAreaWasCalled { get; private set; }
         public void AddGreyedArea()
         {
-            throw new NotImplementedException();
+            AddGreyedAreaWasCalled = true;
         }
 
+        public bool RemoveAllNavigatorShapesWasCalled { get; private set; }
         public void RemoveAllNavigatorShapes()
         {
-            throw new NotImplementedException();
+            RemoveAllNavigatorShapesWasCalled = true;
         }
 
         public void ResetTextEditor()
@@ -199,6 +209,19 @@ namespace StandaloneReview.Tests.MockViews
         public void CloseApplication()
         {
             CloseApplicationWasCalled = true;
+        }
+
+        public void FireSelectedTabChanged(string filename)
+        {
+            if (SelectedTabChanged == null)
+            {
+                throw new NotImplementedException();
+            }
+            var e = new SelectedTabChangedEventArgs()
+            {
+                Filename = filename
+            };
+            SelectedTabChanged(null, e);
         }
     }
 }

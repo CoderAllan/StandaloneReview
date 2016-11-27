@@ -51,6 +51,11 @@ namespace StandaloneReview.Tests.MockViews
             InsertFilenameInListboxWasCalled = true;
         }
 
+        public void ClearLstFiles()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool InsertCommentInListboxWasCalled { get; private set; }
         public string InsertCommentInListboxValue { get; private set; }
         public void InsertCommentInListbox(string comment)

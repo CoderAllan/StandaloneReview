@@ -37,6 +37,19 @@ namespace StandaloneReview.Presenters
             _view.SetTxtPreviewText(_view.AppState.CurrentReview.ToString());
             _view.EnableDisableMoveFileButtons(false, false);
             _view.EnableDisableMoveCommentButtons(false, false);
+            RefillListBoxes();
+            var file = _view.AppState.CurrentReview.ReviewedFiles.FirstOrDefault(p => _view.AppState.CurrentReview.ReviewedFiles[p.Key].Position == 0);
+            string filename = file.Value.Filename;
+            var selectedIndexChangedEventArgs = new SelectedIndexChangedEventArgs
+            {
+                Filename = filename
+            };
+            DoLstFilesSelectedIndexChanged(null, selectedIndexChangedEventArgs);
+        }
+
+        private void RefillListBoxes()
+        {
+            _view.ClearLstFiles();
             foreach (var reviewedFile in _view.AppState.CurrentReview.ReviewedFiles.OrderBy(p => _view.AppState.CurrentReview.ReviewedFiles[p.Key].Position))
             {
                 var listboxFilesItem = new ListboxFilesItem
@@ -45,11 +58,6 @@ namespace StandaloneReview.Presenters
                     FullFilename = reviewedFile.Key
                 };
                 _view.InsertFilenameInListbox(listboxFilesItem);
-                var selectedIndexChangedEventArgs = new SelectedIndexChangedEventArgs
-                {
-                    Filename = listboxFilesItem.FullFilename
-                };
-                DoLstFilesSelectedIndexChanged(null, selectedIndexChangedEventArgs);
             }
         }
 
@@ -76,7 +84,8 @@ namespace StandaloneReview.Presenters
             }
             bool btnMoveFileUpEnabled = e.Position != 0 && _view.LstFilesItemsCount > 1 && _view.LstFilesSelectedIndex > -1;
             bool btnMoveFileDownEnabled = e.Position != _view.LstFilesItemsCount - 1 && _view.LstFilesItemsCount > 1 && _view.LstFilesSelectedIndex > -1;
-            _view.EnableDisableMoveCommentButtons(btnMoveFileUpEnabled, btnMoveFileDownEnabled);
+            _view.EnableDisableMoveFileButtons(btnMoveFileUpEnabled, btnMoveFileDownEnabled);
+            _view.EnableDisableMoveCommentButtons(false, false);
         }
 
         private void DoLstCommentsSelectedIndexChanged(object sender, SelectedIndexChangedEventArgs e)
@@ -95,11 +104,40 @@ namespace StandaloneReview.Presenters
 
         private void DoBtnMoveFileUpClick(object sender, FileMoveEventArgs e)
         {
+            if (e.Position > 0)
+            {
+                var fileToMoveUp = _view.AppState.CurrentReview.ReviewedFiles[e.Filename];
+                var fileToMoveDown = _view.AppState.CurrentReview.ReviewedFiles.FirstOrDefault(p => p.Value.Position == fileToMoveUp.Position - 1).Value;
+                if (fileToMoveUp != null)
+                {
+                    fileToMoveUp.Position = e.Position - 1;
+                }
+                if (fileToMoveDown != null)
+                {
+                    fileToMoveDown.Position = e.Position;
+                }
+            }
+            RefillListBoxes();
+            _view.EnableDisableMoveFileButtons(false, false);
+            _view.EnableDisableMoveCommentButtons(false, false);
             _view.SetTxtPreviewText(_view.AppState.CurrentReview.ToString());
         }
 
         private void DoBtnMoveFileDownClick(object sender, FileMoveEventArgs e)
         {
+            var fileToMoveDown = _view.AppState.CurrentReview.ReviewedFiles[e.Filename];
+            var fileToMoveUp = _view.AppState.CurrentReview.ReviewedFiles.FirstOrDefault(p => p.Value.Position == fileToMoveDown.Position + 1).Value;
+            if (fileToMoveUp != null)
+            {
+                fileToMoveUp.Position = e.Position;
+            }
+            if (fileToMoveDown != null)
+            {
+                fileToMoveDown.Position = e.Position + 1;
+            }
+            RefillListBoxes();
+            _view.EnableDisableMoveFileButtons(false, false);
+            _view.EnableDisableMoveCommentButtons(false, false);
             _view.SetTxtPreviewText(_view.AppState.CurrentReview.ToString());
         }
 
@@ -121,7 +159,7 @@ namespace StandaloneReview.Presenters
                 {
                     Filename = e.Filename
                 };
-                DoLstFilesSelectedIndexChanged(sender, selectedIndexChangedEventArgs);
+                DoLstFilesSelectedIndexChanged(sender, selectedIndexChangedEventArgs); // We call DoLstFilesSelectedIndexChanged(...) to fill the comments listbox
                 _view.SetTxtPreviewText(_view.AppState.CurrentReview.ToString());
             }
         }
@@ -144,7 +182,7 @@ namespace StandaloneReview.Presenters
                 {
                     Filename = e.Filename
                 };
-                DoLstFilesSelectedIndexChanged(sender, selectedIndexChangedEventArgs);
+                DoLstFilesSelectedIndexChanged(sender, selectedIndexChangedEventArgs); // We call DoLstFilesSelectedIndexChanged(...) to fill the comments listbox
                 _view.SetTxtPreviewText(_view.AppState.CurrentReview.ToString());
             }
         }

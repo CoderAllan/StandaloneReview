@@ -224,13 +224,16 @@ namespace StandaloneReview.Tests
             mockView.FireLstFilesSelectedIndexChanged(reviewedFileTop.Filename, 0);
 
             // Assert
+            Assert.IsTrue(mockView.EnableDisableMoveFileButtonsWasCalled);
+            Assert.IsTrue(mockView.BtnMoveFileDownEnabledValue);
+            Assert.IsFalse(mockView.BtnMoveFileUpEnabledValue);
             Assert.IsTrue(mockView.EnableDisableMoveCommentButtonsWasCalled);
             Assert.IsFalse(mockView.BtnMoveCommentUpEnabledValue);
-            Assert.IsTrue(mockView.BtnMoveCommentDownEnabledValue);
+            Assert.IsFalse(mockView.BtnMoveCommentDownEnabledValue);
         }
 
         [TestMethod]
-        public void PreviewLstFilesSelectedIndexChanged_SecondCommentClicked_ExpectMoveUpButtonDisableAndMoveDownButtonEnabled()
+        public void PreviewLstFilesSelectedIndexChanged_SecondFileClicked_ExpectMoveUpButtonDisableAndMoveDownButtonEnabled()
         {
             // Arrange
             ReviewedFile reviewedFileTop;
@@ -243,9 +246,12 @@ namespace StandaloneReview.Tests
             mockView.FireLstFilesSelectedIndexChanged(reviewedFileSecond.Filename, 1);
 
             // Assert
+            Assert.IsTrue(mockView.EnableDisableMoveFileButtonsWasCalled);
+            Assert.IsTrue(mockView.BtnMoveFileDownEnabledValue);
+            Assert.IsTrue(mockView.BtnMoveFileUpEnabledValue);
             Assert.IsTrue(mockView.EnableDisableMoveCommentButtonsWasCalled);
-            Assert.IsTrue(mockView.BtnMoveCommentUpEnabledValue);
-            Assert.IsTrue(mockView.BtnMoveCommentDownEnabledValue);
+            Assert.IsFalse(mockView.BtnMoveCommentUpEnabledValue);
+            Assert.IsFalse(mockView.BtnMoveCommentDownEnabledValue);
         }
 
         [TestMethod]
@@ -262,8 +268,11 @@ namespace StandaloneReview.Tests
             mockView.FireLstFilesSelectedIndexChanged(reviewedFileThird.Filename, 2);
 
             // Assert
+            Assert.IsTrue(mockView.EnableDisableMoveFileButtonsWasCalled);
+            Assert.IsFalse(mockView.BtnMoveFileDownEnabledValue);
+            Assert.IsTrue(mockView.BtnMoveFileUpEnabledValue);
             Assert.IsTrue(mockView.EnableDisableMoveCommentButtonsWasCalled);
-            Assert.IsTrue(mockView.BtnMoveCommentUpEnabledValue);
+            Assert.IsFalse(mockView.BtnMoveCommentUpEnabledValue);
             Assert.IsFalse(mockView.BtnMoveCommentDownEnabledValue);
         }
     }

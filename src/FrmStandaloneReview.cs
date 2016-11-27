@@ -45,15 +45,8 @@
                 Location = new Point(_appState.FrmStandaloneReviewPosX, _appState.FrmStandaloneReviewPosY)
             };
             DoFormLoad(this, eventArgs);
-
-            textEditorControlEx1.Document.FoldingManager.FoldingStrategy = new XmlFoldingStrategy();
-            navigatorCanvas.Top = textEditorControlEx1.Top;
-            navigatorCanvas.Height = textEditorControlEx1.Height - 2;
-
-            textEditorControlEx1.ActiveTextAreaControl.TextArea.MouseClick += ShowSelectionLength;
-            textEditorControlEx1.ActiveTextAreaControl.TextArea.MouseDoubleClick += ShowSelectionLength;
-            textEditorControlEx1.ActiveTextAreaControl.TextArea.MouseUp += ShowSelectionLength;
-            textEditorControlEx1.ActiveTextAreaControl.TextArea.KeyUp += ShowSelectionLength;
+            navigatorCanvas.Top = menuStrip1.Bottom + 2;
+            navigatorCanvas.Height = statusStrip1.Top - menuStrip1.Height - 4;
 
             EnableDisableMenuToolstripItems();
         }
@@ -78,6 +71,7 @@
         public event EventHandler<CaretPositionEventArgs> DeleteComment;
         public event EventHandler<CaretPositionEventArgs> EditComment;
         public event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
+        public event EventHandler<SelectedTabChangedEventArgs> SelectedTabChanged;
 
         public void SetFrmStandaloneReviewTitle(string text)
         {
@@ -86,7 +80,7 @@
 
         public void SetTextEditorControlText(string textEditorControlName, string text)
         {
-            var editControl = (TextEditorControlEx) Controls[textEditorControlName];
+            var editControl = GetActiveTextEditor(textEditorControlName);
             if (editControl != null)
             {
                 editControl.Document.TextContent = text;
@@ -97,6 +91,7 @@
 
         public void SetSyntaxHighlighting(string fileType)
         {
+            var editControl = GetActiveTextEditor();
             switch (fileType.ToLower())
             {
                 case ".xml":
@@ -106,22 +101,22 @@
                 case ".csproj":
                 case ".sln":
                 case ".config":
-                    textEditorControlEx1.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("XML");
+                    editControl.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("XML");
                     break;
                 case ".html":
-                    textEditorControlEx1.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("HTML");
+                    editControl.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("HTML");
                     break;
                 case ".aspx":
-                    textEditorControlEx1.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("ASPX");
+                    editControl.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("ASPX");
                     break;
                 case ".cs":
-                    textEditorControlEx1.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("C#");
+                    editControl.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("C#");
                     break;
                 case ".sql":
-                    textEditorControlEx1.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("SQL");
+                    editControl.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("SQL");
                     break;
             }
-            textEditorControlEx1.Refresh();
+            editControl.Refresh();
         }
 
         private void ShowSelectionLength(object sender, KeyEventArgs e)
@@ -134,15 +129,31 @@
             SetStatusText(GetActiveTextEditor());
         }
 
-        private TextEditorControlEx GetActiveTextEditor()
+        private TextEditorControlEx GetActiveTextEditor(string textEditorControlName = null)
         {
-            return textEditorControlEx1;
+            string editorControlName = textEditorControlName;
+            if (textEditorControlName == null)
+            {
+                if (tabControl1.SelectedTab == null)
+                {
+                    return null;
+                }
+                editorControlName = tabControl1.SelectedTab.Name.Replace("tabPage", "TextEditorControlEx");
+            }
+            var editor = tabControl1.Controls.Find(editorControlName, true);
+            if (editor.Length != 1)
+            {
+                return null;
+            }
+            return (TextEditorControlEx)editor[0];
         }
 
         private void SetStatusText(TextEditorControlEx editor)
         {
             int commentPosition = 0;
-            if (_appState.CurrentReview.ReviewedFiles.Count > 0)
+            if (_appState.CurrentReview.ReviewedFiles.Count > 0 && 
+                _appState.CurrentReview.ReviewedFiles.ContainsKey(_appState.CurrentReviewedFile.Filename) &&
+                _appState.CurrentReview.ReviewedFiles[_appState.CurrentReviewedFile.Filename].Comments.Count > 0)
             {
                 commentPosition = _appState.CurrentReview.ReviewedFiles[_appState.CurrentReviewedFile.Filename].Comments.Max(p => p.Position) + 1;
             }
@@ -189,6 +200,33 @@
             toolStrip.Refresh();
         }
 
+        public string AddNewTab(string filename, int newTabPageNumber)
+        {
+            var tab = new TabPage
+            {
+                Name = string.Format("tabPage{0}", newTabPageNumber),
+                Text = _systemIO.PathGetFilename(filename),
+                ToolTipText = filename,
+                Tag = filename
+            };
+            var newtextEditorControl = new TextEditorControlEx
+            {
+                Name = string.Format("TextEditorControlEx{0}", newTabPageNumber),
+                Dock = DockStyle.Fill
+            };
+            newtextEditorControl.Document.FoldingManager.FoldingStrategy = new XmlFoldingStrategy();
+            newtextEditorControl.ActiveTextAreaControl.TextArea.MouseClick += ShowSelectionLength;
+            newtextEditorControl.ActiveTextAreaControl.TextArea.MouseDoubleClick += ShowSelectionLength;
+            newtextEditorControl.ActiveTextAreaControl.TextArea.MouseUp += ShowSelectionLength;
+            newtextEditorControl.ActiveTextAreaControl.TextArea.KeyUp += ShowSelectionLength;
+            newtextEditorControl.ContextMenuStrip = contextMenuStrip1;
+
+            tab.Controls.Add(newtextEditorControl);
+            tabControl1.Controls.Add(tab);
+            tabControl1.SelectTab(tab);
+            return newtextEditorControl.Name;
+        }
+        
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
@@ -266,28 +304,33 @@
         private RectangleShape CreateRectangleShape(int line, Color color)
         {
             double correctionFactor = 1;
-            if (navigatorCanvas.Height - navigatorCanvas.Top < textEditorControlEx1.Document.TotalNumberOfLines)
+            var editor = GetActiveTextEditor();
+            if (editor != null)
             {
-                correctionFactor = (navigatorCanvas.Height - navigatorCanvas.Top)/(double) textEditorControlEx1.Document.TotalNumberOfLines;
+                if (navigatorCanvas.Height - navigatorCanvas.Top < editor.Document.TotalNumberOfLines)
+                {
+                    correctionFactor = (navigatorCanvas.Height - navigatorCanvas.Top)/(double) editor.Document.TotalNumberOfLines;
+                }
+                var rectangleShape = new RectangleShape
+                {
+                    Height = 2,
+                    Top = navigatorCanvas.Top + (int) (line*correctionFactor),
+                    Width = navigatorCanvas.Width - 2,
+                    Left = Width - 42, // This calculation should be: 'Left = navigatorCanvas.Left + 1', but the navigatorCanvas.Left property never changes when resizing the form. So we have to use the magic number 42 to make the placement of the navigator lines work.
+                    FillStyle = FillStyle.Solid,
+                    FillColor = color,
+                    BorderStyle = DashStyle.Solid,
+                    BorderColor = color,
+                    Tag = line,
+                    Cursor = Cursors.Hand,
+                    Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                };
+                rectangleShape.Click += rectangle_Click;
+                navigatorCanvas.SendToBack();
+                rectangleShape.BringToFront();
+                return rectangleShape;
             }
-            var rectangleShape = new RectangleShape
-            {
-                Height = 2,
-                Top = navigatorCanvas.Top + (int)(line * correctionFactor),
-                Width = navigatorCanvas.Width - 2,
-                Left = Width - 42, // This calculation should be: 'Left = navigatorCanvas.Left + 1', but the navigatorCanvas.Left property never changes when resizing the form. So we have to use the magic number 42 to make the placement of the navigator lines work.
-                FillStyle = FillStyle.Solid,
-                FillColor = color,
-                BorderStyle = DashStyle.Solid,
-                BorderColor = color,
-                Tag = line,
-                Cursor = Cursors.Hand,
-                Anchor = AnchorStyles.Top | AnchorStyles.Right,
-            };
-            rectangleShape.Click += rectangle_Click;
-            navigatorCanvas.SendToBack();
-            rectangleShape.BringToFront();
-            return rectangleShape;
+            return null;
         }
 
         public void rectangle_Click(object sender, EventArgs e)
@@ -305,7 +348,10 @@
                 shapeContainer1.Shapes.Remove(_navigatorCurrentLineRectangle);
             }
             _navigatorCurrentLineRectangle = CreateRectangleShape(line, Color.DarkBlue);
-            shapeContainer1.Shapes.Add(_navigatorCurrentLineRectangle);
+            if (_navigatorCurrentLineRectangle != null)
+            {
+                shapeContainer1.Shapes.Add(_navigatorCurrentLineRectangle);
+            }
         }
 
         public void AddNavigatorCommentMarker(int line)
@@ -313,31 +359,39 @@
             if (!_navigatorCommentRectangles.ContainsKey(line))
             {
                 var rectangle = CreateRectangleShape(line, Color.Goldenrod);
-                _navigatorCommentRectangles.Add(line, rectangle);
-                shapeContainer1.Shapes.Add(rectangle);
+                if (rectangle != null)
+                {
+                    _navigatorCommentRectangles.Add(line, rectangle);
+                    shapeContainer1.Shapes.Add(rectangle);
+                }
             }
         }
 
         public void AddGreyedArea()
         {
-            var rectangleShape = new RectangleShape
+            var editor = GetActiveTextEditor();
+            if (editor != null)
             {
-                Height = navigatorCanvas.Height - textEditorControlEx1.Document.TotalNumberOfLines,
-                Top = navigatorCanvas.Top + textEditorControlEx1.Document.TotalNumberOfLines + 2,
-                Width = navigatorCanvas.Width - 2,
-                Left = navigatorCanvas.Left + 1,
-                FillStyle = FillStyle.Solid,
-                FillColor = Color.LightGray,
-                BorderStyle = DashStyle.Solid,
-                BorderColor = Color.LightGray,
-                Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom,
-            };
-            shapeContainer1.Shapes.Add(rectangleShape);
+                var rectangleShape = new RectangleShape
+                {
+                    Height = navigatorCanvas.Height - editor.Document.TotalNumberOfLines,
+                    Top = navigatorCanvas.Top + editor.Document.TotalNumberOfLines + 2,
+                    Width = navigatorCanvas.Width - 2,
+                    Left = navigatorCanvas.Left + 1,
+                    FillStyle = FillStyle.Solid,
+                    FillColor = Color.LightGray,
+                    BorderStyle = DashStyle.Solid,
+                    BorderColor = Color.LightGray,
+                    Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom,
+                };
+                shapeContainer1.Shapes.Add(rectangleShape);
+            }
         }
 
         public void RemoveAllNavigatorShapes()
         {
             shapeContainer1.Shapes.Clear();
+            _navigatorCommentRectangles.Clear();
         }
 
         public void RemoveNavigatorCommentMarker(int line)
@@ -377,11 +431,10 @@
             {
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    var editor = GetActiveTextEditor();
+                    string filename = openFileDialog1.FileName;
                     var loadEventArgs = new LoadEventArgs
                     {
-                        Filename = openFileDialog1.FileName,
-                        EditorControlName = editor.Name
+                        Filename = filename
                     };
                     BtnLoadClick(sender, loadEventArgs);
                 }
@@ -415,7 +468,10 @@
 
         public bool MessageBoxUnsavedCommentsWarningOkCancel()
         {
-            return MessageBox.Show(Resources.FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes, Resources.FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes_Caption, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning) == DialogResult.Yes;
+            return MessageBox.Show(Resources.FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes, 
+                                   Resources.FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes_Caption, 
+                                   MessageBoxButtons.YesNoCancel, 
+                                   MessageBoxIcon.Warning) == DialogResult.Yes;
         }
 
         public void ResetTextEditor()
@@ -448,7 +504,7 @@
             }
         }
 
-        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
             if (ContextMenuStripOpening != null)
             {
@@ -479,7 +535,8 @@
                     Column = editor.ActiveTextAreaControl.Caret.Position.Column
                 };
                 DeleteComment(sender, deleteCommentEventArgs);
-                var textLocation = new TextLocation(editor.ActiveTextAreaControl.Caret.Position.Column, editor.ActiveTextAreaControl.Caret.Position.Line);
+                var textLocation = new TextLocation(editor.ActiveTextAreaControl.Caret.Position.Column, 
+                                                    editor.ActiveTextAreaControl.Caret.Position.Line);
                 foreach (var textMarker in editor.Document.MarkerStrategy.GetMarkers(textLocation))
                 {
                     editor.Document.MarkerStrategy.RemoveMarker(textMarker);
@@ -501,6 +558,18 @@
             {
                 RuntimeLocalizer.ChangeCulture(_appState.ApplicationLocale);
                 Refresh();
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SelectedTabChanged != null)
+            {
+                var selectedTabChangedArgs = new SelectedTabChangedEventArgs
+                {
+                    Filename = (string)tabControl1.SelectedTab.Tag
+                };
+                SelectedTabChanged(sender, selectedTabChangedArgs);
             }
         }
     }

@@ -20,10 +20,12 @@
         event EventHandler<CaretPositionEventArgs> DeleteComment;
         event EventHandler<CaretPositionEventArgs> EditComment;
         event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
+        event EventHandler<SelectedTabChangedEventArgs> SelectedTabChanged;
 
         void SetFrmStandaloneReviewTitle(string text);
         void SetSyntaxHighlighting(string fileType);
         void SetTextEditorControlText(string textEditorControlName, string text);
+        string AddNewTab(string filename, int newTabPageNumber);
         int GetTextOffset(int column, int line);
         void AddNavigatorCurrentLineMarker(int line);
         void AddNavigatorCommentMarker(int line);
@@ -72,5 +74,10 @@
     {
         public int Line { get; set; }
         public int Column { get; set; }
+    }
+
+    public class SelectedTabChangedEventArgs : EventArgs
+    {
+        public string Filename { get; set; }
     }
 }

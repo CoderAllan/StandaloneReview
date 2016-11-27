@@ -23,6 +23,7 @@ namespace StandaloneReview.Views
 
         void SetTxtPreviewText(string text);
         void InsertFilenameInListbox(ListboxFilesItem filename);
+        void ClearLstFiles();
         void InsertCommentInListbox(string comment);
         void ClearLstComments();
         void EnableDisableMoveFileButtons(bool btnMoveFileUpEnabled, bool btnMoveFileDownEnabled);

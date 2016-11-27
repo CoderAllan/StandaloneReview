@@ -29,6 +29,7 @@ namespace StandaloneReview.Presenters
             _view.DeleteComment += DoDeleteComment;
             _view.EditComment += DoEditComment;
             _view.ContextMenuStripOpening += DoContextMenuStripOpening;
+            _view.SelectedTabChanged += DoSelectedTabChanged;
 
             DoSetFrmStandaloneReviewTitle();
         }
@@ -42,14 +43,18 @@ namespace StandaloneReview.Presenters
 
         private void DoLoadClick(object sender, LoadEventArgs args)
         {
-            var text = _view.SystemIO.FileReadAllText(args.Filename);
-            _view.SetTextEditorControlText(args.EditorControlName, text);
-            _view.SetSyntaxHighlighting(_view.SystemIO.PathGetExtension(args.Filename));
             _view.AppState.CurrentReviewedFile = new ReviewedFile
-                {
-                    Filename = args.Filename,
-                    Comments = new List<ReviewComment>()
-                };
+            {
+                Filename = args.Filename,
+                Comments = new List<ReviewComment>(),
+                Position = _view.AppState.CurrentReview.ReviewedFiles.Count
+            };
+            _view.AppState.CurrentReview.ReviewedFiles.Add(args.Filename, _view.AppState.CurrentReviewedFile);
+            var text = _view.SystemIO.FileReadAllText(args.Filename);
+            int newTabPageNumber = _view.AppState.CurrentReview.ReviewedFiles.Count;
+            string textEditorControlName = _view.AddNewTab(args.Filename, newTabPageNumber);
+            _view.SetTextEditorControlText(textEditorControlName, text);
+            _view.SetSyntaxHighlighting(_view.SystemIO.PathGetExtension(args.Filename));
             _view.EnableDisableMenuToolstripItems();
             _view.RemoveAllNavigatorShapes();
             _view.AddGreyedArea();
@@ -261,6 +266,17 @@ namespace StandaloneReview.Presenters
                 }
             }
             return commentAtCaretPosition;
+        }
+
+        public void DoSelectedTabChanged(object sender, SelectedTabChangedEventArgs e)
+        {
+            _view.RemoveAllNavigatorShapes();
+            var review = _view.AppState.CurrentReview.ReviewedFiles[e.Filename];
+            foreach (var comment in review.Comments)
+            {
+                _view.AddNavigatorCommentMarker(comment.SelectionStartLine > 0 ? comment.SelectionStartLine : comment.Line);
+            }
+            _view.AddGreyedArea();
         }
     }
 }

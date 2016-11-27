@@ -106,6 +106,7 @@
     <Compile Include="Tests\FrmStandaloneReviewPresenterContextMenuStripOpeningTests.cs" />
     <Compile Include="Tests\FrmStandaloneReviewPresenterDeleteCommentTests.cs" />
     <Compile Include="Tests\FrmStandaloneReviewPresenterExitMenuItemTests.cs" />
+    <Compile Include="Tests\FrmStandaloneReviewPresenterSelectedTabChangedTests.cs" />
     <Compile Include="Tests\FrmStandaloneReviewPresenterTests.cs" />
     <Compile Include="Tests\MockViews\MockFrmInsertComment.cs" />
     <Compile Include="Tests\MockViews\MockFrmPreview.cs" />
