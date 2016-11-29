@@ -43,6 +43,11 @@ namespace StandaloneReview.Presenters
 
         private void DoLoadClick(object sender, LoadEventArgs args)
         {
+            if (_view.AppState.CurrentReview.ReviewedFiles.ContainsKey(args.Filename))
+            {
+                _view.SelectOpenTab(args.Filename);
+                return;
+            }
             _view.AppState.CurrentReviewedFile = new ReviewedFile
             {
                 Filename = args.Filename,
@@ -100,7 +105,7 @@ namespace StandaloneReview.Presenters
         {
             if (_view.AppState.CurrentReview.Saved)
             {
-                ResetCurrentReviewWorkingComment();
+                ResetCurrentReview();
             }
             else
             {
@@ -110,17 +115,17 @@ namespace StandaloneReview.Presenters
                 {
                     if (_view.MessageBoxUnsavedCommentsWarningOkCancel())
                     {
-                        ResetCurrentReviewWorkingComment();
+                        ResetCurrentReview();
                     }
                 }
                 else
                 {
-                    ResetCurrentReviewWorkingComment();
+                    ResetCurrentReview();
                 }
             }
         }
 
-        private void ResetCurrentReviewWorkingComment()
+        private void ResetCurrentReview()
         {
             _view.AppState.WorkingComment = new ReviewComment();
             _view.AppState.CurrentReviewedFile = null;
@@ -130,7 +135,7 @@ namespace StandaloneReview.Presenters
                 ReviewedFiles = new Dictionary<string, ReviewedFile>(),
                 Saved = true
             };
-            _view.ResetTextEditor();
+            _view.RemoveAllOpenTabs();
             _view.EnableDisableMenuToolstripItems();
             DoSetFrmStandaloneReviewTitle();
         }
@@ -270,13 +275,16 @@ namespace StandaloneReview.Presenters
 
         public void DoSelectedTabChanged(object sender, SelectedTabChangedEventArgs e)
         {
-            _view.RemoveAllNavigatorShapes();
-            var review = _view.AppState.CurrentReview.ReviewedFiles[e.Filename];
-            foreach (var comment in review.Comments)
+            if (_view.AppState.CurrentReview.ReviewedFiles.Count > 0)
             {
-                _view.AddNavigatorCommentMarker(comment.SelectionStartLine > 0 ? comment.SelectionStartLine : comment.Line);
+                _view.RemoveAllNavigatorShapes();
+                var review = _view.AppState.CurrentReview.ReviewedFiles[e.Filename];
+                foreach (var comment in review.Comments)
+                {
+                    _view.AddNavigatorCommentMarker(comment.SelectionStartLine > 0 ? comment.SelectionStartLine : comment.Line);
+                }
+                _view.AddGreyedArea();
             }
-            _view.AddGreyedArea();
         }
     }
 }

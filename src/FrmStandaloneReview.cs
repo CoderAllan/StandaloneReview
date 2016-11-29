@@ -226,6 +226,23 @@
             tabControl1.SelectTab(tab);
             return newtextEditorControl.Name;
         }
+
+        public void RemoveAllOpenTabs()
+        {
+            tabControl1.TabPages.Clear();
+        }
+
+        public void SelectOpenTab(string filename)
+        {
+            foreach (TabPage tabPage in tabControl1.TabPages)
+            {
+                if (tabPage.Tag.Equals(filename))
+                {
+                    tabControl1.SelectTab(tabPage);
+                    break;
+                }
+            }
+        }
         
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -473,15 +490,7 @@
                                    MessageBoxButtons.YesNoCancel, 
                                    MessageBoxIcon.Warning) == DialogResult.Yes;
         }
-
-        public void ResetTextEditor()
-        {
-            var editor = GetActiveTextEditor();
-            editor.Document.MarkerStrategy.RemoveAll(marker => true);
-            editor.Document.TextContent = "";
-            editor.Refresh();
-        }
-
+        
         public void EnableDisableMenuToolstripItems()
         {
             if (_appState != null && _appState.CurrentReviewedFile != null)
@@ -563,7 +572,7 @@
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (SelectedTabChanged != null)
+            if (SelectedTabChanged != null && tabControl1.SelectedTab != null)
             {
                 var selectedTabChangedArgs = new SelectedTabChangedEventArgs
                 {

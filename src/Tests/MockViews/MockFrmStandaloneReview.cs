@@ -92,6 +92,16 @@ namespace StandaloneReview.Tests.MockViews
             throw new NotImplementedException();
         }
 
+        public void RemoveAllOpenTabs()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SelectOpenTab(string tabName)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool GetTextOffsetWasCalled { get; private set; }
         public int GetTextOffsetColumnValue { get; private set; }
         public int GetTextOffsetLineValue { get; private set; }
@@ -152,11 +162,6 @@ namespace StandaloneReview.Tests.MockViews
         public void RemoveAllNavigatorShapes()
         {
             RemoveAllNavigatorShapesWasCalled = true;
-        }
-
-        public void ResetTextEditor()
-        {
-            throw new NotImplementedException();
         }
 
         public void EnableDisableMenuToolstripItems()

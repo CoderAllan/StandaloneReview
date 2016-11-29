@@ -22,24 +22,33 @@
         event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
         event EventHandler<SelectedTabChangedEventArgs> SelectedTabChanged;
 
+        // Main form
         void SetFrmStandaloneReviewTitle(string text);
-        void SetSyntaxHighlighting(string fileType);
-        void SetTextEditorControlText(string textEditorControlName, string text);
-        string AddNewTab(string filename, int newTabPageNumber);
-        int GetTextOffset(int column, int line);
-        void AddNavigatorCurrentLineMarker(int line);
-        void AddNavigatorCommentMarker(int line);
-        void RemoveNavigatorCommentMarker(int line);
-        void AddMarker(int offset, int length, string tooltipText);
-        void AddGreyedArea();
-        void RemoveAllNavigatorShapes();
-        void ResetTextEditor();
         void EnableDisableMenuToolstripItems();
         bool MessageBoxUnsavedCommentsWarningOkCancel();
         void EnableDisableContextMenuToolsstripItems(bool menuToolStripEnabled);
-        void ShowInsertCommentForm(bool editCurrentWorkingComment);
-        void SetMarkerTooltip(string tooltipText);
         void CloseApplication();
+
+        // Texteditor control
+        void SetSyntaxHighlighting(string fileType);
+        void SetTextEditorControlText(string textEditorControlName, string text);
+        int GetTextOffset(int column, int line);
+        void AddMarker(int offset, int length, string tooltipText);
+        void SetMarkerTooltip(string tooltipText);
+        
+        // Tabcontrol
+        string AddNewTab(string filename, int newTabPageNumber);
+        void RemoveAllOpenTabs();
+        void SelectOpenTab(string filename);
+        
+        // Navigator markers
+        void AddNavigatorCurrentLineMarker(int line);
+        void AddNavigatorCommentMarker(int line);
+        void RemoveNavigatorCommentMarker(int line);
+        void AddGreyedArea();
+        void RemoveAllNavigatorShapes();
+        
+        void ShowInsertCommentForm(bool editCurrentWorkingComment);
     }
 
     public class LoadEventArgs : EventArgs
