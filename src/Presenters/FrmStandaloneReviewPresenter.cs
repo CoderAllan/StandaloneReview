@@ -30,6 +30,8 @@ namespace StandaloneReview.Presenters
             _view.EditComment += DoEditComment;
             _view.ContextMenuStripOpening += DoContextMenuStripOpening;
             _view.SelectedTabChanged += DoSelectedTabChanged;
+            _view.OpenContainingFolder += DoOpenContainingFolder;
+            _view.CopyFullPath += DoCopyFullPath;
 
             DoSetFrmStandaloneReviewTitle();
         }
@@ -283,6 +285,16 @@ namespace StandaloneReview.Presenters
                 }
                 _view.AddGreyedArea();
             }
+        }
+
+        public void DoOpenContainingFolder(object sender, OpenFolderEventArgs e)
+        {
+            _view.SystemIO.OpenFolderInExplorer(e.Foldername);
+        }
+
+        public void DoCopyFullPath(object sender, CopyFullPathEventArgs e)
+        {
+            _view.SystemIO.CopyToClipboard(e.Filename);
         }
     }
 }

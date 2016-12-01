@@ -1,6 +1,8 @@
 namespace StandaloneReview
 {
+    using System.Diagnostics;
     using System.IO;
+    using System.Windows.Forms;
 
     using Contracts;
 
@@ -24,6 +26,21 @@ namespace StandaloneReview
         public string PathGetFilename(string filename)
         {
             return Path.GetFileName(filename);
+        }
+
+        public string PathGetFoldername(string filename)
+        {
+            return Path.GetDirectoryName(filename);
+        }
+
+        public void OpenFolderInExplorer(string foldername)
+        {
+            Process.Start(foldername);
+        }
+
+        public void CopyToClipboard(string text)
+        {
+            Clipboard.SetText(text);
         }
     }
 }

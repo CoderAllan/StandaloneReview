@@ -21,6 +21,8 @@
         event EventHandler<CaretPositionEventArgs> EditComment;
         event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
         event EventHandler<SelectedTabChangedEventArgs> SelectedTabChanged;
+        event EventHandler<OpenFolderEventArgs> OpenContainingFolder;
+        event EventHandler<CopyFullPathEventArgs> CopyFullPath;
 
         // Main form
         void SetFrmStandaloneReviewTitle(string text);
@@ -51,15 +53,18 @@
         void ShowInsertCommentForm(bool editCurrentWorkingComment);
     }
 
-    public class LoadEventArgs : EventArgs
+    public class FilenameEventArgs : EventArgs
     {
         public string Filename { get; set; }
+    }
+
+    public class LoadEventArgs : FilenameEventArgs
+    {
         public string EditorControlName { get; set; }
     }
 
-    public class SaveEventArgs : EventArgs
+    public class SaveEventArgs : FilenameEventArgs
     {
-        public string Filename { get; set; }
     }
 
     public class CommitCommentEventArgs : EventArgs
@@ -85,8 +90,16 @@
         public int Column { get; set; }
     }
 
-    public class SelectedTabChangedEventArgs : EventArgs
+    public class SelectedTabChangedEventArgs : FilenameEventArgs
     {
-        public string Filename { get; set; }
+    }
+
+    public class OpenFolderEventArgs : EventArgs
+    {
+        public string Foldername { get; set; }
+    }
+
+    public class CopyFullPathEventArgs : FilenameEventArgs
+    {
     }
 }

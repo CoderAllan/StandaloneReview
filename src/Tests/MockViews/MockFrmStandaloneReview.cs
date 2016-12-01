@@ -21,6 +21,8 @@ namespace StandaloneReview.Tests.MockViews
         public event EventHandler<CaretPositionEventArgs> EditComment;
         public event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
         public event EventHandler<SelectedTabChangedEventArgs> SelectedTabChanged;
+        public event EventHandler<OpenFolderEventArgs> OpenContainingFolder;
+        public event EventHandler<CopyFullPathEventArgs> CopyFullPath;
 
         public MockFrmStandaloneReview()
         {

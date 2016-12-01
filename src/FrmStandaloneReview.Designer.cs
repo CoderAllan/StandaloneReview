@@ -32,7 +32,7 @@ namespace StandaloneReview
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmStandaloneReview));
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuComment = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.insertCommentToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +48,7 @@ namespace StandaloneReview
             this.nytReviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveReviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,25 +59,33 @@ namespace StandaloneReview
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.navigatorCanvas = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.contextMenuStrip1.SuspendLayout();
+            this.contextMenuTabpages = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.closeTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeAllTabsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeAllTabsButThisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.copyFullPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openContainingFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuComment.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.contextMenuTabpages.SuspendLayout();
             this.SuspendLayout();
             // 
-            // contextMenuStrip1
+            // contextMenuComment
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            resources.ApplyResources(this.contextMenuComment, "contextMenuComment");
+            this.contextMenuComment.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.insertCommentToolStripMenuItem1,
             this.editCommentToolStripMenuItem,
             this.deleteCommentToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
-            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            this.contextMenuComment.Name = "contextMenuStrip1";
+            this.contextMenuComment.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // insertCommentToolStripMenuItem1
             // 
-            this.insertCommentToolStripMenuItem1.Name = "insertCommentToolStripMenuItem1";
             resources.ApplyResources(this.insertCommentToolStripMenuItem1, "insertCommentToolStripMenuItem1");
+            this.insertCommentToolStripMenuItem1.Name = "insertCommentToolStripMenuItem1";
             this.insertCommentToolStripMenuItem1.Click += new System.EventHandler(this.insertCommentToolStripMenuItem1_Click);
             // 
             // editCommentToolStripMenuItem
@@ -93,6 +102,7 @@ namespace StandaloneReview
             // 
             // statusStrip1
             // 
+            resources.ApplyResources(this.statusStrip1, "statusStrip1");
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLblLine,
@@ -100,62 +110,63 @@ namespace StandaloneReview
             this.toolStripStatusLblSelectionLength,
             this.toolStripStatusLblSelectionStart,
             this.toolStripStatusLblSelectionEnd});
-            resources.ApplyResources(this.statusStrip1, "statusStrip1");
             this.statusStrip1.Name = "statusStrip1";
             // 
             // toolStripStatusLblLine
             // 
-            this.toolStripStatusLblLine.Name = "toolStripStatusLblLine";
             resources.ApplyResources(this.toolStripStatusLblLine, "toolStripStatusLblLine");
+            this.toolStripStatusLblLine.Name = "toolStripStatusLblLine";
             // 
             // toolStripStatusLblColumn
             // 
-            this.toolStripStatusLblColumn.Name = "toolStripStatusLblColumn";
             resources.ApplyResources(this.toolStripStatusLblColumn, "toolStripStatusLblColumn");
+            this.toolStripStatusLblColumn.Name = "toolStripStatusLblColumn";
             // 
             // toolStripStatusLblSelectionLength
             // 
-            this.toolStripStatusLblSelectionLength.Name = "toolStripStatusLblSelectionLength";
             resources.ApplyResources(this.toolStripStatusLblSelectionLength, "toolStripStatusLblSelectionLength");
+            this.toolStripStatusLblSelectionLength.Name = "toolStripStatusLblSelectionLength";
             // 
             // toolStripStatusLblSelectionStart
             // 
-            this.toolStripStatusLblSelectionStart.Name = "toolStripStatusLblSelectionStart";
             resources.ApplyResources(this.toolStripStatusLblSelectionStart, "toolStripStatusLblSelectionStart");
+            this.toolStripStatusLblSelectionStart.Name = "toolStripStatusLblSelectionStart";
             // 
             // toolStripStatusLblSelectionEnd
             // 
-            this.toolStripStatusLblSelectionEnd.Name = "toolStripStatusLblSelectionEnd";
             resources.ApplyResources(this.toolStripStatusLblSelectionEnd, "toolStripStatusLblSelectionEnd");
+            this.toolStripStatusLblSelectionEnd.Name = "toolStripStatusLblSelectionEnd";
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
             // 
             // menuStrip1
             // 
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
             this.toolsToolStripMenuItem});
-            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
+            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nytReviewToolStripMenuItem,
             this.openFileToolStripMenuItem,
             this.saveReviewToolStripMenuItem,
+            this.exportToolStripMenuItem,
             this.previewToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
             // nytReviewToolStripMenuItem
             // 
-            this.nytReviewToolStripMenuItem.Name = "nytReviewToolStripMenuItem";
             resources.ApplyResources(this.nytReviewToolStripMenuItem, "nytReviewToolStripMenuItem");
+            this.nytReviewToolStripMenuItem.Name = "nytReviewToolStripMenuItem";
             this.nytReviewToolStripMenuItem.Click += new System.EventHandler(this.newReviewToolStripMenuItem_Click);
             // 
             // openFileToolStripMenuItem
@@ -169,6 +180,11 @@ namespace StandaloneReview
             resources.ApplyResources(this.saveReviewToolStripMenuItem, "saveReviewToolStripMenuItem");
             this.saveReviewToolStripMenuItem.Name = "saveReviewToolStripMenuItem";
             this.saveReviewToolStripMenuItem.Click += new System.EventHandler(this.saveReviewToolStripMenuItem_Click);
+            // 
+            // exportToolStripMenuItem
+            // 
+            resources.ApplyResources(this.exportToolStripMenuItem, "exportToolStripMenuItem");
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             // 
             // previewToolStripMenuItem
             // 
@@ -184,10 +200,10 @@ namespace StandaloneReview
             // 
             // editToolStripMenuItem
             // 
+            resources.ApplyResources(this.editToolStripMenuItem, "editToolStripMenuItem");
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.insertCommentToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            resources.ApplyResources(this.editToolStripMenuItem, "editToolStripMenuItem");
             // 
             // insertCommentToolStripMenuItem
             // 
@@ -197,16 +213,20 @@ namespace StandaloneReview
             // 
             // toolsToolStripMenuItem
             // 
+            resources.ApplyResources(this.toolsToolStripMenuItem, "toolsToolStripMenuItem");
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.optionsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            resources.ApplyResources(this.toolsToolStripMenuItem, "toolsToolStripMenuItem");
             // 
             // optionsToolStripMenuItem
             // 
             resources.ApplyResources(this.optionsToolStripMenuItem, "optionsToolStripMenuItem");
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+            // 
+            // saveFileDialog1
+            // 
+            resources.ApplyResources(this.saveFileDialog1, "saveFileDialog1");
             // 
             // shapeContainer1
             // 
@@ -224,9 +244,54 @@ namespace StandaloneReview
             // tabControl1
             // 
             resources.ApplyResources(this.tabControl1, "tabControl1");
+            this.tabControl1.ContextMenuStrip = this.contextMenuTabpages;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            // 
+            // contextMenuTabpages
+            // 
+            resources.ApplyResources(this.contextMenuTabpages, "contextMenuTabpages");
+            this.contextMenuTabpages.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeTabToolStripMenuItem,
+            this.closeAllTabsToolStripMenuItem,
+            this.closeAllTabsButThisToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.copyFullPathToolStripMenuItem,
+            this.openContainingFolderToolStripMenuItem});
+            this.contextMenuTabpages.Name = "contextMenuTabpages";
+            // 
+            // closeTabToolStripMenuItem
+            // 
+            resources.ApplyResources(this.closeTabToolStripMenuItem, "closeTabToolStripMenuItem");
+            this.closeTabToolStripMenuItem.Name = "closeTabToolStripMenuItem";
+            // 
+            // closeAllTabsToolStripMenuItem
+            // 
+            resources.ApplyResources(this.closeAllTabsToolStripMenuItem, "closeAllTabsToolStripMenuItem");
+            this.closeAllTabsToolStripMenuItem.Name = "closeAllTabsToolStripMenuItem";
+            // 
+            // closeAllTabsButThisToolStripMenuItem
+            // 
+            resources.ApplyResources(this.closeAllTabsButThisToolStripMenuItem, "closeAllTabsButThisToolStripMenuItem");
+            this.closeAllTabsButThisToolStripMenuItem.Name = "closeAllTabsButThisToolStripMenuItem";
+            // 
+            // toolStripSeparator1
+            // 
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            // 
+            // copyFullPathToolStripMenuItem
+            // 
+            resources.ApplyResources(this.copyFullPathToolStripMenuItem, "copyFullPathToolStripMenuItem");
+            this.copyFullPathToolStripMenuItem.Name = "copyFullPathToolStripMenuItem";
+            this.copyFullPathToolStripMenuItem.Click += new System.EventHandler(this.copyFullPathToolStripMenuItem_Click);
+            // 
+            // openContainingFolderToolStripMenuItem
+            // 
+            resources.ApplyResources(this.openContainingFolderToolStripMenuItem, "openContainingFolderToolStripMenuItem");
+            this.openContainingFolderToolStripMenuItem.Name = "openContainingFolderToolStripMenuItem";
+            this.openContainingFolderToolStripMenuItem.Click += new System.EventHandler(this.openContainingFolderToolStripMenuItem_Click);
             // 
             // FrmStandaloneReview
             // 
@@ -239,11 +304,12 @@ namespace StandaloneReview
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmStandaloneReview";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmStandaloneReview_FormClosing);
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.contextMenuComment.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.contextMenuTabpages.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -265,7 +331,7 @@ namespace StandaloneReview
         private System.Windows.Forms.ToolStripMenuItem insertCommentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openFileToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuComment;
         private System.Windows.Forms.ToolStripMenuItem insertCommentToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem nytReviewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteCommentToolStripMenuItem;
@@ -277,6 +343,14 @@ namespace StandaloneReview
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape navigatorCanvas;
         private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuTabpages;
+        private System.Windows.Forms.ToolStripMenuItem closeTabToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeAllTabsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeAllTabsButThisToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyFullPathToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openContainingFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
     }
 }
 

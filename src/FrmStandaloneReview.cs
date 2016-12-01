@@ -72,6 +72,8 @@
         public event EventHandler<CaretPositionEventArgs> EditComment;
         public event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
         public event EventHandler<SelectedTabChangedEventArgs> SelectedTabChanged;
+        public event EventHandler<OpenFolderEventArgs> OpenContainingFolder;
+        public event EventHandler<CopyFullPathEventArgs> CopyFullPath;
 
         public void SetFrmStandaloneReviewTitle(string text)
         {
@@ -219,7 +221,7 @@
             newtextEditorControl.ActiveTextAreaControl.TextArea.MouseDoubleClick += ShowSelectionLength;
             newtextEditorControl.ActiveTextAreaControl.TextArea.MouseUp += ShowSelectionLength;
             newtextEditorControl.ActiveTextAreaControl.TextArea.KeyUp += ShowSelectionLength;
-            newtextEditorControl.ContextMenuStrip = contextMenuStrip1;
+            newtextEditorControl.ContextMenuStrip = contextMenuComment;
 
             tab.Controls.Add(newtextEditorControl);
             tabControl1.Controls.Add(tab);
@@ -579,6 +581,31 @@
                     Filename = (string)tabControl1.SelectedTab.Tag
                 };
                 SelectedTabChanged(sender, selectedTabChangedArgs);
+            }
+        }
+
+        private void openContainingFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (OpenContainingFolder != null)
+            {
+                var filename = (string)tabControl1.SelectedTab.Tag;
+                var openFolderEventArgs = new OpenFolderEventArgs
+                {
+                    Foldername = _systemIO.PathGetFoldername(filename)
+                };
+                OpenContainingFolder(sender, openFolderEventArgs);
+            }
+        }
+
+        private void copyFullPathToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CopyFullPath != null)
+            {
+                var copyFullPathEventArgs = new CopyFullPathEventArgs
+                {
+                    Filename = (string)tabControl1.SelectedTab.Tag
+                };
+                CopyFullPath(sender, copyFullPathEventArgs);
             }
         }
     }
