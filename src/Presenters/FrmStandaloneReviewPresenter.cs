@@ -149,9 +149,6 @@ namespace StandaloneReview.Presenters
             if (!e.EditCurrentWorkingComment)
             {
                 _view.AppState.CurrentReview.ReviewedFiles[_view.AppState.CurrentReviewedFile.Filename].Comments.Add(_view.AppState.WorkingComment);
-            }
-            if (!e.EditCurrentWorkingComment)
-            {
                 int offset;
                 int length;
                 if (_view.AppState.WorkingComment.SelectionStartLine > 0)
@@ -277,6 +274,7 @@ namespace StandaloneReview.Presenters
         {
             if (_view.AppState.CurrentReview.ReviewedFiles.Count > 0)
             {
+                _view.AppState.CurrentReviewedFile = _view.AppState.CurrentReview.ReviewedFiles[e.Filename];
                 _view.RemoveAllNavigatorShapes();
                 var review = _view.AppState.CurrentReview.ReviewedFiles[e.Filename];
                 foreach (var comment in review.Comments)
