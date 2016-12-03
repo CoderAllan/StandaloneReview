@@ -30,6 +30,9 @@ namespace StandaloneReview.Presenters
             _view.EditComment += DoEditComment;
             _view.ContextMenuStripOpening += DoContextMenuStripOpening;
             _view.SelectedTabChanged += DoSelectedTabChanged;
+            _view.CloseTabClick += DoCloseTabClick;
+            _view.CloseAllTabsClick += DoCloseAllTabsClick;
+            _view.CloseAllTabsButThisClick += DoCloseAllTabsButThisClick;
             _view.OpenContainingFolder += DoOpenContainingFolder;
             _view.CopyFullPath += DoCopyFullPath;
 
@@ -287,6 +290,21 @@ namespace StandaloneReview.Presenters
             }
         }
 
+        private void DoCloseTabClick(object sender, CloseTabEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DoCloseAllTabsClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DoCloseAllTabsButThisClick(object sender, CloseTabEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DoOpenContainingFolder(object sender, OpenFolderEventArgs e)
         {
             _view.SystemIO.OpenFolderInExplorer(e.Foldername);
@@ -296,5 +314,6 @@ namespace StandaloneReview.Presenters
         {
             _view.SystemIO.CopyToClipboard(e.Filename);
         }
+
     }
 }

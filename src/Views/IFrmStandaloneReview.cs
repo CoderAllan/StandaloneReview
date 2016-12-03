@@ -21,6 +21,9 @@
         event EventHandler<CaretPositionEventArgs> EditComment;
         event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
         event EventHandler<SelectedTabChangedEventArgs> SelectedTabChanged;
+        event EventHandler<CloseTabEventArgs> CloseTabClick;
+        event EventHandler<CloseTabEventArgs> CloseAllTabsButThisClick;
+        event EventHandler<EventArgs> CloseAllTabsClick;
         event EventHandler<OpenFolderEventArgs> OpenContainingFolder;
         event EventHandler<CopyFullPathEventArgs> CopyFullPath;
 
@@ -100,6 +103,10 @@
     }
 
     public class CopyFullPathEventArgs : FilenameEventArgs
+    {
+    }
+
+    public class CloseTabEventArgs : FilenameEventArgs
     {
     }
 }

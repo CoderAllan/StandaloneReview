@@ -1,16 +1,12 @@
 ﻿namespace StandaloneReview
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Drawing;
-    using System.Drawing.Drawing2D;
     using System.Linq;
     using System.Windows.Forms;
-    using Microsoft.VisualBasic.PowerPacks;
     using ICSharpCode.TextEditor.Document;
     using ICSharpCode.TextEditor;
-    using ICSharpCode.TextEditor.Src.Document.FoldingStrategy;
     
     using Contracts;
     using Model;
@@ -24,8 +20,6 @@
         private readonly ISystemIO _systemIO;
         private readonly BaseFormPresenter _baseFormPresenter;
         private readonly FrmStandaloneReviewPresenter _frmStandaloneReviewPresenter;
-        private readonly Dictionary<int, RectangleShape> _navigatorCommentRectangles = new Dictionary<int, RectangleShape>();
-        private RectangleShape _navigatorCurrentLineRectangle;
 
         public FrmStandaloneReview()
         {
@@ -72,178 +66,15 @@
         public event EventHandler<CaretPositionEventArgs> EditComment;
         public event EventHandler<CaretPositionEventArgs> ContextMenuStripOpening;
         public event EventHandler<SelectedTabChangedEventArgs> SelectedTabChanged;
+        public event EventHandler<CloseTabEventArgs> CloseTabClick;
+        public event EventHandler<CloseTabEventArgs> CloseAllTabsButThisClick;
+        public event EventHandler<EventArgs> CloseAllTabsClick;
         public event EventHandler<OpenFolderEventArgs> OpenContainingFolder;
         public event EventHandler<CopyFullPathEventArgs> CopyFullPath;
 
         public void SetFrmStandaloneReviewTitle(string text)
         {
             Text = text;
-        }
-
-        public void SetTextEditorControlText(string textEditorControlName, string text)
-        {
-            var editControl = GetActiveTextEditor(textEditorControlName);
-            if (editControl != null)
-            {
-                editControl.Document.TextContent = text;
-                editControl.Document.FoldingManager.UpdateFoldings(null, null);
-                editControl.Refresh();
-            }
-        }
-
-        public void SetSyntaxHighlighting(string fileType)
-        {
-            var editControl = GetActiveTextEditor();
-            switch (fileType.ToLower())
-            {
-                case ".xml":
-                case ".wsdl":
-                case ".xsd":
-                case ".xsl":
-                case ".csproj":
-                case ".sln":
-                case ".config":
-                    editControl.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("XML");
-                    break;
-                case ".html":
-                    editControl.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("HTML");
-                    break;
-                case ".aspx":
-                    editControl.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("ASPX");
-                    break;
-                case ".cs":
-                    editControl.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("C#");
-                    break;
-                case ".sql":
-                    editControl.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("SQL");
-                    break;
-            }
-            editControl.Refresh();
-        }
-
-        private void ShowSelectionLength(object sender, KeyEventArgs e)
-        {
-            SetStatusText(GetActiveTextEditor());
-        }
-
-        private void ShowSelectionLength(object sender, MouseEventArgs e)
-        {
-            SetStatusText(GetActiveTextEditor());
-        }
-
-        private TextEditorControlEx GetActiveTextEditor(string textEditorControlName = null)
-        {
-            string editorControlName = textEditorControlName;
-            if (textEditorControlName == null)
-            {
-                if (tabControl1.SelectedTab == null)
-                {
-                    return null;
-                }
-                editorControlName = tabControl1.SelectedTab.Name.Replace("tabPage", "TextEditorControlEx");
-            }
-            var editor = tabControl1.Controls.Find(editorControlName, true);
-            if (editor.Length != 1)
-            {
-                return null;
-            }
-            return (TextEditorControlEx)editor[0];
-        }
-
-        private void SetStatusText(TextEditorControlEx editor)
-        {
-            int commentPosition = 0;
-            if (_appState.CurrentReview.ReviewedFiles.Count > 0 && 
-                _appState.CurrentReview.ReviewedFiles.ContainsKey(_appState.CurrentReviewedFile.Filename) &&
-                _appState.CurrentReview.ReviewedFiles[_appState.CurrentReviewedFile.Filename].Comments.Count > 0)
-            {
-                commentPosition = _appState.CurrentReview.ReviewedFiles[_appState.CurrentReviewedFile.Filename].Comments.Max(p => p.Position) + 1;
-            }
-            var reviewCommentEventArgs = new ReviewCommentEventArgs
-            {
-                Position = commentPosition,
-                Line = editor.ActiveTextAreaControl.Caret.Position.Line + 1,
-                LineText = editor.ActiveTextAreaControl.Document.GetText(editor.ActiveTextAreaControl.Document.GetLineSegment(editor.ActiveTextAreaControl.Caret.Position.Line)),
-            };
-            SetLabelStatusText(statusStrip1, toolStripStatusLblLine, string.Format(Resources.StatusStripLineNumber, reviewCommentEventArgs.Line));
-            SetLabelStatusText(statusStrip1, toolStripStatusLblColumn, string.Format(Resources.StatusStripColumnNumber, editor.ActiveTextAreaControl.Caret.Position.Column));
-            if (editor.ActiveTextAreaControl.SelectionManager.SelectionCollection.Count > 0)
-            {
-                var selection = editor.ActiveTextAreaControl.SelectionManager.SelectionCollection[0];
-                if (selection != null && selection.Length > 0)
-                {
-                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionLength, string.Format(Resources.StatusStripSelectionLength, selection.Length));
-                    reviewCommentEventArgs.SelectionStartLine = selection.StartPosition.Line + 1;
-                    reviewCommentEventArgs.SelectionStartColumn = selection.StartPosition.Column;
-                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionStart, string.Format(Resources.StatusStripSelectionStart, reviewCommentEventArgs.SelectionStartLine, reviewCommentEventArgs.SelectionStartColumn));
-                    reviewCommentEventArgs.SelectionEndLine = selection.EndPosition.Line + 1;
-                    reviewCommentEventArgs.SelectionEndColumn = selection.EndPosition.Column;
-                    SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionEnd, string.Format(Resources.StatusStripSelectionEnd, reviewCommentEventArgs.SelectionEndLine, reviewCommentEventArgs.SelectionEndColumn));
-                    reviewCommentEventArgs.SelectedText = selection.SelectedText;
-                }
-            }
-            else
-            {
-                SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionLength, "");
-                SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionStart, "");
-                SetLabelStatusText(statusStrip1, toolStripStatusLblSelectionEnd, "");
-            }
-            if (SetReviewComment != null)
-            {
-                SetReviewComment(null, reviewCommentEventArgs);
-            }
-        }
-
-        private void SetLabelStatusText(StatusStrip toolStrip, ToolStripStatusLabel label, string text)
-        {
-            label.Text = text;
-            label.BorderStyle = Border3DStyle.Flat;
-            label.BorderSides = !String.IsNullOrEmpty(label.Text) ? ToolStripStatusLabelBorderSides.Left : ToolStripStatusLabelBorderSides.None;
-            toolStrip.Refresh();
-        }
-
-        public string AddNewTab(string filename, int newTabPageNumber)
-        {
-            var tab = new TabPage
-            {
-                Name = string.Format("tabPage{0}", newTabPageNumber),
-                Text = _systemIO.PathGetFilename(filename),
-                ToolTipText = filename,
-                Tag = filename
-            };
-            var newtextEditorControl = new TextEditorControlEx
-            {
-                Name = string.Format("TextEditorControlEx{0}", newTabPageNumber),
-                Dock = DockStyle.Fill
-            };
-            newtextEditorControl.Document.FoldingManager.FoldingStrategy = new XmlFoldingStrategy();
-            newtextEditorControl.ActiveTextAreaControl.TextArea.MouseClick += ShowSelectionLength;
-            newtextEditorControl.ActiveTextAreaControl.TextArea.MouseDoubleClick += ShowSelectionLength;
-            newtextEditorControl.ActiveTextAreaControl.TextArea.MouseUp += ShowSelectionLength;
-            newtextEditorControl.ActiveTextAreaControl.TextArea.KeyUp += ShowSelectionLength;
-            newtextEditorControl.ContextMenuStrip = contextMenuComment;
-
-            tab.Controls.Add(newtextEditorControl);
-            tabControl1.Controls.Add(tab);
-            tabControl1.SelectTab(tab);
-            return newtextEditorControl.Name;
-        }
-
-        public void RemoveAllOpenTabs()
-        {
-            tabControl1.TabPages.Clear();
-        }
-
-        public void SelectOpenTab(string filename)
-        {
-            foreach (TabPage tabPage in tabControl1.TabPages)
-            {
-                if (tabPage.Tag.Equals(filename))
-                {
-                    tabControl1.SelectTab(tabPage);
-                    break;
-                }
-            }
         }
         
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -257,6 +88,14 @@
             ApplicationState.WriteApplicationState(_appState);
         }
 
+        public bool MessageBoxUnsavedCommentsWarningOkCancel()
+        {
+            return MessageBox.Show(Resources.FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes,
+                                   Resources.FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes_Caption,
+                                   MessageBoxButtons.YesNoCancel,
+                                   MessageBoxIcon.Warning) == DialogResult.Yes;
+        }
+        
         private void FrmStandaloneReview_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (BtnExitClick != null)
@@ -314,136 +153,6 @@
             }
         }
 
-        public int GetTextOffset(int column, int line)
-        {
-            var editor = GetActiveTextEditor();
-            return editor.ActiveTextAreaControl.Document.PositionToOffset(new TextLocation(column, line));
-        }
-
-        private RectangleShape CreateRectangleShape(int line, Color color)
-        {
-            double correctionFactor = 1;
-            var editor = GetActiveTextEditor();
-            if (editor != null)
-            {
-                if (navigatorCanvas.Height - navigatorCanvas.Top < editor.Document.TotalNumberOfLines)
-                {
-                    correctionFactor = (navigatorCanvas.Height - navigatorCanvas.Top)/(double) editor.Document.TotalNumberOfLines;
-                }
-                var rectangleShape = new RectangleShape
-                {
-                    Height = 2,
-                    Top = navigatorCanvas.Top + (int) (line*correctionFactor),
-                    Width = navigatorCanvas.Width - 2,
-                    Left = Width - 42, // This calculation should be: 'Left = navigatorCanvas.Left + 1', but the navigatorCanvas.Left property never changes when resizing the form. So we have to use the magic number 42 to make the placement of the navigator lines work.
-                    FillStyle = FillStyle.Solid,
-                    FillColor = color,
-                    BorderStyle = DashStyle.Solid,
-                    BorderColor = color,
-                    Tag = line,
-                    Cursor = Cursors.Hand,
-                    Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                };
-                rectangleShape.Click += rectangle_Click;
-                navigatorCanvas.SendToBack();
-                rectangleShape.BringToFront();
-                return rectangleShape;
-            }
-            return null;
-        }
-
-        public void rectangle_Click(object sender, EventArgs e)
-        {
-            var rectangle = (RectangleShape) sender;
-            var line = (int) rectangle.Tag;
-            var editor = GetActiveTextEditor();
-            editor.ActiveTextAreaControl.Caret.Line = line - 1;
-        }
-
-        public void AddNavigatorCurrentLineMarker(int line)
-        {
-            if (_navigatorCurrentLineRectangle != null)
-            {
-                shapeContainer1.Shapes.Remove(_navigatorCurrentLineRectangle);
-            }
-            _navigatorCurrentLineRectangle = CreateRectangleShape(line, Color.DarkBlue);
-            if (_navigatorCurrentLineRectangle != null)
-            {
-                shapeContainer1.Shapes.Add(_navigatorCurrentLineRectangle);
-            }
-        }
-
-        public void AddNavigatorCommentMarker(int line)
-        {
-            if (!_navigatorCommentRectangles.ContainsKey(line))
-            {
-                var rectangle = CreateRectangleShape(line, Color.Goldenrod);
-                if (rectangle != null)
-                {
-                    _navigatorCommentRectangles.Add(line, rectangle);
-                    shapeContainer1.Shapes.Add(rectangle);
-                }
-            }
-        }
-
-        public void AddGreyedArea()
-        {
-            var editor = GetActiveTextEditor();
-            if (editor != null)
-            {
-                var rectangleShape = new RectangleShape
-                {
-                    Height = navigatorCanvas.Height - editor.Document.TotalNumberOfLines,
-                    Top = navigatorCanvas.Top + editor.Document.TotalNumberOfLines + 2,
-                    Width = navigatorCanvas.Width - 2,
-                    Left = navigatorCanvas.Left + 1,
-                    FillStyle = FillStyle.Solid,
-                    FillColor = Color.LightGray,
-                    BorderStyle = DashStyle.Solid,
-                    BorderColor = Color.LightGray,
-                    Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom,
-                };
-                shapeContainer1.Shapes.Add(rectangleShape);
-            }
-        }
-
-        public void RemoveAllNavigatorShapes()
-        {
-            shapeContainer1.Shapes.Clear();
-            _navigatorCommentRectangles.Clear();
-        }
-
-        public void RemoveNavigatorCommentMarker(int line)
-        {
-            if (_navigatorCommentRectangles.ContainsKey(line))
-            {
-                shapeContainer1.Shapes.Remove(_navigatorCommentRectangles[line]);
-                _navigatorCommentRectangles.Remove(line);
-            }
-        }
-
-        public void AddMarker(int offset, int length, string tooltipText)
-        {
-            var marker = new TextMarker(offset, length, TextMarkerType.SolidBlock, Color.Gold)
-            {
-                ToolTip = tooltipText
-            };
-            var editor = GetActiveTextEditor();
-            editor.Document.MarkerStrategy.AddMarker(marker);
-            editor.Refresh();
-        }
-
-        public void SetMarkerTooltip(string tooltipText)
-        {
-            var editor = GetActiveTextEditor();
-            var textLocation = new TextLocation(editor.ActiveTextAreaControl.Caret.Position.Column, editor.ActiveTextAreaControl.Caret.Position.Line);
-            foreach (var textMarker in editor.Document.MarkerStrategy.GetMarkers(textLocation))
-            {
-                textMarker.ToolTip = tooltipText;
-            }
-            editor.Refresh();
-        }
-
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (BtnLoadClick != null)
@@ -485,14 +194,6 @@
             }
         }
 
-        public bool MessageBoxUnsavedCommentsWarningOkCancel()
-        {
-            return MessageBox.Show(Resources.FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes, 
-                                   Resources.FrmStandaloneReview_nytReviewToolStripMenuItem_Click_Unsaved_Changes_Caption, 
-                                   MessageBoxButtons.YesNoCancel, 
-                                   MessageBoxIcon.Warning) == DialogResult.Yes;
-        }
-        
         public void EnableDisableMenuToolstripItems()
         {
             if (_appState != null && _appState.CurrentReviewedFile != null)
@@ -606,6 +307,38 @@
                     Filename = (string)tabControl1.SelectedTab.Tag
                 };
                 CopyFullPath(sender, copyFullPathEventArgs);
+            }
+        }
+
+        private void closeTabToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CloseTabClick != null)
+            {
+                var closeTabEventArgs = new CloseTabEventArgs
+                {
+                    Filename = (string) tabControl1.SelectedTab.Tag
+                };
+                CloseTabClick(sender, closeTabEventArgs);
+            }
+        }
+
+        private void closeAllTabsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CloseAllTabsClick != null)
+            {
+                CloseAllTabsClick(sender, EventArgs.Empty);
+            }
+        }
+
+        private void closeAllTabsButThisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CloseAllTabsButThisClick != null)
+            {
+                var closeTabEventArgs = new CloseTabEventArgs
+                {
+                    Filename = (string)tabControl1.SelectedTab.Tag
+                };
+                CloseAllTabsButThisClick(sender, closeTabEventArgs);
             }
         }
     }

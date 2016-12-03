@@ -74,18 +74,18 @@ namespace StandaloneReview
             // 
             // contextMenuComment
             // 
-            resources.ApplyResources(this.contextMenuComment, "contextMenuComment");
             this.contextMenuComment.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.insertCommentToolStripMenuItem1,
             this.editCommentToolStripMenuItem,
             this.deleteCommentToolStripMenuItem});
             this.contextMenuComment.Name = "contextMenuStrip1";
+            resources.ApplyResources(this.contextMenuComment, "contextMenuComment");
             this.contextMenuComment.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // insertCommentToolStripMenuItem1
             // 
-            resources.ApplyResources(this.insertCommentToolStripMenuItem1, "insertCommentToolStripMenuItem1");
             this.insertCommentToolStripMenuItem1.Name = "insertCommentToolStripMenuItem1";
+            resources.ApplyResources(this.insertCommentToolStripMenuItem1, "insertCommentToolStripMenuItem1");
             this.insertCommentToolStripMenuItem1.Click += new System.EventHandler(this.insertCommentToolStripMenuItem1_Click);
             // 
             // editCommentToolStripMenuItem
@@ -102,7 +102,6 @@ namespace StandaloneReview
             // 
             // statusStrip1
             // 
-            resources.ApplyResources(this.statusStrip1, "statusStrip1");
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLblLine,
@@ -110,50 +109,49 @@ namespace StandaloneReview
             this.toolStripStatusLblSelectionLength,
             this.toolStripStatusLblSelectionStart,
             this.toolStripStatusLblSelectionEnd});
+            resources.ApplyResources(this.statusStrip1, "statusStrip1");
             this.statusStrip1.Name = "statusStrip1";
             // 
             // toolStripStatusLblLine
             // 
-            resources.ApplyResources(this.toolStripStatusLblLine, "toolStripStatusLblLine");
             this.toolStripStatusLblLine.Name = "toolStripStatusLblLine";
+            resources.ApplyResources(this.toolStripStatusLblLine, "toolStripStatusLblLine");
             // 
             // toolStripStatusLblColumn
             // 
-            resources.ApplyResources(this.toolStripStatusLblColumn, "toolStripStatusLblColumn");
             this.toolStripStatusLblColumn.Name = "toolStripStatusLblColumn";
+            resources.ApplyResources(this.toolStripStatusLblColumn, "toolStripStatusLblColumn");
             // 
             // toolStripStatusLblSelectionLength
             // 
-            resources.ApplyResources(this.toolStripStatusLblSelectionLength, "toolStripStatusLblSelectionLength");
             this.toolStripStatusLblSelectionLength.Name = "toolStripStatusLblSelectionLength";
+            resources.ApplyResources(this.toolStripStatusLblSelectionLength, "toolStripStatusLblSelectionLength");
             // 
             // toolStripStatusLblSelectionStart
             // 
-            resources.ApplyResources(this.toolStripStatusLblSelectionStart, "toolStripStatusLblSelectionStart");
             this.toolStripStatusLblSelectionStart.Name = "toolStripStatusLblSelectionStart";
+            resources.ApplyResources(this.toolStripStatusLblSelectionStart, "toolStripStatusLblSelectionStart");
             // 
             // toolStripStatusLblSelectionEnd
             // 
-            resources.ApplyResources(this.toolStripStatusLblSelectionEnd, "toolStripStatusLblSelectionEnd");
             this.toolStripStatusLblSelectionEnd.Name = "toolStripStatusLblSelectionEnd";
+            resources.ApplyResources(this.toolStripStatusLblSelectionEnd, "toolStripStatusLblSelectionEnd");
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
             // 
             // menuStrip1
             // 
-            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
             this.toolsToolStripMenuItem});
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
-            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nytReviewToolStripMenuItem,
             this.openFileToolStripMenuItem,
@@ -162,11 +160,12 @@ namespace StandaloneReview
             this.previewToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
             // nytReviewToolStripMenuItem
             // 
-            resources.ApplyResources(this.nytReviewToolStripMenuItem, "nytReviewToolStripMenuItem");
             this.nytReviewToolStripMenuItem.Name = "nytReviewToolStripMenuItem";
+            resources.ApplyResources(this.nytReviewToolStripMenuItem, "nytReviewToolStripMenuItem");
             this.nytReviewToolStripMenuItem.Click += new System.EventHandler(this.newReviewToolStripMenuItem_Click);
             // 
             // openFileToolStripMenuItem
@@ -200,10 +199,10 @@ namespace StandaloneReview
             // 
             // editToolStripMenuItem
             // 
-            resources.ApplyResources(this.editToolStripMenuItem, "editToolStripMenuItem");
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.insertCommentToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            resources.ApplyResources(this.editToolStripMenuItem, "editToolStripMenuItem");
             // 
             // insertCommentToolStripMenuItem
             // 
@@ -213,20 +212,16 @@ namespace StandaloneReview
             // 
             // toolsToolStripMenuItem
             // 
-            resources.ApplyResources(this.toolsToolStripMenuItem, "toolsToolStripMenuItem");
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.optionsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            resources.ApplyResources(this.toolsToolStripMenuItem, "toolsToolStripMenuItem");
             // 
             // optionsToolStripMenuItem
             // 
             resources.ApplyResources(this.optionsToolStripMenuItem, "optionsToolStripMenuItem");
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
-            // 
-            // saveFileDialog1
-            // 
-            resources.ApplyResources(this.saveFileDialog1, "saveFileDialog1");
             // 
             // shapeContainer1
             // 
@@ -251,7 +246,6 @@ namespace StandaloneReview
             // 
             // contextMenuTabpages
             // 
-            resources.ApplyResources(this.contextMenuTabpages, "contextMenuTabpages");
             this.contextMenuTabpages.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.closeTabToolStripMenuItem,
             this.closeAllTabsToolStripMenuItem,
@@ -260,31 +254,35 @@ namespace StandaloneReview
             this.copyFullPathToolStripMenuItem,
             this.openContainingFolderToolStripMenuItem});
             this.contextMenuTabpages.Name = "contextMenuTabpages";
+            resources.ApplyResources(this.contextMenuTabpages, "contextMenuTabpages");
             // 
             // closeTabToolStripMenuItem
             // 
             resources.ApplyResources(this.closeTabToolStripMenuItem, "closeTabToolStripMenuItem");
             this.closeTabToolStripMenuItem.Name = "closeTabToolStripMenuItem";
+            this.closeTabToolStripMenuItem.Click += new System.EventHandler(this.closeTabToolStripMenuItem_Click);
             // 
             // closeAllTabsToolStripMenuItem
             // 
-            resources.ApplyResources(this.closeAllTabsToolStripMenuItem, "closeAllTabsToolStripMenuItem");
             this.closeAllTabsToolStripMenuItem.Name = "closeAllTabsToolStripMenuItem";
+            resources.ApplyResources(this.closeAllTabsToolStripMenuItem, "closeAllTabsToolStripMenuItem");
+            this.closeAllTabsToolStripMenuItem.Click += new System.EventHandler(this.closeAllTabsToolStripMenuItem_Click);
             // 
             // closeAllTabsButThisToolStripMenuItem
             // 
-            resources.ApplyResources(this.closeAllTabsButThisToolStripMenuItem, "closeAllTabsButThisToolStripMenuItem");
             this.closeAllTabsButThisToolStripMenuItem.Name = "closeAllTabsButThisToolStripMenuItem";
+            resources.ApplyResources(this.closeAllTabsButThisToolStripMenuItem, "closeAllTabsButThisToolStripMenuItem");
+            this.closeAllTabsButThisToolStripMenuItem.Click += new System.EventHandler(this.closeAllTabsButThisToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
             // copyFullPathToolStripMenuItem
             // 
-            resources.ApplyResources(this.copyFullPathToolStripMenuItem, "copyFullPathToolStripMenuItem");
             this.copyFullPathToolStripMenuItem.Name = "copyFullPathToolStripMenuItem";
+            resources.ApplyResources(this.copyFullPathToolStripMenuItem, "copyFullPathToolStripMenuItem");
             this.copyFullPathToolStripMenuItem.Click += new System.EventHandler(this.copyFullPathToolStripMenuItem_Click);
             // 
             // openContainingFolderToolStripMenuItem

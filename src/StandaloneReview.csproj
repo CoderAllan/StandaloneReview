@@ -87,6 +87,15 @@
       <DependentUpon>FrmStandaloneReview.cs</DependentUpon>
     </Compile>
     <Compile Include="Contracts\ISystemIO.cs" />
+    <Compile Include="FrmStandaloneReview.Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmStandaloneReview.Navigator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmStandaloneReview.Tabs.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Model\ApplicationState.cs" />
     <Compile Include="Model\ListboxFilesItem.cs" />
     <Compile Include="Model\OptionsLocaleComboboxItem.cs" />
