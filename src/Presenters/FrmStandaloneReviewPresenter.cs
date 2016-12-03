@@ -7,7 +7,7 @@ namespace StandaloneReview.Presenters
     using Model;
     using Views;
 
-    public class FrmStandaloneReviewPresenter
+    public partial class FrmStandaloneReviewPresenter
     {
         private readonly IFrmStandaloneReview _view;
 
@@ -24,17 +24,21 @@ namespace StandaloneReview.Presenters
             _view.BtnNewClick += DoNewClick;
             _view.BtnSaveClick += DoSaveClick;
             _view.BtnExitClick += DoExitClick;
+            _view.ContextMenuStripOpening += DoContextMenuStripOpening;
+            _view.OpenContainingFolder += DoOpenContainingFolder;
+            _view.CopyFullPath += DoCopyFullPath;
+
+            // FrmStandaloneReviewPresenter.Comment.cs
             _view.CommitComment += DoCommitComment;
             _view.SetReviewComment += DoSetReviewComment;
             _view.DeleteComment += DoDeleteComment;
             _view.EditComment += DoEditComment;
-            _view.ContextMenuStripOpening += DoContextMenuStripOpening;
+
+            // FrmStandaloneReviewPresenter.Tabs.cs
             _view.SelectedTabChanged += DoSelectedTabChanged;
             _view.CloseTabClick += DoCloseTabClick;
             _view.CloseAllTabsClick += DoCloseAllTabsClick;
             _view.CloseAllTabsButThisClick += DoCloseAllTabsButThisClick;
-            _view.OpenContainingFolder += DoOpenContainingFolder;
-            _view.CopyFullPath += DoCopyFullPath;
 
             DoSetFrmStandaloneReviewTitle();
         }
@@ -106,6 +110,12 @@ namespace StandaloneReview.Presenters
             DoSetFrmStandaloneReviewTitle();
         }
 
+        private void DoContextMenuStripOpening(object sender, CaretPositionEventArgs e)
+        {
+            var commentAtCaretPosition = GetCommentAtCaretPosition(e.Line, e.Column);
+            _view.EnableDisableContextMenuToolsstripItems(commentAtCaretPosition != null);
+        }
+
         private void DoNewClick(object sender, EventArgs e)
         {
             if (_view.AppState.CurrentReview.Saved)
@@ -143,166 +153,6 @@ namespace StandaloneReview.Presenters
             _view.RemoveAllOpenTabs();
             _view.EnableDisableMenuToolstripItems();
             DoSetFrmStandaloneReviewTitle();
-        }
-
-        private void DoCommitComment(object sender, CommitCommentEventArgs e)
-        {
-            if (!_view.AppState.CurrentReview.ReviewedFiles.ContainsKey(_view.AppState.CurrentReviewedFile.Filename))
-            {
-                _view.AppState.CurrentReview.ReviewedFiles.Add(_view.AppState.CurrentReviewedFile.Filename, _view.AppState.CurrentReviewedFile);
-            }
-            if (!e.EditCurrentWorkingComment)
-            {
-                _view.AppState.CurrentReview.ReviewedFiles[_view.AppState.CurrentReviewedFile.Filename].Comments.Add(_view.AppState.WorkingComment);
-                int offset;
-                int length;
-                if (_view.AppState.WorkingComment.SelectionStartLine > 0)
-                {
-                    offset = _view.GetTextOffset(_view.AppState.WorkingComment.SelectionStartColumn, _view.AppState.WorkingComment.SelectionStartLine - 1);
-                    length = _view.AppState.WorkingComment.SelectedText.Length;
-                    _view.AddNavigatorCommentMarker(_view.AppState.WorkingComment.SelectionStartLine);
-                }
-                else
-                {
-                    offset = _view.GetTextOffset(0, _view.AppState.WorkingComment.Line - 1);
-                    length = _view.AppState.WorkingComment.LineText.Length;
-                    _view.AddNavigatorCommentMarker(_view.AppState.WorkingComment.Line);
-                }
-                _view.AddMarker(offset, length, _view.AppState.WorkingComment.Comment);
-            }
-            else
-            {
-                _view.SetMarkerTooltip(_view.AppState.WorkingComment.Comment);
-            }
-            _view.AppState.WorkingComment = new ReviewComment();
-            _view.AppState.CurrentReview.Saved = false;
-            DoSetFrmStandaloneReviewTitle();
-        }
-
-        private void DoSetReviewComment(object sender, ReviewCommentEventArgs e)
-        {
-            if (_view.AppState.WorkingComment == null)
-            {
-                _view.AppState.WorkingComment = new ReviewComment();
-            }
-            _view.AppState.WorkingComment.Position = e.Position;
-            _view.AppState.WorkingComment.Line = e.Line;
-            _view.AppState.WorkingComment.LineText = e.LineText;
-            _view.AppState.WorkingComment.SelectionStartLine = e.SelectionStartLine;
-            _view.AppState.WorkingComment.SelectionStartColumn = e.SelectionStartColumn;
-            _view.AppState.WorkingComment.SelectionEndLine = e.SelectionEndLine;
-            _view.AppState.WorkingComment.SelectionEndColumn = e.SelectionEndColumn;
-            _view.AppState.WorkingComment.SelectedText = e.SelectedText;
-            _view.AddNavigatorCurrentLineMarker(e.Line);
-        }
-
-        private void DoContextMenuStripOpening(object sender, CaretPositionEventArgs e)
-        {
-            var commentAtCaretPosition = GetCommentAtCaretPosition(e.Line, e.Column);
-            _view.EnableDisableContextMenuToolsstripItems(commentAtCaretPosition != null);
-        }
-
-        private void DoDeleteComment(object sender, CaretPositionEventArgs e)
-        {
-            var commentAtCaretPosition = GetCommentAtCaretPosition(e.Line, e.Column);
-            if (commentAtCaretPosition != null)
-            {
-                _view.AppState.CurrentReviewedFile.RemoveComment(commentAtCaretPosition);
-                _view.AppState.WorkingComment = new ReviewComment();
-                _view.AppState.CurrentReview.Saved = false;
-                if (!_view.AppState.CurrentReviewedFile.Comments.Exists(p => p.Line == e.Line))
-                {
-                    _view.RemoveNavigatorCommentMarker(e.Line);
-                }
-            }
-            DoSetFrmStandaloneReviewTitle();
-        }
-
-        private void DoEditComment(object sender, CaretPositionEventArgs e)
-        {
-            var commentAtCaretPosition = GetCommentAtCaretPosition(e.Line, e.Column);
-            if (commentAtCaretPosition != null)
-            {
-                _view.AppState.WorkingComment = commentAtCaretPosition;
-                _view.ShowInsertCommentForm(true);
-            }
-        }
-
-        private ReviewComment GetCommentAtCaretPosition(int line, int column)
-        {
-            ReviewComment commentAtCaretPosition = null;
-            if (_view.AppState.CurrentReviewedFile != null)
-            {
-                foreach (var reviewComment in _view.AppState.CurrentReviewedFile.Comments)
-                {
-                    if (reviewComment.SelectionStartLine > 0) // Its only when SelectionStartLine > 0 that its a ReviewComment on a text-selection
-                    {
-                        if (reviewComment.SelectionStartLine < line && reviewComment.SelectionEndLine > line)
-                        {
-                            commentAtCaretPosition = reviewComment;
-                            break;
-                        }
-                        if (reviewComment.SelectionStartLine == reviewComment.SelectionEndLine &&
-                            reviewComment.SelectionStartColumn <= column &&
-                            reviewComment.SelectionEndColumn >= column)
-                        {
-                            commentAtCaretPosition = reviewComment;
-                            break;
-                        }
-                        if ((reviewComment.SelectionStartLine == line && reviewComment.SelectionStartColumn <= column) &&
-                            (reviewComment.SelectionEndLine >= line && reviewComment.SelectionEndColumn >= column))
-                        {
-                            commentAtCaretPosition = reviewComment;
-                            break;
-                        }
-                        if ((reviewComment.SelectionStartLine <= line && reviewComment.SelectionStartColumn <= column) &&
-                            (reviewComment.SelectionEndLine == line && reviewComment.SelectionEndColumn >= column))
-                        {
-                            commentAtCaretPosition = reviewComment;
-                            break;
-                        }
-                    }
-                    else // When its not a ReviewComment on a text-selection, it is a ReviewComment on a given line
-                    {
-                        if (reviewComment.Line == line)
-                        {
-                            commentAtCaretPosition = reviewComment;
-                            break;
-                        }
-                    }
-                }
-            }
-            return commentAtCaretPosition;
-        }
-
-        public void DoSelectedTabChanged(object sender, SelectedTabChangedEventArgs e)
-        {
-            if (_view.AppState.CurrentReview.ReviewedFiles.Count > 0)
-            {
-                _view.AppState.CurrentReviewedFile = _view.AppState.CurrentReview.ReviewedFiles[e.Filename];
-                _view.RemoveAllNavigatorShapes();
-                var review = _view.AppState.CurrentReview.ReviewedFiles[e.Filename];
-                foreach (var comment in review.Comments)
-                {
-                    _view.AddNavigatorCommentMarker(comment.SelectionStartLine > 0 ? comment.SelectionStartLine : comment.Line);
-                }
-                _view.AddGreyedArea();
-            }
-        }
-
-        private void DoCloseTabClick(object sender, CloseTabEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void DoCloseAllTabsClick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void DoCloseAllTabsButThisClick(object sender, CloseTabEventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         public void DoOpenContainingFolder(object sender, OpenFolderEventArgs e)
