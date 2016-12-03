@@ -52,26 +52,45 @@ namespace StandaloneReview.Presenters
 
         private void DoLoadClick(object sender, LoadEventArgs args)
         {
+            bool openExistingReviewFile = false;
             if (_view.AppState.CurrentReview.ReviewedFiles.ContainsKey(args.Filename))
             {
-                _view.SelectOpenTab(args.Filename);
-                return;
+                if (_view.IsTabOpen(args.Filename))
+                {
+                    _view.SelectOpenTab(args.Filename);
+                    return;
+                }
+                openExistingReviewFile = true;
             }
-            _view.AppState.CurrentReviewedFile = new ReviewedFile
+            else
             {
-                Filename = args.Filename,
-                Comments = new List<ReviewComment>(),
-                Position = _view.AppState.CurrentReview.ReviewedFiles.Count
-            };
-            _view.AppState.CurrentReview.ReviewedFiles.Add(args.Filename, _view.AppState.CurrentReviewedFile);
+                _view.AppState.CurrentReviewedFile = new ReviewedFile
+                {
+                    Filename = args.Filename,
+                    Comments = new List<ReviewComment>(),
+                    Position = _view.AppState.CurrentReview.ReviewedFiles.Count
+                };
+                _view.AppState.CurrentReview.ReviewedFiles.Add(args.Filename, _view.AppState.CurrentReviewedFile);
+                _view.RemoveAllNavigatorShapes();
+            }
             var text = _view.SystemIO.FileReadAllText(args.Filename);
-            int newTabPageNumber = _view.AppState.CurrentReview.ReviewedFiles.Count;
-            string textEditorControlName = _view.AddNewTab(args.Filename, newTabPageNumber);
+            string textEditorControlName = _view.AddNewTab(args.Filename);
             _view.SetTextEditorControlText(textEditorControlName, text);
             _view.SetSyntaxHighlighting(_view.SystemIO.PathGetExtension(args.Filename));
+            if (openExistingReviewFile)
+            {
+                foreach (var reviewComment in _view.AppState.CurrentReview.ReviewedFiles[args.Filename].Comments)
+                {
+                    AddMarkerForComment(reviewComment);
+                }
+                AddNavigatorCommentMarkers(args.Filename);
+            }
+            else
+            {
+                _view.RemoveAllNavigatorShapes();
+                _view.AddGreyedArea();
+            }
             _view.EnableDisableMenuToolstripItems();
-            _view.RemoveAllNavigatorShapes();
-            _view.AddGreyedArea();
         }
 
         private void DoExitClick(object sender, CancelEventArgs e)

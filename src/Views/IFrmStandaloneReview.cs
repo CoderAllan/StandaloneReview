@@ -42,9 +42,11 @@
         void SetMarkerTooltip(string tooltipText);
         
         // Tabcontrol
-        string AddNewTab(string filename, int newTabPageNumber);
+        string AddNewTab(string filename);
         void RemoveAllOpenTabs();
         void SelectOpenTab(string filename);
+        bool IsTabOpen(string filename);
+        void CloseTab(string filename);
         
         // Navigator markers
         void AddNavigatorCurrentLineMarker(int line);

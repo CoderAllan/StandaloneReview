@@ -92,7 +92,7 @@ namespace StandaloneReview.Tests.MockViews
             throw new NotImplementedException();
         }
 
-        public string AddNewTab(string filename, int newTabPageNumber)
+        public string AddNewTab(string filename)
         {
             throw new NotImplementedException();
         }
@@ -103,6 +103,16 @@ namespace StandaloneReview.Tests.MockViews
         }
 
         public void SelectOpenTab(string tabName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsTabOpen(string filename)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CloseTab(string filename)
         {
             throw new NotImplementedException();
         }

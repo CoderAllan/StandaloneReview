@@ -14,22 +14,9 @@ namespace StandaloneReview.Presenters
             }
             if (!e.EditCurrentWorkingComment)
             {
-                _view.AppState.CurrentReview.ReviewedFiles[_view.AppState.CurrentReviewedFile.Filename].Comments.Add(_view.AppState.WorkingComment);
-                int offset;
-                int length;
-                if (_view.AppState.WorkingComment.SelectionStartLine > 0)
-                {
-                    offset = _view.GetTextOffset(_view.AppState.WorkingComment.SelectionStartColumn, _view.AppState.WorkingComment.SelectionStartLine - 1);
-                    length = _view.AppState.WorkingComment.SelectedText.Length;
-                    _view.AddNavigatorCommentMarker(_view.AppState.WorkingComment.SelectionStartLine);
-                }
-                else
-                {
-                    offset = _view.GetTextOffset(0, _view.AppState.WorkingComment.Line - 1);
-                    length = _view.AppState.WorkingComment.LineText.Length;
-                    _view.AddNavigatorCommentMarker(_view.AppState.WorkingComment.Line);
-                }
-                _view.AddMarker(offset, length, _view.AppState.WorkingComment.Comment);
+                var comment = _view.AppState.WorkingComment;
+                _view.AppState.CurrentReview.ReviewedFiles[_view.AppState.CurrentReviewedFile.Filename].Comments.Add(comment);
+                AddMarkerForComment(comment);
             }
             else
             {
@@ -38,6 +25,25 @@ namespace StandaloneReview.Presenters
             _view.AppState.WorkingComment = new ReviewComment();
             _view.AppState.CurrentReview.Saved = false;
             DoSetFrmStandaloneReviewTitle();
+        }
+
+        private void AddMarkerForComment(ReviewComment comment)
+        {
+            int offset;
+            int length;
+            if (_view.AppState.WorkingComment.SelectionStartLine > 0)
+            {
+                offset = _view.GetTextOffset(comment.SelectionStartColumn, comment.SelectionStartLine - 1);
+                length = comment.SelectedText.Length;
+                _view.AddNavigatorCommentMarker(comment.SelectionStartLine);
+            }
+            else
+            {
+                offset = _view.GetTextOffset(0, comment.Line - 1);
+                length = comment.LineText.Length;
+                _view.AddNavigatorCommentMarker(comment.Line);
+            }
+            _view.AddMarker(offset, length, comment.Comment);
         }
 
         private void DoSetReviewComment(object sender, ReviewCommentEventArgs e)

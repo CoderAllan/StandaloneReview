@@ -3,9 +3,7 @@
     using System;
     using System.ComponentModel;
     using System.Drawing;
-    using System.Linq;
     using System.Windows.Forms;
-    using ICSharpCode.TextEditor.Document;
     using ICSharpCode.TextEditor;
     
     using Contracts;
@@ -190,6 +188,7 @@
         {
             if (BtnNewClick != null)
             {
+                _filenameTabPageRelation.Clear();
                 BtnNewClick(sender, e);
             }
         }
@@ -310,23 +309,16 @@
             }
         }
 
+
         private void closeTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (CloseTabClick != null)
             {
                 var closeTabEventArgs = new CloseTabEventArgs
                 {
-                    Filename = (string) tabControl1.SelectedTab.Tag
+                    Filename = (string)tabControl1.SelectedTab.Tag
                 };
                 CloseTabClick(sender, closeTabEventArgs);
-            }
-        }
-
-        private void closeAllTabsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (CloseAllTabsClick != null)
-            {
-                CloseAllTabsClick(sender, EventArgs.Empty);
             }
         }
 
@@ -340,6 +332,31 @@
                 };
                 CloseAllTabsButThisClick(sender, closeTabEventArgs);
             }
+        }
+
+        private void closeAllTabsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CloseAllTabsClick != null)
+            {
+                CloseAllTabsClick(sender, EventArgs.Empty);
+            }
+        }
+
+        private void contextMenuTabpages_Opening(object sender, CancelEventArgs e)
+        {
+            // We can right click on a tab that is not selected, so we have to select the clicked tab
+            // The solution was found here: http://stackoverflow.com/a/10523725/57855
+            Point p = tabControl1.PointToClient(Cursor.Position);
+            for (int i = 0; i < tabControl1.TabCount; i++)
+            {
+                Rectangle r = tabControl1.GetTabRect(i);
+                if (r.Contains(p))
+                {
+                    tabControl1.SelectedIndex = i; // i is the index of tab under cursor
+                    return;
+                }
+            }
+            e.Cancel = true;
         }
     }
 }

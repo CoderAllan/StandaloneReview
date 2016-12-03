@@ -255,6 +255,7 @@ namespace StandaloneReview
             this.openContainingFolderToolStripMenuItem});
             this.contextMenuTabpages.Name = "contextMenuTabpages";
             resources.ApplyResources(this.contextMenuTabpages, "contextMenuTabpages");
+            this.contextMenuTabpages.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuTabpages_Opening);
             // 
             // closeTabToolStripMenuItem
             // 

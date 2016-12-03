@@ -12,19 +12,25 @@ namespace StandaloneReview.Presenters
             if (_view.AppState.CurrentReview.ReviewedFiles.Count > 0)
             {
                 _view.AppState.CurrentReviewedFile = _view.AppState.CurrentReview.ReviewedFiles[e.Filename];
-                _view.RemoveAllNavigatorShapes();
-                var review = _view.AppState.CurrentReview.ReviewedFiles[e.Filename];
-                foreach (var comment in review.Comments)
-                {
-                    _view.AddNavigatorCommentMarker(comment.SelectionStartLine > 0 ? comment.SelectionStartLine : comment.Line);
-                }
+                AddNavigatorCommentMarkers(e.Filename);
                 _view.AddGreyedArea();
             }
         }
 
+        private void AddNavigatorCommentMarkers(string filename)
+        {
+            _view.RemoveAllNavigatorShapes();
+            var review = _view.AppState.CurrentReview.ReviewedFiles[filename];
+            foreach (var comment in review.Comments)
+            {
+                _view.AddNavigatorCommentMarker(comment.SelectionStartLine > 0 ? comment.SelectionStartLine : comment.Line);
+            }
+            
+        }
+
         private void DoCloseTabClick(object sender, CloseTabEventArgs e)
         {
-            throw new NotImplementedException();
+            _view.CloseTab(e.Filename);
         }
 
         private void DoCloseAllTabsClick(object sender, EventArgs e)
