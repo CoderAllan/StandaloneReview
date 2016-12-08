@@ -79,5 +79,34 @@ namespace StandaloneReview
                 _filenameTabPageRelation.Remove(filename);
             }
         }
+
+        public void CloseAllTabsButThis(string filename)
+        {
+            if (_filenameTabPageRelation.ContainsKey(filename))
+            {
+                foreach (TabPage tabPage in tabControl1.TabPages)
+                {
+                    if (tabPage.Name != _filenameTabPageRelation[filename])
+                    {
+                        CloseTab(tabPage);
+                    }
+                }
+            }
+        }
+
+        public void CloseAllTabs()
+        {
+            foreach (TabPage tabPage in tabControl1.TabPages)
+            {
+                CloseTab(tabPage);
+            }
+        }
+
+        private void CloseTab(TabPage tabPage)
+        {
+            tabControl1.TabPages.Remove(tabPage);
+            var tabFilename = (string)tabPage.Tag;
+            _filenameTabPageRelation.Remove(tabFilename);
+        }
     }
 }

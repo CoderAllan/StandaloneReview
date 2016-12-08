@@ -117,6 +117,16 @@ namespace StandaloneReview.Tests.MockViews
             throw new NotImplementedException();
         }
 
+        public void CloseAllTabsButThis(string filename)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CloseAllTabs()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool GetTextOffsetWasCalled { get; private set; }
         public int GetTextOffsetColumnValue { get; private set; }
         public int GetTextOffsetLineValue { get; private set; }

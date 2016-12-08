@@ -47,6 +47,8 @@
         void SelectOpenTab(string filename);
         bool IsTabOpen(string filename);
         void CloseTab(string filename);
+        void CloseAllTabsButThis(string filename);
+        void CloseAllTabs();
         
         // Navigator markers
         void AddNavigatorCurrentLineMarker(int line);

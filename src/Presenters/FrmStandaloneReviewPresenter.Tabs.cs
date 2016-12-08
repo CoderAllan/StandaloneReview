@@ -35,13 +35,12 @@ namespace StandaloneReview.Presenters
 
         private void DoCloseAllTabsClick(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            _view.CloseAllTabs();
         }
 
         private void DoCloseAllTabsButThisClick(object sender, CloseTabEventArgs e)
         {
-            throw new NotImplementedException();
+            _view.CloseAllTabsButThis(e.Filename);
         }
-
     }
 }
