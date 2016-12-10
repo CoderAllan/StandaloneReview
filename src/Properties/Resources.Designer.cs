@@ -124,7 +124,7 @@ namespace StandaloneReview.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Plain text (*.txt)|*.txt|Rich text (*.rtf)|*.rtf|All files (*.*)|*.*.
+        ///   Looks up a localized string similar to Plain text (*.txt)|*.txt|Rich text (*.rtf)|*.rtf|Html (*.html)|*.html|All files (*.*)|*.*.
         /// </summary>
         internal static string SaveDialogFilter {
             get {

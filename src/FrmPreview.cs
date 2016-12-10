@@ -4,6 +4,8 @@
     using System.Drawing;
     using System.Windows.Forms;
 
+    using Contracts;
+    using MarkupConverter;
     using Model;
     using Presenters;
     using Properties;
@@ -14,6 +16,7 @@
     public partial class FrmPreview : Form, IBaseForm, IFrmPreview
     {
         private readonly ApplicationState _appState;
+        private readonly ISystemIO _systemIO;
         private readonly BaseFormPresenter _baseFormPresenter;
         private readonly FrmPreviewPresenter _frmPreviewPresenter;
         private readonly SystemEx.RichTextBoxExtended _txtPreview;
@@ -21,6 +24,7 @@
         public FrmPreview(ApplicationState appState)
         {
             _appState = appState;
+            _systemIO = new SystemIO();
             _baseFormPresenter = new BaseFormPresenter(this);
             _frmPreviewPresenter = new FrmPreviewPresenter(this);
 
@@ -43,6 +47,7 @@
         }
 
         public ApplicationState AppState { get { return _appState; } }
+        public ISystemIO SystemIO { get { return _systemIO; } }
 
         public event EventHandler<BaseFormEventArgs> DoFormLoad;
         public event EventHandler<SaveEventArgs> BtnSaveClick;
@@ -89,16 +94,27 @@
                     var args = new SaveEventArgs
                     {
                         Filename = saveFileDialog1.FileName,
-                        SaveAsRft = saveFileDialog1.FilterIndex  == 2
+                        SaveAsFormat = (SaveAsFormat)saveFileDialog1.FilterIndex
                     };
                     BtnSaveClick(sender, args);
                 }
             }
         }
 
-        public void SavePreview(string filename, bool saveAsRtf)
+        public void SavePreview(string filename, SaveAsFormat saveAsFormat)
         {
-            _txtPreview.InnerControl.SaveFile(filename, saveAsRtf ? RichTextBoxStreamType.RichText : RichTextBoxStreamType.PlainText);
+            switch (saveAsFormat)
+            {
+                case SaveAsFormat.Html:
+                    SystemIO.WriteAllText(filename, RtfToHtmlConverter.ConvertRtfToHtml(_txtPreview.Rtf));
+                    break;
+                case SaveAsFormat.Richtext:
+                    _txtPreview.InnerControl.SaveFile(filename, RichTextBoxStreamType.RichText);
+                    break;
+                default:
+                    _txtPreview.InnerControl.SaveFile(filename, RichTextBoxStreamType.PlainText);
+                break;
+            }
         }
 
         private void btnMoveFileUp_Click(object sender, EventArgs e)

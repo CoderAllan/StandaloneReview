@@ -151,7 +151,7 @@
     <value>Review - Date:</value>
   </data>
   <data name="SaveDialogFilter" xml:space="preserve">
-    <value>Plain text (*.txt)|*.txt|Rich text (*.rtf)|*.rtf|All files (*.*)|*.*</value>
+    <value>Plain text (*.txt)|*.txt|Rich text (*.rtf)|*.rtf|Html (*.html)|*.html|All files (*.*)|*.*</value>
   </data>
   <data name="MainFormTitle" xml:space="preserve">
     <value>Standalone Review</value>

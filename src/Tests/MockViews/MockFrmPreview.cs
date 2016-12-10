@@ -1,3 +1,5 @@
+using StandaloneReview.Contracts;
+
 namespace StandaloneReview.Tests.MockViews
 {
     using System;
@@ -8,6 +10,7 @@ namespace StandaloneReview.Tests.MockViews
     public class MockFrmPreview : IFrmPreview
     {
         public ApplicationState AppState { get; private set; }
+        public ISystemIO SystemIO { get; private set; }
         public int LstFilesItemsCount { get; private set; }
         public int LstFilesSelectedIndex { get; private set; }
         public int LstCommentsItemsCount { get; private set; }
@@ -123,7 +126,7 @@ namespace StandaloneReview.Tests.MockViews
             BtnMoveCommentDownEnabledValue = btnMoveCommentDownEnabled;
         }
 
-        public void SavePreview(string filename, bool saveAsRtf)
+        public void SavePreview(string filename, SaveAsFormat saveAsFormat)
         {
             throw new NotImplementedException();
         }

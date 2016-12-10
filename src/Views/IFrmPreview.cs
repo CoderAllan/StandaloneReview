@@ -1,3 +1,5 @@
+using StandaloneReview.Contracts;
+
 namespace StandaloneReview.Views
 {
     using System;
@@ -15,6 +17,7 @@ namespace StandaloneReview.Views
         event EventHandler<SelectedIndexChangedEventArgs> LstCommentsSelectedIndexChanged;
         
         ApplicationState AppState { get; }
+        ISystemIO SystemIO { get; }
 
         int LstFilesItemsCount { get; }
         int LstFilesSelectedIndex { get; }
@@ -28,7 +31,7 @@ namespace StandaloneReview.Views
         void ClearLstComments();
         void EnableDisableMoveFileButtons(bool btnMoveFileUpEnabled, bool btnMoveFileDownEnabled);
         void EnableDisableMoveCommentButtons(bool btnMoveCommentUpEnabled, bool btnMoveCommentDownEnabled);
-        void SavePreview(string filename, bool saveAsRtf);
+        void SavePreview(string filename, SaveAsFormat saveAsFormat);
     }
 
     public class SelectedIndexChangedEventArgs : EventArgs
@@ -47,5 +50,11 @@ namespace StandaloneReview.Views
     {
         public string Filename { get; set; }
         public int Position { get; set; }
+    }
+
+    public enum SaveAsFormat { Text = 1, Richtext = 2, Html = 3 }
+    public class SaveEventArgs : FilenameEventArgs
+    {
+        public SaveAsFormat SaveAsFormat { get; set; }
     }
 }

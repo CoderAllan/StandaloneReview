@@ -69,11 +69,6 @@
         public string EditorControlName { get; set; }
     }
 
-    public class SaveEventArgs : FilenameEventArgs
-    {
-        public bool SaveAsRft { get; set; }
-    }
-
     public class CommitCommentEventArgs : EventArgs
     {
         public bool EditCurrentWorkingComment { get; set; }
