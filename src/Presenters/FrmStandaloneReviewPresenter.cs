@@ -40,14 +40,7 @@ namespace StandaloneReview.Presenters
             _view.CloseAllTabsClick += DoCloseAllTabsClick;
             _view.CloseAllTabsButThisClick += DoCloseAllTabsButThisClick;
 
-            DoSetFrmStandaloneReviewTitle();
-        }
-
-        private void DoSetFrmStandaloneReviewTitle()
-        {
-            const string mainFormTitle = "Standalone Review";
-            string isReviewSaved = _view.AppState.CurrentReview.Saved ? "" : " *";
-            _view.SetFrmStandaloneReviewTitle(mainFormTitle + isReviewSaved);
+            _view.SetFrmStandaloneReviewTitle();
         }
 
         private void DoLoadClick(object sender, LoadEventArgs args)
@@ -126,7 +119,7 @@ namespace StandaloneReview.Presenters
             string review = _view.AppState.CurrentReview.ToString();
             _view.SystemIO.WriteAllText(e.Filename, review);
             _view.AppState.CurrentReview.Saved = true;
-            DoSetFrmStandaloneReviewTitle();
+            _view.SetFrmStandaloneReviewTitle();
         }
 
         private void DoContextMenuStripOpening(object sender, CaretPositionEventArgs e)
@@ -171,7 +164,7 @@ namespace StandaloneReview.Presenters
             };
             _view.RemoveAllOpenTabs();
             _view.EnableDisableMenuToolstripItems();
-            DoSetFrmStandaloneReviewTitle();
+            _view.SetFrmStandaloneReviewTitle();
         }
 
         public void DoOpenContainingFolder(object sender, OpenFolderEventArgs e)

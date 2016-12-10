@@ -150,4 +150,10 @@
   <data name="ReviewToStringReviewDate" xml:space="preserve">
     <value>Review - Dato:</value>
   </data>
+  <data name="SaveDialogFilter" xml:space="preserve">
+    <value>Almindelig tekst (*.txt)|*.txt|Rich tekst (*.rtf)|*.rtf|Alle filer (*.*)|*.*</value>
+  </data>
+  <data name="MainFormTitle" xml:space="preserve">
+    <value>Standalone Review</value>
+  </data>
 </root>

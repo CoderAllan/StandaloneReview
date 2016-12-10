@@ -75,11 +75,9 @@ namespace StandaloneReview.Tests.MockViews
 
 
         public bool SetFrmStandaloneReviewTitleWasCalled { get; private set; }
-        public string SetFrmStandaloneReviewTitleValue { get; private set; }
-        public void SetFrmStandaloneReviewTitle(string text)
+        public void SetFrmStandaloneReviewTitle()
         {
             SetFrmStandaloneReviewTitleWasCalled = true;
-            SetFrmStandaloneReviewTitleValue = text;
         }
 
         public void SetSyntaxHighlighting(string fileType)

@@ -97,8 +97,7 @@ namespace StandaloneReview.Presenters
 
         private void DoBtnSaveClick(object sender, SaveEventArgs e)
         {
-            string review = _view.AppState.CurrentReview.ToString();
-            _systemIO.WriteAllText(e.Filename, review);
+            _view.SavePreview(e.Filename, e.SaveAsRft);
             _view.AppState.CurrentReview.Saved = true;
         }
 

@@ -28,6 +28,7 @@ namespace StandaloneReview.Views
         void ClearLstComments();
         void EnableDisableMoveFileButtons(bool btnMoveFileUpEnabled, bool btnMoveFileDownEnabled);
         void EnableDisableMoveCommentButtons(bool btnMoveCommentUpEnabled, bool btnMoveCommentDownEnabled);
+        void SavePreview(string filename, bool saveAsRtf);
     }
 
     public class SelectedIndexChangedEventArgs : EventArgs

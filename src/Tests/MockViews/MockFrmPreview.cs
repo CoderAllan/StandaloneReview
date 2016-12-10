@@ -28,11 +28,9 @@ namespace StandaloneReview.Tests.MockViews
         }
 
         public bool SetTxtPreviewTextWasCalled { get; private set; }
-        public string SetTxtPreviewTextValue { get; private set; }
-        public void SetTxtPreviewText(string text)
+        public void SetTxtPreviewText()
         {
             SetTxtPreviewTextWasCalled = true;
-            SetTxtPreviewTextValue = text;
         }
 
         public void FireFrmPreviewLoad()
@@ -46,6 +44,11 @@ namespace StandaloneReview.Tests.MockViews
 
         public bool InsertFilenameInListboxWasCalled { get; private set; }
         public ListboxFilesItem InsertFilenameInListboxValue { get; private set; }
+        public void SetTxtPreviewText(string text)
+        {
+            throw new NotImplementedException();
+        }
+
         public void InsertFilenameInListbox(ListboxFilesItem filename)
         {
             InsertFilenameInListboxWasCalled = true;
@@ -120,6 +123,11 @@ namespace StandaloneReview.Tests.MockViews
             EnableDisableMoveCommentButtonsWasCalled = true;
             BtnMoveCommentUpEnabledValue = btnMoveCommentUpEnabled;
             BtnMoveCommentDownEnabledValue = btnMoveCommentDownEnabled;
+        }
+
+        public void SavePreview(string filename, bool saveAsRtf)
+        {
+            throw new NotImplementedException();
         }
 
         public void FireMoveCommentUpEvent(string filename, int position)

@@ -79,6 +79,15 @@ namespace StandaloneReview.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Standalone Review.
+        /// </summary>
+        internal static string MainFormTitle {
+            get {
+                return ResourceManager.GetString("MainFormTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Danish.
         /// </summary>
         internal static string OptionsLocaleDanish {
@@ -111,6 +120,15 @@ namespace StandaloneReview.Properties {
         internal static string ReviewToStringReviewDate {
             get {
                 return ResourceManager.GetString("ReviewToStringReviewDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plain text (*.txt)|*.txt|Rich text (*.rtf)|*.rtf|All files (*.*)|*.*.
+        /// </summary>
+        internal static string SaveDialogFilter {
+            get {
+                return ResourceManager.GetString("SaveDialogFilter", resourceCulture);
             }
         }
         

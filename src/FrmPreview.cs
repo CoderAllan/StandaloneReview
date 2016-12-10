@@ -6,13 +6,17 @@
 
     using Model;
     using Presenters;
+    using Properties;
     using Views;
+
+    using SystemEx = SystemEx.Windows.Forms;
 
     public partial class FrmPreview : Form, IBaseForm, IFrmPreview
     {
         private readonly ApplicationState _appState;
         private readonly BaseFormPresenter _baseFormPresenter;
         private readonly FrmPreviewPresenter _frmPreviewPresenter;
+        private readonly SystemEx.RichTextBoxExtended _txtPreview;
 
         public FrmPreview(ApplicationState appState)
         {
@@ -29,6 +33,13 @@
                 Location = new Point(_appState.FrmPreviewPosX, _appState.FrmPreviewPosY)
             };
             DoFormLoad(this, eventArgs);
+            _txtPreview = new SystemEx.RichTextBoxExtended
+            {
+                Dock = DockStyle.Fill,
+                ShowSave = false,
+                ShowOpen = false
+            };
+            panel1.Controls.Add(_txtPreview);
         }
 
         public ApplicationState AppState { get { return _appState; } }
@@ -71,17 +82,23 @@
         {
             if (BtnSaveClick != null)
             {
-                saveFileDialog1.Filter = @"Review (*.review)|*.review";
+                saveFileDialog1.Filter = Resources.SaveDialogFilter;
                 saveFileDialog1.FileName = "Review-" + _appState.CurrentReview.ReviewTime.ToString("yyyy-MM-dd");
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     var args = new SaveEventArgs
                     {
-                        Filename = saveFileDialog1.FileName
+                        Filename = saveFileDialog1.FileName,
+                        SaveAsRft = saveFileDialog1.FilterIndex  == 2
                     };
                     BtnSaveClick(sender, args);
                 }
             }
+        }
+
+        public void SavePreview(string filename, bool saveAsRtf)
+        {
+            _txtPreview.InnerControl.SaveFile(filename, saveAsRtf ? RichTextBoxStreamType.RichText : RichTextBoxStreamType.PlainText);
         }
 
         private void btnMoveFileUp_Click(object sender, EventArgs e)
@@ -146,7 +163,7 @@
 
         public void SetTxtPreviewText(string text)
         {
-            txtPreview.Text = text;
+            _txtPreview.Rtf = text;
         }
 
         public void ClearLstFiles()

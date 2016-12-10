@@ -28,7 +28,7 @@
         event EventHandler<CopyFullPathEventArgs> CopyFullPath;
 
         // Main form
-        void SetFrmStandaloneReviewTitle(string text);
+        void SetFrmStandaloneReviewTitle();
         void EnableDisableMenuToolstripItems();
         bool MessageBoxUnsavedCommentsWarningOkCancel();
         void EnableDisableContextMenuToolsstripItems(bool menuToolStripEnabled);
@@ -72,6 +72,7 @@
 
     public class SaveEventArgs : FilenameEventArgs
     {
+        public bool SaveAsRft { get; set; }
     }
 
     public class CommitCommentEventArgs : EventArgs

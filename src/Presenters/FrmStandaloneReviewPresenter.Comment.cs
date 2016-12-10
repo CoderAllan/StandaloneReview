@@ -24,7 +24,7 @@ namespace StandaloneReview.Presenters
             }
             _view.AppState.WorkingComment = new ReviewComment();
             _view.AppState.CurrentReview.Saved = false;
-            DoSetFrmStandaloneReviewTitle();
+            _view.SetFrmStandaloneReviewTitle();
         }
 
         private void AddMarkerForComment(ReviewComment comment)
@@ -76,7 +76,7 @@ namespace StandaloneReview.Presenters
                     _view.RemoveNavigatorCommentMarker(e.Line);
                 }
             }
-            DoSetFrmStandaloneReviewTitle();
+            _view.SetFrmStandaloneReviewTitle();
         }
 
         private void DoEditComment(object sender, CaretPositionEventArgs e)

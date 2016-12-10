@@ -41,6 +41,7 @@
             navigatorCanvas.Height = statusStrip1.Top - menuStrip1.Height - 4;
 
             EnableDisableMenuToolstripItems();
+            SetFrmStandaloneReviewTitle();
         }
 
         public ISystemIO SystemIO
@@ -70,9 +71,10 @@
         public event EventHandler<OpenFolderEventArgs> OpenContainingFolder;
         public event EventHandler<CopyFullPathEventArgs> CopyFullPath;
 
-        public void SetFrmStandaloneReviewTitle(string text)
+        public void SetFrmStandaloneReviewTitle()
         {
-            Text = text;
+            string isReviewSaved = _appState.CurrentReview.Saved ? "" : " *";
+            Text = Resources.MainFormTitle + isReviewSaved;
         }
         
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -171,7 +173,7 @@
         {
             if (BtnSaveClick != null)
             {
-                saveFileDialog1.Filter = @"Review (*.review)|*.review";
+                saveFileDialog1.Filter = @"Review (*.txt)|*.txt";
                 saveFileDialog1.FileName = "Review-" + _appState.CurrentReview.ReviewTime.ToString("yyyy-MM-dd");
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
@@ -260,6 +262,7 @@
         {
             var frmPreview = new FrmPreview(_appState);
             frmPreview.ShowDialog();
+            SetFrmStandaloneReviewTitle();
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)

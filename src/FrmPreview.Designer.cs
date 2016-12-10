@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPreview));
-            this.txtPreview = new System.Windows.Forms.RichTextBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.lstFiles = new System.Windows.Forms.ListBox();
@@ -39,12 +38,8 @@
             this.btnMoveCommentDown = new System.Windows.Forms.Button();
             this.btnMoveCommentUp = new System.Windows.Forms.Button();
             this.lstComments = new System.Windows.Forms.ListBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // txtPreview
-            // 
-            resources.ApplyResources(this.txtPreview, "txtPreview");
-            this.txtPreview.Name = "txtPreview";
             // 
             // btnClose
             // 
@@ -102,10 +97,16 @@
             this.lstComments.Name = "lstComments";
             this.lstComments.SelectedIndexChanged += new System.EventHandler(this.lstComments_SelectedIndexChanged);
             // 
+            // panel1
+            // 
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Name = "panel1";
+            // 
             // FrmPreview
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnMoveCommentDown);
             this.Controls.Add(this.btnMoveCommentUp);
             this.Controls.Add(this.lstComments);
@@ -114,7 +115,6 @@
             this.Controls.Add(this.lstFiles);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.txtPreview);
             this.Name = "FrmPreview";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPreview_FormClosing);
             this.Load += new System.EventHandler(this.FrmPreview_Load);
@@ -124,7 +124,6 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox txtPreview;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.ListBox lstFiles;
@@ -134,5 +133,6 @@
         private System.Windows.Forms.Button btnMoveCommentDown;
         private System.Windows.Forms.Button btnMoveCommentUp;
         private System.Windows.Forms.ListBox lstComments;
+        private System.Windows.Forms.Panel panel1;
     }
 }
