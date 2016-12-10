@@ -57,7 +57,6 @@
         public event EventHandler<BaseFormEventArgs> DoFormLoad;
         public event EventHandler<LoadEventArgs> BtnLoadClick;
         public event EventHandler<EventArgs> BtnNewClick;
-        public event EventHandler<SaveEventArgs> BtnSaveClick;
         public event EventHandler<CancelEventArgs> BtnExitClick;
         public event EventHandler<CommitCommentEventArgs> CommitComment;
         public event EventHandler<ReviewCommentEventArgs> SetReviewComment;
@@ -171,19 +170,9 @@
 
         private void saveReviewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (BtnSaveClick != null)
-            {
-                saveFileDialog1.Filter = @"Review (*.txt)|*.txt";
-                saveFileDialog1.FileName = "Review-" + _appState.CurrentReview.ReviewTime.ToString("yyyy-MM-dd");
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    var args = new SaveEventArgs
-                    {
-                        Filename = saveFileDialog1.FileName
-                    };
-                    BtnSaveClick(sender, args);
-                }
-            }
+            var frmPreview = new FrmPreview(_appState);
+            frmPreview.ShowDialog();
+            SetFrmStandaloneReviewTitle();
         }
 
         private void newReviewToolStripMenuItem_Click(object sender, EventArgs e)

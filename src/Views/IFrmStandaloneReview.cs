@@ -13,7 +13,6 @@
 
         event EventHandler<LoadEventArgs> BtnLoadClick;
         event EventHandler<EventArgs> BtnNewClick;
-        event EventHandler<SaveEventArgs> BtnSaveClick;
         event EventHandler<CancelEventArgs> BtnExitClick;
         event EventHandler<CommitCommentEventArgs> CommitComment;
         event EventHandler<ReviewCommentEventArgs> SetReviewComment;

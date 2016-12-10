@@ -13,7 +13,6 @@ namespace StandaloneReview.Tests.MockViews
         public ApplicationState AppState { get; private set; }
         public event EventHandler<LoadEventArgs> BtnLoadClick;
         public event EventHandler<EventArgs> BtnNewClick;
-        public event EventHandler<SaveEventArgs> BtnSaveClick;
         public event EventHandler<CancelEventArgs> BtnExitClick;
         public event EventHandler<CommitCommentEventArgs> CommitComment;
         public event EventHandler<ReviewCommentEventArgs> SetReviewComment;

@@ -28,10 +28,13 @@ namespace StandaloneReview.Tests.MockViews
         }
 
         public bool SetTxtPreviewTextWasCalled { get; private set; }
-        public void SetTxtPreviewText()
+        public string SetTxtPreviewTextValue { get; private set; }
+        public void SetTxtPreviewText(string text)
         {
             SetTxtPreviewTextWasCalled = true;
+            SetTxtPreviewTextValue = text;
         }
+
 
         public void FireFrmPreviewLoad()
         {
@@ -44,11 +47,6 @@ namespace StandaloneReview.Tests.MockViews
 
         public bool InsertFilenameInListboxWasCalled { get; private set; }
         public ListboxFilesItem InsertFilenameInListboxValue { get; private set; }
-        public void SetTxtPreviewText(string text)
-        {
-            throw new NotImplementedException();
-        }
-
         public void InsertFilenameInListbox(ListboxFilesItem filename)
         {
             InsertFilenameInListboxWasCalled = true;

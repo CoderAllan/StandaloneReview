@@ -22,7 +22,6 @@ namespace StandaloneReview.Presenters
         {
             _view.BtnLoadClick += DoLoadClick;
             _view.BtnNewClick += DoNewClick;
-            _view.BtnSaveClick += DoSaveClick;
             _view.BtnExitClick += DoExitClick;
             _view.ContextMenuStripOpening += DoContextMenuStripOpening;
             _view.OpenContainingFolder += DoOpenContainingFolder;
@@ -112,14 +111,6 @@ namespace StandaloneReview.Presenters
                     _view.CloseApplication();
                 }
             }            
-        }
-
-        private void DoSaveClick(object sender, SaveEventArgs e)
-        {
-            string review = _view.AppState.CurrentReview.ToString();
-            _view.SystemIO.WriteAllText(e.Filename, review);
-            _view.AppState.CurrentReview.Saved = true;
-            _view.SetFrmStandaloneReviewTitle();
         }
 
         private void DoContextMenuStripOpening(object sender, CaretPositionEventArgs e)
