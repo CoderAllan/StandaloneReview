@@ -12,9 +12,9 @@ Task Lists
 - [x] Manually choose the locale used for the application
 - [x] Show mini-markers for where the comments are in the file
 - [ ] Save/Open Review
-- [ ] Use richtext to format the review
-- [ ] Save the review as HTML
-- [ ] Copy the review to the clipboard
+- [x] Use richtext to format the review
+- [x] Save the review as HTML
+- [x] Copy the review to the clipboard
 - [ ] Open files from commit from Git repository
 
 Icons
