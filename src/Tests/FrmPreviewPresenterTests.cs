@@ -2,7 +2,7 @@ namespace StandaloneReview.Tests
 {
     using System.Collections.Generic;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Ploeh.AutoFixture;
+    using AutoFixture;
 
     using Model;
     using MockViews;

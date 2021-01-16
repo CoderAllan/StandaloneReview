@@ -1,38 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A3AB1019-2210-4E84-86C8-743E23136010}</ProjectGuid>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StandaloneReview</RootNamespace>
-    <AssemblyName>StandaloneReview</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\edit-find-and-replace-2.ico</ApplicationIcon>
@@ -41,134 +14,8 @@
     <Reference Include="MarkupConverter">
       <HintPath>..\lib\MarkupConverter.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="FrmInsertComment.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmInsertComment.Designer.cs">
-      <DependentUpon>FrmInsertComment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmOptions.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmOptions.Designer.cs">
-      <DependentUpon>FrmOptions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmPreview.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmPreview.Designer.cs">
-      <DependentUpon>FrmPreview.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmStandaloneReview.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmStandaloneReview.Designer.cs">
-      <DependentUpon>FrmStandaloneReview.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Contracts\ISystemIO.cs" />
-    <Compile Include="FrmStandaloneReview.Editor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmStandaloneReview.Navigator.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmStandaloneReview.Tabs.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Model\ApplicationState.cs" />
-    <Compile Include="Model\ListboxFilesItem.cs" />
-    <Compile Include="Model\OptionsLocaleComboboxItem.cs" />
-    <Compile Include="Model\Review.cs" />
-    <Compile Include="Model\ReviewComment.cs" />
-    <Compile Include="Model\ReviewedFile.cs" />
-    <Compile Include="Presenters\BaseFormPresenter.cs" />
-    <Compile Include="Presenters\FrmInsertCommentPresenter.cs" />
-    <Compile Include="Presenters\FrmPreviewPresenter.cs" />
-    <Compile Include="Presenters\FrmStandaloneReviewPresenter.Comment.cs" />
-    <Compile Include="Presenters\FrmStandaloneReviewPresenter.cs" />
-    <Compile Include="Presenters\FrmStandaloneReviewPresenter.Tabs.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RuntimeLocalizer.cs" />
-    <Compile Include="SystemIO.cs" />
-    <Compile Include="Tests\FrmInsertCommentPresenterTests.cs" />
-    <Compile Include="Tests\FrmPreviewPresenterTests.cs" />
-    <Compile Include="Tests\FrmStandaloneReviewPresenterContextMenuStripOpeningTests.cs" />
-    <Compile Include="Tests\FrmStandaloneReviewPresenterDeleteCommentTests.cs" />
-    <Compile Include="Tests\FrmStandaloneReviewPresenterExitMenuItemTests.cs" />
-    <Compile Include="Tests\FrmStandaloneReviewPresenterSelectedTabChangedTests.cs" />
-    <Compile Include="Tests\FrmStandaloneReviewPresenterTests.cs" />
-    <Compile Include="Tests\MockViews\MockFrmInsertComment.cs" />
-    <Compile Include="Tests\MockViews\MockFrmPreview.cs" />
-    <Compile Include="Tests\MockViews\MockFrmStandaloneReview.cs" />
-    <Compile Include="Views\IBaseForm.cs" />
-    <Compile Include="Views\IFrmInsertComment.cs" />
-    <Compile Include="Views\IFrmPreview.cs" />
-    <Compile Include="Views\IFrmStandaloneReview.cs" />
-    <EmbeddedResource Include="FrmInsertComment.da-DK.resx">
-      <DependentUpon>FrmInsertComment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmInsertComment.resx">
-      <DependentUpon>FrmInsertComment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmOptions.da-DK.resx">
-      <DependentUpon>FrmOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmOptions.resx">
-      <DependentUpon>FrmOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmPreview.da-DK.resx">
-      <DependentUpon>FrmPreview.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmPreview.resx">
-      <DependentUpon>FrmPreview.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmStandaloneReview.da-DK.resx">
-      <DependentUpon>FrmStandaloneReview.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmStandaloneReview.resx">
-      <DependentUpon>FrmStandaloneReview.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.da-DK.resx" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <None Include="Resources\Readme.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\dialog-close.png" />
@@ -186,28 +33,20 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoFixture">
-      <Version>3.50.2</Version>
+      <Version>4.15.0</Version>
     </PackageReference>
     <PackageReference Include="ICSharpCode.TextEditorEx">
-      <Version>1.0.0.6</Version>
+      <Version>1.1.0</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+    <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
     <PackageReference Include="SystemEx">
       <Version>16.3.26.6</Version>
     </PackageReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

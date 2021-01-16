@@ -3,7 +3,7 @@ using StandaloneReview.Model;
 namespace StandaloneReview.Tests
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Ploeh.AutoFixture;
+    using AutoFixture;
 
     using MockViews;
     using Presenters;
